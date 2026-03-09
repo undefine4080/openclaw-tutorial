@@ -1,0 +1,246 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="OpenClaw Tutorials & Troubleshooting">
+  <main class="homepage">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1 class="hero-title">
+        OpenClaw Tutorials & Troubleshooting
+      </h1>
+      <p class="hero-subtitle">
+        Run OpenClaw in 5 minutes. Fix common issues in 30 seconds.
+      </p>
+      <div class="hero-cta">
+        <a href="/start/" class="cta-button primary">Start Here</a>
+        <a href="/troubleshooting/" class="cta-button secondary">Troubleshooting</a>
+      </div>
+    </section>
+
+    <!-- Feature Cards -->
+    <section class="features">
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <h2>Install & Setup</h2>
+        <p>Get OpenClaw running on Windows, macOS, or Linux in minutes with Node.js 22.</p>
+        <a href="/install/">Start Installing →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🚀</div>
+        <h2>Quick Start</h2>
+        <p>Use the onboard wizard, start your gateway, and send your first message.</p>
+        <a href="/start/">Get Started →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h2>Channels</h2>
+        <p>Connect Telegram, Discord, Slack, WhatsApp, and more to OpenClaw.</p>
+        <a href="/channels/">Explore Channels →</a>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="highlights">
+      <div class="highlight-item">
+        <h3>✅ Node.js 22 Ready</h3>
+        <p>Complete guides for installing and configuring Node.js ≥ 22, which OpenClaw requires.</p>
+      </div>
+      <div class="highlight-item">
+        <h3>🔧 Step-by-Step Guides</h3>
+        <p>Clear, copy-paste instructions with expected outputs so you know when you've succeeded.</p>
+      </div>
+      <div class="highlight-item">
+        <h3>🔍 Quick Troubleshooting</h3>
+        <p>Find solutions for common errors like port conflicts, permission issues, and gateway failures.</p>
+      </div>
+      <div class="highlight-item">
+        <h3>🌐 Multi-Language</h3>
+        <p>Available in English and Chinese (中文), with easy language switching.</p>
+      </div>
+    </section>
+
+    <!-- Disclaimer -->
+    <section class="disclaimer">
+      <p>
+        <strong>This site is an independent tutorial resource and not affiliated with the official OpenClaw project.</strong>
+        For official documentation, visit <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">GitHub</a>.
+      </p>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .homepage {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 1rem;
+    color: white;
+    margin-bottom: 3rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    margin-bottom: 2rem;
+    opacity: 0.95;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-button {
+    padding: 0.875rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1rem;
+  }
+
+  .cta-button.primary {
+    background: white;
+    color: #667eea;
+  }
+
+  .cta-button.secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
+  }
+
+  .card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .card a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .card a:hover {
+    color: #0052a3;
+    text-decoration: underline;
+  }
+
+  .highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .highlight-item {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border-left: 4px solid #667eea;
+  }
+
+  .highlight-item h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+  }
+
+  .highlight-item p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.9375rem;
+  }
+
+  .disclaimer {
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .disclaimer p {
+    color: #92400e;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .disclaimer a {
+    color: #dc2626;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 3rem 1rem;
+    }
+
+    .features {
+      grid-template-columns: 1fr;
+    }
+
+    .highlights {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

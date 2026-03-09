@@ -1,0 +1,54 @@
+---
+const { currentPath } = Astro.props;
+
+// 简单的语言切换逻辑
+const isZhCN = currentPath?.startsWith('/zh-cn');
+
+const enPath = isZhCN ? currentPath.replace('/zh-cn', '') || '/' : currentPath || '/';
+const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/, '') || '/zh-cn/';
+---
+
+<div class="lang-switch">
+  <a
+    href={enPath}
+    class:list={[!isZhCN && 'active']}
+    aria-label="Switch to English"
+  >
+    EN
+  </a>
+  <span class="divider">/</span>
+  <a
+    href={zhPath}
+    class:list={[isZhCN && 'active']}
+    aria-label="切换到中文"
+  >
+    中文
+  </a>
+</div>
+
+<style>
+  .lang-switch {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+
+  .lang-switch a {
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    font-weight: 500;
+  }
+
+  .lang-switch a.active,
+  .lang-switch a:hover {
+    opacity: 1;
+    font-weight: 600;
+  }
+
+  .divider {
+    opacity: 0.5;
+  }
+</style>
