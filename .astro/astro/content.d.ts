@@ -226,14 +226,71 @@ declare module 'astro:content' {
   data: InferEntrySchema<"posts">
 } & { render(): Render[".md"] };
 };
-"posts-zh-cn": Record<string, {
-  id: string;
-  slug: string;
+"posts-zh-cn": {
+"channels-discord.md": {
+	id: "channels-discord.md";
+  slug: "channels-discord";
   body: string;
   collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">;
-  render(): Render[".md"];
-}>;
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"channels-telegram.md": {
+	id: "channels-telegram.md";
+  slug: "channels-telegram";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"install-node-22.md": {
+	id: "install-node-22.md";
+  slug: "install-node-22";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"install-npm-global.md": {
+	id: "install-npm-global.md";
+  slug: "install-npm-global";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"install-windows.md": {
+	id: "install-windows.md";
+  slug: "install-windows";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"start-onboard-wizard.md": {
+	id: "start-onboard-wizard.md";
+  slug: "start-onboard-wizard";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"start.md": {
+	id: "start.md";
+  slug: "start";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"troubleshooting-common-errors.md": {
+	id: "troubleshooting-common-errors.md";
+  slug: "troubleshooting-common-errors";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"troubleshooting-doctor.md": {
+	id: "troubleshooting-doctor.md";
+  slug: "troubleshooting-doctor";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+};
 
 	};
 

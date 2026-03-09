@@ -1,25 +1,26 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import LangSwitch from '../components/LangSwitch.astro';
+import Layout from '../../layouts/Layout.astro';
+import LangSwitch from '../../components/LangSwitch.astro';
 ---
 
-<Layout title="OpenClaw Tutorials & Troubleshooting">
+<Layout title="OpenClaw 教程与故障排除">
   <main class="homepage">
     <!-- Language Switcher -->
     <div class="lang-switcher-container">
-      <LangSwitch currentPath="/" />
+      <LangSwitch currentPath="/zh-cn/" />
     </div>
+
     <!-- Hero Section -->
     <section class="hero">
       <h1 class="hero-title">
-        OpenClaw Tutorials & Troubleshooting
+        OpenClaw 教程与故障排除
       </h1>
       <p class="hero-subtitle">
-        Run OpenClaw in 5 minutes. Fix common issues in 30 seconds.
+        5分钟运行OpenClaw，30秒解决常见问题
       </p>
       <div class="hero-cta">
-        <a href="/posts/" class="cta-button primary">View All Tutorials</a>
-        <a href="/posts/start/" class="cta-button secondary">Start Here</a>
+        <a href="/zh-cn/posts/" class="cta-button primary">查看所有教程</a>
+        <a href="/zh-cn/posts/start/" class="cta-button secondary">从这里开始</a>
       </div>
     </section>
 
@@ -27,51 +28,51 @@ import LangSwitch from '../components/LangSwitch.astro';
     <section class="features">
       <div class="card">
         <div class="card-icon">⚙️</div>
-        <h2>Install & Setup</h2>
-        <p>Get OpenClaw running on Windows, macOS, or Linux in minutes with Node.js 22.</p>
-        <a href="/posts/install-node-22/">Start Installing →</a>
+        <h2>安装与设置</h2>
+        <p>在Windows、macOS或Linux上快速安装OpenClaw，支持Node.js 22。</p>
+        <a href="/zh-cn/posts/install-node-22/">开始安装 →</a>
       </div>
 
       <div class="card">
         <div class="card-icon">🚀</div>
-        <h2>Quick Start</h2>
-        <p>Use the onboard wizard, start your gateway, and send your first message.</p>
-        <a href="/posts/start/">Get Started →</a>
+        <h2>快速开始</h2>
+        <p>使用配置向导，启动网关，发送第一条消息。</p>
+        <a href="/zh-cn/posts/start/">开始使用 →</a>
       </div>
 
       <div class="card">
         <div class="card-icon">💬</div>
-        <h2>Channels</h2>
-        <p>Connect Telegram, Discord, Slack, WhatsApp, and more to OpenClaw.</p>
-        <a href="/posts/channels-telegram/">Explore Channels →</a>
+        <h2>频道配置</h2>
+        <p>连接Telegram、Discord、Slack、WhatsApp等平台到OpenClaw。</p>
+        <a href="/zh-cn/posts/channels-telegram/">配置频道 →</a>
       </div>
     </section>
 
     <!-- Key Features -->
     <section class="highlights">
       <div class="highlight-item">
-        <h3>✅ Node.js 22 Ready</h3>
-        <p>Complete guides for installing and configuring Node.js ≥ 22, which OpenClaw requires.</p>
+        <h3>✅ Node.js 22 支持</h3>
+        <p>完整的安装和配置指南，确保OpenClaw运行所需的Node.js ≥ 22版本。</p>
       </div>
       <div class="highlight-item">
-        <h3>🔧 Step-by-Step Guides</h3>
-        <p>Clear, copy-paste instructions with expected outputs so you know when you've succeeded.</p>
+        <h3>🔧 分步指南</h3>
+        <p>清晰的复制粘贴说明，附带预期输出，让您知道何时成功。</p>
       </div>
       <div class="highlight-item">
-        <h3>🔍 Quick Troubleshooting</h3>
-        <p>Find solutions for common errors like port conflicts, permission issues, and gateway failures.</p>
+        <h3>🔍 快速故障排除</h3>
+        <p>找到端口冲突、权限问题和网关故障等常见错误的解决方案。</p>
       </div>
       <div class="highlight-item">
-        <h3>🌐 Multi-Language</h3>
-        <p>Available in English and Chinese (中文), with easy language switching.</p>
+        <h3>🌐 多语言支持</h3>
+        <p>提供英文和中文（简体）版本，轻松切换语言。</p>
       </div>
     </section>
 
     <!-- Disclaimer -->
     <section class="disclaimer">
       <p>
-        <strong>This site is an independent tutorial resource and not affiliated with the official OpenClaw project.</strong>
-        For official documentation, visit <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">GitHub</a>.
+        <strong>本网站是独立的教程资源，与OpenClaw官方项目无关联。</strong>
+        访问 <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">GitHub</a> 查看官方文档。
       </p>
     </section>
   </main>
