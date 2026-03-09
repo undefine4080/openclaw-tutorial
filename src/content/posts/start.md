@@ -3,7 +3,6 @@ title: "Start Here: Run OpenClaw in 5 Minutes"
 description: "Get OpenClaw running on your machine in just 5 minutes. This quick start guide covers installation, configuration, and sending your first message."
 pubDate: 2026-03-09
 lastUpdated: 2026-03-09
-slug: "start"
 tags: ["quickstart", "beginner", "installation"]
 difficulty: "beginner"
 estimatedTime: "5 minutes"
@@ -12,157 +11,145 @@ alternates:
   zhCN: "/zh-cn/start/"
 ---
 
-import Layout from '../../layouts/Layout.astro';
+## TL;DR
 
-<Layout title={frontmatter.title}>
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">{frontmatter.title}</h1>
-      <p class="post-description">{frontmatter.description}</p>
-      <div class="post-meta">
-        <span class="meta-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          {frontmatter.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-        </span>
-        <span class="meta-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          {frontmatter.estimatedTime}
-        </span>
-        <span class="meta-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-          </svg>
-          {frontmatter.difficulty}
-        </span>
-      </div>
-    </header>
+Install OpenClaw globally, run the setup wizard, start your gateway, and send your first message—all in 5 minutes.
 
-    <div class="post-content">
-      <h2>TL;DR</h2>
-      <p>Install OpenClaw globally, run the setup wizard, start your gateway, and send your first message—all in 5 minutes.</p>
+## What You'll Learn
 
-      <h2>What You'll Learn</h2>
-      <ul>
-        <li>✅ Install OpenClaw with Node.js 22</li>
-        <li>✅ Run the onboard setup wizard</li>
-        <li>✅ Start your gateway service</li>
-        <li>✅ Send your first message</li>
-      </ul>
+- ✅ Install OpenClaw with Node.js 22
+- ✅ Run the onboard setup wizard
+- ✅ Start your gateway service
+- ✅ Send your first message
 
-      <h2>Requirements</h2>
-      <ul>
-        <li><strong>Node.js >= 22</strong> (Check with <code>node --version</code>)</li>
-        <li><strong>npm or pnpm</strong> (comes with Node.js)</li>
-        <li>Terminal/command line access</li>
-        <li>Internet connection</li>
-      </ul>
+## Requirements
 
-      <h2>Step 1: Install Node.js 22 (if needed)</h2>
-      <p>OpenClaw requires Node.js version 22 or higher. Check your version:</p>
+- **Node.js >= 22** (Check with `node --version`)
+- **npm or pnpm** (comes with Node.js)
+- Terminal/command line access
+- Internet connection
 
-      <pre><code>node --version</code></pre>
+## Step 1: Install Node.js 22 (if needed)
 
-      <p>If you see a version lower than 22, upgrade Node.js:</p>
+OpenClaw requires Node.js version 22 or higher. Check your version:
 
-      <p><strong>Using nvm (recommended):</strong></p>
-      <pre><code>nvm install 22
-nvm use 22</code></pre>
+```bash
+node --version
+```
 
-      <p><strong>Using n (macOS/Linux):</strong></p>
-      <pre><code>sudo n 22</code></pre>
+If you see a version lower than 22, upgrade Node.js:
 
-      <h2>Step 2: Install OpenClaw Globally</h2>
-      <p>Once Node.js 22 is ready, install OpenClaw:</p>
+**Using nvm (recommended):**
+```bash
+nvm install 22
+nvm use 22
+```
 
-      <pre><code>npm install -g openclaw</code></pre>
+**Using n (macOS/Linux):**
+```bash
+sudo n 22
+```
 
-      <p><strong>Expected output:</strong></p>
-      <pre><code>added 1 package in 10s</code></pre>
+## Step 2: Install OpenClaw Globally
 
-      <h2>Step 3: Run the Onboard Wizard</h2>
-      <p>The onboard wizard sets up your gateway, channels, and skills:</p>
+Once Node.js 22 is ready, install OpenClaw:
 
-      <pre><code>openclaw onboard --install-daemon</code></pre>
+```bash
+npm install -g openclaw
+```
 
-      <p>This will:
-  - Install the daemon as a user service (launchd/systemd)
-  - Guide you through gateway configuration
-  - Set up your first channel
-  - Install default skills</p>
+**Expected output:**
+```bash
+added 1 package in 10s
+```
 
-      <h2>Step 4: Start Your Gateway</h2>
-      <p>Start the OpenClaw gateway manually (if not started by the wizard):</p>
+## Step 3: Run the Onboard Wizard
 
-      <pre><code>openclaw gateway --port 18789 --verbose</code></pre>
+The onboard wizard sets up your gateway, channels, and skills:
 
-      <p><strong>Expected output:</strong></p>
-      <pre><code>[INFO] Starting OpenClaw Gateway...
+```bash
+openclaw onboard --install-daemon
+```
+
+This will:
+- Install the daemon as a user service (launchd/systemd)
+- Guide you through gateway configuration
+- Set up your first channel
+- Install default skills
+
+## Step 4: Start Your Gateway
+
+Start the OpenClaw gateway manually (if not started by the wizard):
+
+```bash
+openclaw gateway --port 18789 --verbose
+```
+
+**Expected output:**
+```bash
+[INFO] Starting OpenClaw Gateway...
 [INFO] Listening on port 18789
-[INFO] Gateway ready to accept connections</code></pre>
+[INFO] Gateway ready to accept connections
+```
 
-      <h2>Step 5: Send Your First Message</h2>
-      <p>Test your gateway by sending a message:</p>
+## Step 5: Send Your First Message
 
-      <pre><code>openclaw message send --to "your-number" --content "Hello, OpenClaw!"</code></pre>
+Test your gateway by sending a message:
 
-      <h2>Success Criteria</h2>
-      <p>You're all set if you see:</p>
-      <ul>
-        <li>✅ <code>openclaw --version</code> shows a version number</li>
-        <li>✅ Gateway is listening on port 18789</li>
-        <li>✅ Daemon is running (check with <code>openclaw doctor</code>)</li>
-        <li>✅ Config file exists at <code>~/.openclaw/openclaw.json</code></li>
-      </ul>
+```bash
+openclaw message send --to "your-number" --content "Hello, OpenClaw!"
+```
 
-      <h2>Common Issues</h2>
+## Success Criteria
 
-      <h3>Issue: "Command not found"</h3>
-      <p><strong>Cause:</strong> OpenClaw not installed or not in PATH</p>
-      <p><strong>Solution:</strong></p>
-      <pre><code># Reinstall globally
+You're all set if you see:
+- ✅ `openclaw --version` shows a version number
+- ✅ Gateway is listening on port 18789
+- ✅ Daemon is running (check with `openclaw doctor`)
+- ✅ Config file exists at `~/.openclaw/openclaw.json`
+
+## Common Issues
+
+### Issue: "Command not found"
+**Cause:** OpenClaw not installed or not in PATH
+
+**Solution:**
+```bash
+# Reinstall globally
 npm install -g openclaw
 
 # Or use npx (temporary)
-npx openclaw [command]</code></pre>
+npx openclaw [command]
+```
 
-      <h3>Issue: "Node version too low"</h3>
-      <p><strong>Cause:</strong> Node.js version < 22</p>
-      <p><strong>Solution:</strong> Upgrade Node.js (see Step 1)</p>
+### Issue: "Node version too low"
+**Cause:** Node.js version < 22
 
-      <h3>Issue: "Port 18789 already in use"</h3>
-      <p><strong>Cause:</strong> Another process is using the port</p>
-      <p><strong>Solution:</strong></p>
-      <pre><code># Find the process
+**Solution:** Upgrade Node.js (see Step 1)
+
+### Issue: "Port 18789 already in use"
+**Cause:** Another process is using the port
+
+**Solution:**
+```bash
+# Find the process
 lsof -i :18789  # macOS/Linux
 netstat -ano | findstr :18789  # Windows
 
 # Kill it or use a different port
-openclaw gateway --port 18790</code></pre>
+openclaw gateway --port 18790
+```
 
-      <h2>Next Steps</h2>
-      <ul>
-        <li><a href="/install/node-22/">Detailed Node.js 22 Installation Guide</a></li>
-        <li><a href="/install/windows/">Windows + WSL2 Setup</a></li>
-        <li><a href="/start/onboard-install-daemon/">Deep dive into the onboard wizard</a></li>
-        <li><a href="/channels/telegram/">Configure Telegram Integration</a></li>
-        <li><a href="/cli/doctor/">Use <code>openclaw doctor</code> for troubleshooting</a></li>
-      </ul>
+## Next Steps
 
-      <h2>Need Help?</h2>
-      <ul>
-        <li><a href="/troubleshooting/">Troubleshooting Guide</a></li>
-        <li><a href="https://github.com/openclaw/openclaw">Official OpenClaw GitHub</a></li>
-        <li><a href="https://github.com/openclaw/openclaw/discussions">Community Discussions</a></li>
-      </ul>
-    </div>
-  </article>
-</Layout>
+- [Detailed Node.js 22 Installation Guide](/posts/install-node-22/)
+- [Windows + WSL2 Setup](/posts/install-windows/)
+- [npm Global Installation Guide](/posts/install-npm-global/)
+- [Configure Telegram Integration](/posts/channels-telegram/)
+- [Use `openclaw doctor` for troubleshooting](/posts/troubleshooting-doctor/)
+
+## Need Help?
+
+- [Troubleshooting Guide](/posts/troubleshooting-common-errors/)
+- [Official OpenClaw GitHub](https://github.com/openclaw/openclaw)
+- [Community Discussions](https://github.com/openclaw/openclaw/discussions)
