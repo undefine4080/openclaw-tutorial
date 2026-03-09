@@ -141,9 +141,86 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"posts": {
+"channels-discord.md": {
+	id: "channels-discord.md";
+  slug: "channels-discord";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"channels-telegram.md": {
+	id: "channels-telegram.md";
+  slug: "channels-telegram";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"cli-commands.md": {
+	id: "cli-commands.md";
+  slug: "cli-commands";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"config-gateway.md": {
+	id: "config-gateway.md";
+  slug: "config-gateway";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"config-reference.md": {
+	id: "config-reference.md";
+  slug: "config-reference";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"install-node-22.md": {
+	id: "install-node-22.md";
+  slug: "install-node-22";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"install-npm-global.md": {
+	id: "install-npm-global.md";
+  slug: "install-npm-global";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"install-windows.md": {
+	id: "install-windows.md";
+  slug: "install-windows";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"start-onboard-wizard.md": {
+	id: "start-onboard-wizard.md";
+  slug: "start-onboard-wizard";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
 "start.md": {
 	id: "start.md";
   slug: "start";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"troubleshooting-common-errors.md": {
+	id: "troubleshooting-common-errors.md";
+  slug: "troubleshooting-common-errors";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"troubleshooting-doctor.md": {
+	id: "troubleshooting-doctor.md";
+  slug: "troubleshooting-doctor";
   body: string;
   collection: "posts";
   data: InferEntrySchema<"posts">

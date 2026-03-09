@@ -6,7 +6,6 @@ const post = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     lastUpdated: z.coerce.date().optional(),
-    slug: z.string(),
     tags: z.array(z.string()).default([]),
     difficulty: z.enum(['beginner', 'intermediate', 'advanced']).default('beginner'),
     estimatedTime: z.string().default('5 minutes'),
