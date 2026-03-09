@@ -1,0 +1,41 @@
+{
+  "name": "clawtutorial",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "OpenClaw Tutorials & Troubleshooting - Run OpenClaw in 5 minutes. Fix common issues in 30 seconds.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "postbuild": "pagefind --site dist"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^4.16.12"
+  },
+  "devDependencies": {
+    "pagefind": "^1.3.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "keywords": [
+    "openclaw",
+    "tutorial",
+    "documentation",
+    "ai",
+    "assistant",
+    "automation"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/clawtutorial"
+  }
+}

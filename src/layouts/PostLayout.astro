@@ -1,0 +1,266 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    pubDate: Date;
+    lastUpdated?: Date;
+    difficulty: string;
+    estimatedTime: string;
+    tags: string[];
+  };
+}
+
+const { frontmatter } = Astro.props;
+const { title, description, pubDate, lastUpdated, difficulty, estimatedTime, tags } = frontmatter;
+---
+
+<Layout title={title}>
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">{title}</h1>
+      <p class="post-description">{description}</p>
+      <div class="post-meta">
+        <span class="meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+        </span>
+        <span class="meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          {estimatedTime}
+        </span>
+        <span class="meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          {difficulty}
+        </span>
+        {lastUpdated && (
+          <span class="meta-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"></path>
+            </svg>
+            Updated: {lastUpdated.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+        )}
+      </div>
+      <div class="post-tags">
+        {tags.map(tag => (
+          <span class="tag">#{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <div class="ad-slot">
+      <!-- AdSense ad slot 1 - will be configured later -->
+      <div class="ad-placeholder">Advertisement</div>
+    </div>
+
+    <div class="post-content">
+      <slot />
+    </div>
+
+    <div class="ad-slot">
+      <!-- AdSense ad slot 2 - will be configured later -->
+      <div class="ad-placeholder">Advertisement</div>
+    </div>
+
+    <footer class="post-footer">
+      <h2>Next Steps</h2>
+      <ul class="next-steps">
+        <li><a href="/start/">← Back to Start Here</a></li>
+      </ul>
+    </footer>
+  </article>
+</Layout>
+
+<style>
+  .post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .post-header {
+    margin-bottom: 3rem;
+  }
+
+  .post-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .post-description {
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background: #f0f0f0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    color: #555;
+  }
+
+  .ad-slot {
+    margin: 2rem 0;
+    min-height: 280px;
+    background: #f9f9f9;
+    border: 1px dashed #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+  }
+
+  .ad-placeholder {
+    color: #999;
+    font-size: 0.875rem;
+  }
+
+  .post-content {
+    line-height: 1.8;
+    font-size: 1.125rem;
+    margin: 2rem 0;
+  }
+
+  .post-content :global(h2) {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 2.5rem 0 1rem;
+    color: #1a1a1a;
+  }
+
+  .post-content :global(h3) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem;
+    color: #2a2a2a;
+  }
+
+  .post-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-content :global(code) {
+    background: #f4f4f4;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+  }
+
+  .post-content :global(pre) {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .post-content :global(pre code) {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+  }
+
+  .post-content :global(ul), .post-content :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .post-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+  }
+
+  .post-footer h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .next-steps {
+    list-style: none;
+    padding: 0;
+  }
+
+  .next-steps li {
+    margin-bottom: 0.75rem;
+  }
+
+  .next-steps a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .next-steps a:hover {
+    color: #0052a3;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .post {
+      padding: 1rem;
+    }
+
+    .post-title {
+      font-size: 1.75rem;
+    }
+
+    .post-description {
+      font-size: 1.125rem;
+    }
+
+    .post-meta {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>
