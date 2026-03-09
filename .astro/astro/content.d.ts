@@ -241,6 +241,27 @@ declare module 'astro:content' {
   collection: "posts-zh-cn";
   data: InferEntrySchema<"posts-zh-cn">
 } & { render(): Render[".md"] };
+"cli-commands.md": {
+	id: "cli-commands.md";
+  slug: "cli-commands";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"config-gateway.md": {
+	id: "config-gateway.md";
+  slug: "config-gateway";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"config-reference.md": {
+	id: "config-reference.md";
+  slug: "config-reference";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
 "install-node-22.md": {
 	id: "install-node-22.md";
   slug: "install-node-22";
