@@ -9,7 +9,10 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "postbuild": "pagefind --site dist"
+    "postbuild": "pagefind --site dist",
+    "collect-issues": "node scripts/collect-github-issues.js",
+    "convert-issues": "node scripts/convert-issues-to-posts.js",
+    "collect-bugs": "node scripts/collect-bug-reports.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

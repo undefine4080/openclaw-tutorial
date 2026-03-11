@@ -1,0 +1,327 @@
+---
+// Bug 搜索组件 - 使用客户端搜索功能
+---
+
+<div class="search-container">
+  <div class="search-box">
+    <input
+      type="text"
+      id="bug-search-input"
+      placeholder="搜索 Bug 关键词、错误信息..."
+      class="search-input"
+      autocomplete="off"
+    />
+    <div id="search-spinner" class="search-spinner hidden">
+      <svg class="spinner" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    </div>
+  </div>
+  <button id="bug-search-btn" class="btn btn-primary">
+    搜索
+  </button>
+
+  <!-- 搜索结果 -->
+  <div id="search-results" class="search-results hidden">
+    <div class="results-header">
+      <h3>搜索结果 (<span id="result-count">0</span>)</h3>
+    </div>
+    <div id="results-container"></div>
+  </div>
+
+  <!-- 快速筛选标签 -->
+  <div class="filter-tags">
+    <button class="filter-tag" data-filter="error">错误信息</button>
+    <button class="filter-tag" data-filter="installation">安装问题</button>
+    <button class="filter-tag" data-filter="permission">权限问题</button>
+    <button class="filter-tag" data-filter="network">网络问题</button>
+  </div>
+</div>
+
+<script>
+  let searchTimeout;
+  const searchInput = document.getElementById('bug-search-input');
+  const searchBtn = document.getElementById('bug-search-btn');
+  const searchResults = document.getElementById('search-results');
+  const resultsContainer = document.getElementById('results-container');
+  const resultCount = document.getElementById('result-count');
+  const searchSpinner = document.getElementById('search-spinner');
+
+  // 实时搜索（带防抖）
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    const query = e.target.value.trim();
+
+    if (query.length < 2) {
+      searchResults.classList.add('hidden');
+      return;
+    }
+
+    searchSpinner.classList.remove('hidden');
+
+    searchTimeout = setTimeout(() => {
+      performSearch(query);
+    }, 300);
+  });
+
+  // 点击搜索按钮
+  searchBtn.addEventListener('click', () => {
+    const query = searchInput.value.trim();
+    if (query.length >= 2) {
+      performSearch(query);
+    }
+  });
+
+  // 执行搜索
+  async function performSearch(query) {
+    try {
+      // 加载 bug 数据
+      const response = await fetch('/data/bug-reports/bugs-zh-cn.json');
+      const data = await response.json();
+      const bugs = data.bugs;
+
+      // 搜索逻辑
+      const results = bugs.filter(bug => {
+        const title = (bug.translations?.zhCN?.title || bug.title).toLowerCase();
+        const description = (bug.translations?.zhCN?.description || bug.description).toLowerCase();
+        const errorMessage = (bug.error_message || '').toLowerCase();
+        const searchQuery = query.toLowerCase();
+
+        return title.includes(searchQuery) ||
+               description.includes(searchQuery) ||
+               errorMessage.includes(searchQuery);
+      });
+
+      // 显示结果
+      displayResults(results);
+      searchSpinner.classList.add('hidden');
+
+    } catch (error) {
+      console.error('Search failed:', error);
+      searchSpinner.classList.add('hidden');
+      resultsContainer.innerHTML = '<p class="error-text">搜索失败，请检查数据文件是否存在</p>';
+      searchResults.classList.remove('hidden');
+    }
+  }
+
+  // 显示搜索结果
+  function displayResults(results) {
+    resultCount.textContent = results.length;
+
+    if (results.length === 0) {
+      resultsContainer.innerHTML = `
+        <p class="no-results">
+          未找到相关 Bug，试试其他关键词
+        </p>
+      `;
+      searchResults.classList.remove('hidden');
+      return;
+    }
+
+    let html = '';
+    results.forEach((bug) => {
+      const title = bug.translations?.zhCN?.title || bug.title;
+      const description = bug.translations?.zhCN?.description || bug.description;
+
+      html += `
+        <div class="result-card">
+          <h4>${title}</h4>
+          <p>${description.substring(0, 150)}${description.length > 150 ? '...' : ''}</p>
+          <div class="result-footer">
+            <div class="result-labels">
+              ${bug.labels.slice(0, 2).map(label =>
+                `<span class="result-badge">${label}</span>`
+              ).join('')}
+            </div>
+            <a href="${bug.url}" target="_blank" rel="noopener noreferrer" class="result-link">
+              查看详情 →
+            </a>
+          </div>
+        </div>
+      `;
+    });
+
+    resultsContainer.innerHTML = html;
+    searchResults.classList.remove('hidden');
+  }
+
+  // 快速筛选标签
+  document.querySelectorAll('.filter-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const filter = tag.dataset.filter;
+      searchInput.value = filter;
+      performSearch(filter);
+    });
+  });
+</script>
+
+<style>
+  .search-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .search-spinner {
+    position: absolute;
+    right: 3rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .search-results {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+
+  .results-header h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .result-card {
+    background: var(--bg-alt);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .result-card:hover {
+    background: #f3f4f6;
+  }
+
+  .result-card h4 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+  }
+
+  .result-card p {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin: 0 0 0.75rem 0;
+    line-height: 1.5;
+  }
+
+  .result-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .result-labels {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .result-badge {
+    background: #e5e7eb;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  .result-link {
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .result-link:hover {
+    text-decoration: underline;
+  }
+
+  .no-results {
+    text-align: center;
+    color: var(--text-light);
+    padding: 2rem 0;
+  }
+
+  .error-text {
+    color: #ef4444;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .filter-tag {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-tag:hover {
+    background: #e5e7eb;
+    border-color: #d1d5db;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #2563eb;
+  }
+</style>

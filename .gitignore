@@ -28,3 +28,6 @@ npm-debug.log*
 *.tmp
 *.temp
 .ai/
+
+# Collected data (auto-generated)
+data/
