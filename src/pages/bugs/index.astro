@@ -56,31 +56,39 @@ import BugSearch from '../../components/BugSearch.astro';
       const data = await response.json();
 
       // 更新统计
-      document.getElementById('total-bugs').textContent = data.meta.total_count;
+      const totalBugsElement = document.getElementById('total-bugs');
+      if (totalBugsElement) {
+        totalBugsElement.textContent = data.meta.total_count;
+      }
 
       // 渲染 bug 列表
       renderBugs(data.bugs);
 
     } catch (error) {
       console.error('Failed to load bug reports:', error);
-      document.getElementById('bugs-container').innerHTML =
-        '<div class="error-message">' +
-        '<p>加载失败，请确保已运行 <code>npm run collect-bugs</code></p>' +
-        '<p>并将数据复制到 <code>public/data/bug-reports/</code></p>' +
-        '</div>';
+      const bugsContainer = document.getElementById('bugs-container');
+      if (bugsContainer) {
+        bugsContainer.innerHTML =
+          '<div class="error-message">' +
+          '<p>加载失败，请确保已运行 <code>npm run collect-bugs</code></p>' +
+          '<p>并将数据复制到 <code>public/data/bug-reports/</code></p>' +
+          '</div>';
+      }
     }
   }
 
   // 渲染 bug cards
-  function renderBugs(bugs, page = 1, perPage = 20) {
+  function renderBugs(bugs: any[], page = 1, perPage = 20) {
     const container = document.getElementById('bugs-container');
+    if (!container) return;
+
     const start = (page - 1) * perPage;
     const end = start + perPage;
     const pageBugs = bugs.slice(start, end);
 
     let html = '';
 
-    pageBugs.forEach((bug, index) => {
+    pageBugs.forEach((bug: any, index: number) => {
       const title = bug.translations?.zhCN?.title || bug.title;
       const description = bug.translations?.zhCN?.description || bug.description;
       const globalIndex = start + index + 1;
@@ -93,7 +101,7 @@ import BugSearch from '../../components/BugSearch.astro';
           </div>
 
           <div class="bug-meta">
-            ${bug.labels.map(label =>
+            ${bug.labels.map((label: string) =>
               `<span class="badge">${label}</span>`
             ).join('')}
             <span class="badge badge-info">版本 ${bug.version}</span>
@@ -126,6 +134,8 @@ import BugSearch from '../../components/BugSearch.astro';
 
     // 更新加载更多按钮
     const loadMoreBtn = document.getElementById('load-more');
+    if (!loadMoreBtn) return;
+
     if (end >= bugs.length) {
       loadMoreBtn.style.display = 'none';
     } else {

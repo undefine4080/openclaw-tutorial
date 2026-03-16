@@ -2,151 +2,183 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## 项目概述
 
-This is a bilingual (English/Chinese) tutorial website for OpenClaw built with Astro. The site uses Astro's Content Collections to manage Markdown content in two languages with automatic routing and language switching.
+OpenClaw 教程网站 - 这是一个基于 Astro 的双语（英文/中文）静态网站，提供 OpenClaw 的教程和故障排除指南。
 
-## Development Commands
+### 核心架构
+
+- **框架**: Astro 4.x + TypeScript
+- **内容管理**: Astro Content Collections
+- **多语言**: 双语支持（英文 `posts`，中文 `posts-zh-cn`）
+- **搜索**: Pagefind（本地搜索）
+- **部署**: Cloudflare Pages
+
+## 开发命令
+
+### 基础开发
 
 ```bash
-# Start development server (http://localhost:4321)
+# 启动开发服务器（http://localhost:4321）
 npm run dev
 
-# Build for production (includes type checking and search index generation)
+# 构建生产版本
 npm run build
 
-# Preview production build locally
+# 预览生产构建
 npm run preview
-
-# Type check only
-astro check
 ```
 
-**Note:** Node.js >= 22 is required (see `package.json` engines field).
+### 内容收集脚本
 
-## Architecture
+项目包含自动化脚本用于从 GitHub 收集问题和 Bug 报告：
 
-### Bilingual Content Structure
+```bash
+# 收集 GitHub Issues（需要设置环境变量）
+npm run collect-issues
 
-The site uses two parallel content collections defined in `src/content/config.ts`:
+# 将 Issues 转换为文章
+npm run convert-issues
 
-- **`posts`** - English tutorials
-- **`posts-zh-cn`** - Chinese (Simplified) tutorials
+# 收集 Bug 报告
+npm run collect-bugs
+```
 
-Both collections use the same Zod schema, ensuring consistent frontmatter across languages. Each collection has its own dynamic route:
-- English: `src/pages/posts/[slug].astro`
-- Chinese: `src/pages/zh-cn/posts/[slug].astro`
+**脚本环境变量配置**（复制 `.env.example` 为 `.env`）：
+- `GITHUB_TOKEN`: GitHub API Token（提高请求限制）
+- `DEEPL_API_KEY`: DeepL API Key（用于翻译，推荐）
+- `OPENAI_API_KEY`: OpenAI API Key（翻译备选方案）
 
-### Content Schema
+## 项目结构
 
-All posts must have this frontmatter (see `src/content/config.ts`):
+```
+src/
+├── content/
+│   ├── config.ts           # Content Collections 配置和 Zod schemas
+│   ├── posts/              # 英文文章 (.md 文件)
+│   └── posts-zh-cn/        # 中文文章 (.md 文件)
+├── components/
+│   ├── BugSearch.astro     # Bug 搜索组件
+│   └── LangSwitch.astro    # 语言切换器组件
+├── layouts/
+│   └── Layout.astro        # 主布局文件
+└── pages/
+    ├── index.astro          # 英文首页
+    ├── posts/[slug].astro   # 英文文章动态路由
+    └── zh-cn/              # 中文页面
+        ├── index.astro     # 中文首页
+        └── posts/[slug].astro  # 中文文章动态路由
+
+scripts/                      # 自动化脚本
+├── collect-github-issues.js  # GitHub Issues 收集器
+├── convert-issues-to-posts.js # Issues 转文章转换器
+└── collect-bug-reports.js     # Bug 报告收集器
+
+data/                         # 动态数据目录
+├── github-issues/            # 收集的 GitHub Issues
+└── bugs/                     # 收集的 Bug 报告
+```
+
+## Content Collections 配置
+
+文章 frontmatter 必须符合以下 schema（定义在 `src/content/config.ts`）：
 
 ```yaml
-title: "Post Title"
-description: "Brief description"
-pubDate: YYYY-MM-DD
-lastUpdated: YYYY-MM-DD  # optional
-tags: ["tag1", "tag2"]
-difficulty: "beginner" | "intermediate" | "advanced"
-estimatedTime: "5 minutes"
-prerequisites: ["Prereq 1", "Prereq 2"]
+---
+title: 文章标题
+description: 文章描述
+pubDate: 2024-03-09
+lastUpdated: 2024-03-10  # 可选
+tags: ['installation', 'troubleshooting']
+difficulty: beginner  # beginner | intermediate | advanced
+estimatedTime: '5 minutes'
+prerequisites: ['Node.js 22+', 'npm']
 alternates:
-  zhCN: "/zh-cn/posts/slug/"  # For English posts only
-  # or
-  en: "/posts/slug/"  # For Chinese posts only
+  zhCN: /zh-cn/posts/slug  # 中文版本路径（英文文章需要）
+---
 ```
 
-**Critical:** The `alternates` field links translations. English posts reference their Chinese version via `zhCN`, and Chinese posts reference English via `en`.
+**重要**：英文文章必须包含 `alternates.zhCN` 指向对应的中文版本。
 
-### Language Switching
+## 文章内容结构规范
 
-The `LangSwitch` component (`src/components/LangSwitch.astro`) handles language switching:
+每篇教程文章应遵循以下结构：
 
-- Accepts `currentPath` prop (full path including `/zh-cn` prefix if Chinese)
-- Automatically calculates the alternate language path
-- Simple string manipulation: adds/removes `/zh-cn` prefix
-- Active state determined by path prefix check
+1. **TL;DR** - 30 秒快速总结
+2. **Requirements** - 前置要求
+3. **Steps** - 详细步骤说明
+4. **Expected Output** - 预期结果
+5. **Common Issues** - 常见问题及解决方案
+6. **Next Steps** - 相关文章链接
 
-**Integration pattern:**
-```astro
-<LangSwitch currentPath={Astro.url.pathname} />
-```
+## 语言切换机制
 
-### Routing Pattern
+- 通过 `LangSwitch.astro` 组件实现
+- 使用文章的 `alternates` 字段进行语言对应
+- 英文路径：`/posts/[slug]`
+- 中文路径：`/zh-cn/posts/[slug]`
 
-Routes are organized by language:
-```
-src/pages/
-├── index.astro              # English homepage
-├── posts/
-│   ├── index.astro          # English post list
-│   └── [slug].astro         # English individual posts
-└── zh-cn/
-    ├── index.astro          # Chinese homepage
-    └── posts/
-        ├── index.astro      # Chinese post list
-        └── [slug].astro     # Chinese individual posts
-```
+## 自动化脚本说明
 
-Both `[slug].astro` files are nearly identical except for:
-- Collection name in `getCollection()` call
-- Date locale formatting (`en-US` vs `zh-CN`)
-- "All Tutorials" link language
+### GitHub Issues 收集器
 
-### Content Collections
+位置：`scripts/collect-github-issues.js`
 
-Posts are loaded using Astro's `getCollection()`:
+功能：
+- 从 GitHub API 拉取已关闭的 issues
+- 支持自动翻译（DeepL 或 OpenAI）
+- 生成双语 JSON 数据
+- 创建 Markdown 摘要
 
-```javascript
-// English posts
-const posts = await getCollection('posts');
+配置：修改脚本中的 `CONFIG` 对块
 
-// Chinese posts
-const posts = await getCollection('posts-zh-cn');
-```
+### Bug 问题库
 
-The `getStaticPaths()` function in `[slug].astro` maps posts to routes:
-```javascript
-export async function getStaticPaths() {
-  const posts = await getCollection('posts');
-  return posts.map(post => ({
-    params: { slug: post.id.replace('.md', '') },
-    props: post,
-  }));
-}
-```
+位置：`src/pages/bugs/` 和 `scripts/collect-bug-reports.js`
 
-## Build Process
+功能：
+- 展示收集的 Bug 报告
+- 支持搜索和过滤
+- 双语支持
 
-The build script runs in sequence:
-1. `astro check` - TypeScript/type validation
-2. `astro build` - Generate static site to `dist/`
-3. `pagefind --site dist` - Build search index (run automatically via `postbuild`)
+## 搜索功能
 
-**Output:** The `dist/` directory contains the complete static site ready for deployment.
+- 使用 Pagefind 进行本地搜索
+- 构建后自动运行：`npm run postbuild`
+- 搜索索引自动生成在 `dist/pagefind/`
 
-## Adding New Content
+## 部署配置
 
-When adding new tutorial posts:
+### Cloudflare Pages
 
-1. Create Markdown file in appropriate collection (`src/content/posts/` or `src/content/posts-zh-cn/`)
-2. Include all required frontmatter fields
-3. Add `alternates` reference to the translation (if exists)
-4. Content will be automatically routed at build time
+1. 构建命令：`npm run build`
+2. 输出目录：`dist`
+3. 环境变量：`NODE_VERSION=22`
+4. Node.js 版本：>= 22
 
-**For bilingual content:** Always create both English and Chinese versions with cross-referenced `alternates` paths.
+### 站点地图
 
-## Sitemap Integration
+`astro.config.mjs` 中已配置站点地图插件（注释状态），部署时取消注释即可启用。
 
-The sitemap integration is installed but commented out in `astro.config.mjs`. To enable:
-1. Uncomment the import: `import sitemap from '@astrojs/sitemap';`
-2. Uncomment the `integrations` array in config
+## 关键文件说明
 
-## Deployment Target
+- **astro.config.mjs**: Astro 主配置文件，包含站点 URL 和集成配置
+- **tsconfig.json**: TypeScript 配置
+- **.env.example**: 环境变量模板（需要复制为 .env 并填入实际值）
+- **src/env.d.ts**: Astro 环境类型定义
 
-Configured for Cloudflare Pages:
-- Build command: `npm run build`
-- Output directory: `dist`
-- Environment variable: `NODE_VERSION=22`
+## 内容创作工作流
 
-The `site` configuration in `astro.config.mjs` is set to `https://clawtutorial.net`.
+1. 创建新文章：在 `src/content/posts/` 或 `src/content/posts-zh-cn/` 创建 `.md` 文件
+2. 添加符合 schema 的 frontmatter
+3. 按照文章结构规范编写内容
+4. 在对应语言版本添加 `alternates` 字段
+5. 运行 `npm run dev` 预览
+6. 测试语言切换功能
+
+## 双语内容同步
+
+- 英文文章在 `src/content/posts/`
+- 中文文章在 `src/content/posts-zh-cn/`
+- 通过 `alternates` 字段相互链接
+- 发布时确保两种语言都有对应版本

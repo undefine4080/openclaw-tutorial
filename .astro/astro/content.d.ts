@@ -176,6 +176,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".md"] };
+"get-openclaw-running-in-10-minutes.md": {
+	id: "get-openclaw-running-in-10-minutes.md";
+  slug: "get-openclaw-running-in-10-minutes";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
 "install-node-22.md": {
 	id: "install-node-22.md";
   slug: "install-node-22";
@@ -186,6 +193,13 @@ declare module 'astro:content' {
 "install-npm-global.md": {
 	id: "install-npm-global.md";
   slug: "install-npm-global";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"install-openclaw-on-ubuntu-desktop.md": {
+	id: "install-openclaw-on-ubuntu-desktop.md";
+  slug: "install-openclaw-on-ubuntu-desktop";
   body: string;
   collection: "posts";
   data: InferEntrySchema<"posts">
@@ -262,6 +276,13 @@ declare module 'astro:content' {
   collection: "posts-zh-cn";
   data: InferEntrySchema<"posts-zh-cn">
 } & { render(): Render[".md"] };
+"get-openclaw-running-in-10-minutes.md": {
+	id: "get-openclaw-running-in-10-minutes.md";
+  slug: "get-openclaw-running-in-10-minutes";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
 "install-node-22.md": {
 	id: "install-node-22.md";
   slug: "install-node-22";
@@ -272,6 +293,13 @@ declare module 'astro:content' {
 "install-npm-global.md": {
 	id: "install-npm-global.md";
   slug: "install-npm-global";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"install-openclaw-on-ubuntu-desktop.md": {
+	id: "install-openclaw-on-ubuntu-desktop.md";
+  slug: "install-openclaw-on-ubuntu-desktop";
   body: string;
   collection: "posts-zh-cn";
   data: InferEntrySchema<"posts-zh-cn">
