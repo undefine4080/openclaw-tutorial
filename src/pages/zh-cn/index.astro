@@ -1,126 +1,361 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import LangSwitch from '../../components/LangSwitch.astro';
 ---
 
-<Layout title="OpenClaw 教程与故障排除">
-  <main class="homepage">
-    <!-- Language Switcher -->
-    <div class="lang-switcher-container">
-      <LangSwitch currentPath="/zh-cn/" />
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-      <h1 class="hero-title">
-        OpenClaw 教程与故障排除
-      </h1>
-      <p class="hero-subtitle">
-        5分钟运行OpenClaw，30秒解决常见问题
-      </p>
-      <div class="hero-cta">
-        <a href="/zh-cn/posts/" class="cta-button primary">查看所有教程</a>
-        <a href="/zh-cn/posts/start/" class="cta-button secondary">从这里开始</a>
+<Layout title="OpenClaw：从新手到大师" currentPath="/zh-cn/">
+  <div class="homepage">
+    <!-- Hero 区域 -->
+    <section class="hero" id="hero">
+      <div class="hero-container">
+        <h1 class="hero-title">OpenClaw：从新手到大师</h1>
+        <p class="hero-subtitle">
+          全面的 OpenClaw 教程，从安装到高级多智能体系统
+        </p>
+        <div class="hero-cta">
+          <a href="#tutorials-01" class="cta-button primary">查看教程</a>
+          <a href="#troubleshooting" class="cta-button secondary">疑难解答</a>
+        </div>
       </div>
     </section>
 
-    <!-- Feature Cards -->
-    <section class="features">
-      <div class="card">
-        <div class="card-icon">⚙️</div>
-        <h2>安装与设置</h2>
-        <p>在Windows、macOS或Linux上快速安装OpenClaw，支持Node.js 22。</p>
-        <a href="/zh-cn/posts/install-node-22/">开始安装 →</a>
-      </div>
+    <!-- 安装部署板块 -->
+    <section class="section installation" id="installation">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">⚙️</span>
+          安装部署
+        </h2>
+        <p class="section-subtitle">在本地机器或云端运行 OpenClaw</p>
 
-      <div class="card">
-        <div class="card-icon">🚀</div>
-        <h2>快速开始</h2>
-        <p>使用配置向导，启动网关，发送第一条消息。</p>
-        <a href="/zh-cn/posts/start/">开始使用 →</a>
-      </div>
+        <div class="grid-3">
+          <!-- 本地安装 -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon">💻</div>
+              <h3>本地安装</h3>
+            </div>
+            <ul class="card-list">
+              <li><a href="#">macOS 安装</a></li>
+              <li><a href="#">Linux 安装</a></li>
+              <li><a href="#">Windows 安装</a></li>
+            </ul>
+          </div>
 
-      <div class="card">
-        <div class="card-icon">💬</div>
-        <h2>频道配置</h2>
-        <p>连接Telegram、Discord、Slack、WhatsApp等平台到OpenClaw。</p>
-        <a href="/zh-cn/posts/channels-telegram/">配置频道 →</a>
+          <!-- 云端部署 -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon">☁️</div>
+              <h3>云端部署</h3>
+            </div>
+            <ul class="card-list">
+              <li><a href="#">阿里云</a></li>
+              <li><a href="#">腾讯云</a></li>
+              <li><a href="#">火山引擎</a></li>
+            </ul>
+          </div>
+
+          <!-- 一键部署平台 -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon">🚀</div>
+              <h3>一键部署平台</h3>
+            </div>
+            <ul class="card-list">
+              <li><a href="#">字节 ArkClaw</a></li>
+              <li><a href="#">腾讯 QClaw</a></li>
+              <li><a href="#">智谱 AutoClaw</a></li>
+              <li><a href="#">猎豹 EasyClaw</a></li>
+              <li><a href="#">腾讯 WorkBuddy</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Key Features -->
-    <section class="highlights">
-      <div class="highlight-item">
-        <h3>✅ Node.js 22 支持</h3>
-        <p>完整的安装和配置指南，确保OpenClaw运行所需的Node.js ≥ 22版本。</p>
-      </div>
-      <div class="highlight-item">
-        <h3>🔧 分步指南</h3>
-        <p>清晰的复制粘贴说明，附带预期输出，让您知道何时成功。</p>
-      </div>
-      <div class="highlight-item">
-        <h3>🔍 快速故障排除</h3>
-        <p>找到端口冲突、权限问题和网关故障等常见错误的解决方案。</p>
-      </div>
-      <div class="highlight-item">
-        <h3>🌐 多语言支持</h3>
-        <p>提供英文和中文（简体）版本，轻松切换语言。</p>
+    <!-- 教程栏目板块 -->
+    <section class="section tutorials" id="tutorials">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">📚</span>
+          教程栏目
+        </h2>
+        <p class="section-subtitle">循序渐进掌握 OpenClaw 的所有功能</p>
+
+        <div class="tutorial-grid">
+          <!-- 01 新手上路 -->
+          <div class="tutorial-card" id="tutorials-01">
+            <div class="tutorial-badge">01</div>
+            <h3 class="tutorial-title">新手上路</h3>
+            <p class="tutorial-description">开启你的 OpenClaw 之旅</p>
+            <div class="tutorial-topics">
+              <span class="topic">模型接入</span>
+              <span class="topic">飞书</span>
+              <span class="topic">微信</span>
+              <span class="topic">QQ</span>
+              <span class="topic">企业微信</span>
+            </div>
+            <a href="#" class="tutorial-link">查看教程 →</a>
+          </div>
+
+          <!-- 02 初始化小龙虾 -->
+          <div class="tutorial-card" id="tutorials-02">
+            <div class="tutorial-badge">02</div>
+            <h3 class="tutorial-title">初始化小龙虾</h3>
+            <p class="tutorial-description">配置你的 OpenClaw 实例</p>
+            <div class="tutorial-topics">
+              <span class="topic">AGENTS.md</span>
+              <span class="topic">USER.md</span>
+              <span class="topic">SOUL.md</span>
+            </div>
+            <a href="#" class="tutorial-link">查看教程 →</a>
+          </div>
+
+          <!-- 03 小龙虾的眼睛 -->
+          <div class="tutorial-card" id="tutorials-03">
+            <div class="tutorial-badge">03</div>
+            <h3 class="tutorial-title">小龙虾的眼睛</h3>
+            <p class="tutorial-description">视觉能力与图像理解</p>
+            <div class="tutorial-topics">
+              <span class="topic">视觉能力</span>
+              <span class="topic">图像处理</span>
+              <span class="topic">视频理解</span>
+            </div>
+            <a href="#" class="tutorial-link">查看教程 →</a>
+          </div>
+
+          <!-- 04 小龙虾的手脚 -->
+          <div class="tutorial-card" id="tutorials-04">
+            <div class="tutorial-badge">04</div>
+            <h3 class="tutorial-title">小龙虾的手脚</h3>
+            <p class="tutorial-description">使用工具扩展功能</p>
+            <div class="tutorial-topics">
+              <span class="topic">工具调用</span>
+              <span class="topic">API 集成</span>
+              <span class="topic">自动化</span>
+            </div>
+            <a href="#" class="tutorial-link">查看教程 →</a>
+          </div>
+
+          <!-- 05 小龙虾的大脑 -->
+          <div class="tutorial-card" id="tutorials-05">
+            <div class="tutorial-badge">05</div>
+            <h3 class="tutorial-title">小龙虾的大脑</h3>
+            <p class="tutorial-description">记忆系统与协作机制</p>
+            <div class="tutorial-topics">
+              <span class="topic">记忆系统</span>
+              <span class="topic">协作机制</span>
+              <span class="topic">上下文管理</span>
+            </div>
+            <a href="#" class="tutorial-link">查看教程 →</a>
+          </div>
+
+          <!-- 06 必备技能包 -->
+          <div class="tutorial-card" id="tutorials-06">
+            <div class="tutorial-badge">06</div>
+            <h3 class="tutorial-title">必备技能包</h3>
+            <p class="tutorial-description">OpenClaw 用户必备技能</p>
+            <div class="tutorial-topics">
+              <span class="topic">新手必备</span>
+              <span class="topic">开发者热门</span>
+              <span class="topic">自媒体热门</span>
+              <span class="topic">热门通用</span>
+            </div>
+            <a href="#" class="tutorial-link">查看教程 →</a>
+          </div>
+
+          <!-- 07 多 Agents 能力 -->
+          <div class="tutorial-card" id="tutorials-07">
+            <div class="tutorial-badge">07</div>
+            <h3 class="tutorial-title">多 Agents 能力</h3>
+            <p class="tutorial-description">高级多智能体功能</p>
+            <div class="tutorial-topics">
+              <span class="topic">基础入门</span>
+              <span class="topic">进阶技巧</span>
+            </div>
+            <a href="#" class="tutorial-link">查看教程 →</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Disclaimer -->
-    <section class="disclaimer">
-      <p>
-        <strong>本网站是独立的教程资源，与OpenClaw官方项目无关联。</strong>
-        访问 <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">GitHub</a> 查看官方文档。
-      </p>
+    <!-- 疑难解答板块 -->
+    <section class="section troubleshooting" id="troubleshooting">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">🔧</span>
+          疑难解答
+        </h2>
+        <p class="section-subtitle">快速解决常见的 OpenClaw 问题</p>
+
+        <div class="troubleshooting-grid">
+          <!-- 搜索框 -->
+          <div class="search-card">
+            <div class="search-icon">🔍</div>
+            <h3>搜索 GitHub 问题</h3>
+            <p>从社区找到解决方案</p>
+            <a href="/bugs/" class="search-button">搜索问题</a>
+          </div>
+
+          <!-- 常见问题 -->
+          <div class="issues-list">
+            <h3>常见问题</h3>
+            <div class="issue-items">
+              <a href="#" class="issue-item">1. 端口已被占用</a>
+              <a href="#" class="issue-item">2. 权限被拒绝错误</a>
+              <a href="#" class="issue-item">3. 网关连接失败</a>
+              <a href="#" class="issue-item">4. 模型 API 密钥问题</a>
+              <a href="#" class="issue-item">5. Node.js 版本兼容性</a>
+              <a href="#" class="issue-item">6. 内存分配问题</a>
+              <a href="#" class="issue-item">7. 文件路径错误</a>
+              <a href="#" class="issue-item">8. 网络超时问题</a>
+              <a href="#" class="issue-item">9. 配置文件错误</a>
+              <a href="#" class="issue-item">10. 依赖冲突</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-  </main>
+
+    <!-- 成本计算器板块 -->
+    <section class="section cost-calculator" id="cost-calculator">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">💰</span>
+          成本计算器
+        </h2>
+        <p class="section-subtitle">估算你的 OpenClaw 运行成本</p>
+
+        <div class="calculator-preview">
+          <div class="preview-content">
+            <div class="preview-icon">🧮</div>
+            <h3>计算你的成本</h3>
+            <p>根据使用模式和选择的 AI 模型，估算运行 OpenClaw 的月度费用</p>
+            <ul class="feature-list">
+              <li>✓ 模型 API 成本对比</li>
+              <li>✓ 服务器托管估算</li>
+              <li>✓ 基于使用量的计算</li>
+            </ul>
+            <a href="#" class="preview-button">打开计算器 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 社区与资源板块 -->
+    <section class="section community" id="community">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">👥</span>
+          社区与资源
+        </h2>
+        <p class="section-subtitle">加入社区，获取有用资源</p>
+
+        <div class="community-grid">
+          <!-- 社区链接 -->
+          <div class="community-card">
+            <div class="card-icon">🌐</div>
+            <h3>社区平台</h3>
+            <ul class="link-list">
+              <li><a href="#" target="_blank" rel="noopener">ClawHub</a></li>
+              <li><a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">OpenClaw GitHub</a></li>
+            </ul>
+          </div>
+
+          <!-- 资源下载 -->
+          <div class="community-card">
+            <div class="card-icon">📥</div>
+            <h3>必备下载</h3>
+            <ul class="link-list">
+              <li><a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js 22+</a></li>
+              <li><a href="https://ubuntu.com/download" target="_blank" rel="noopener">Ubuntu Server</a></li>
+              <li><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></li>
+              <li><a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="disclaimer">
+            <strong>免责声明：</strong>本网站是独立的教程资源，与 OpenClaw 官方项目无关联。
+            访问 <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">GitHub</a> 查看官方文档。
+          </div>
+          <div class="footer-links">
+            <span>© 2024 OpenClaw Tutorial</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
 </Layout>
 
 <style>
+  /* 基础样式 */
   .homepage {
+    background: #f9fafb;
+  }
+
+  .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1rem;
-    position: relative;
+    padding: 0 2rem;
   }
 
-  .lang-switcher-container {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    z-index: 10;
+  .section {
+    padding: 5rem 0;
   }
 
-  @media (max-width: 768px) {
-    .lang-switcher-container {
-      position: static;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-  }
-
-  .hero {
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
     text-align: center;
-    padding: 4rem 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 1rem;
-    color: white;
+    margin-bottom: 1rem;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .section-icon {
+    font-size: 2.5rem;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #6b7280;
+    font-size: 1.125rem;
     margin-bottom: 3rem;
   }
 
+  /* Hero 区域 */
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8rem 0 6rem;
+    text-align: center;
+  }
+
+  .hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
   .hero-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
   }
 
   .hero-subtitle {
     font-size: clamp(1.125rem, 2vw, 1.5rem);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     opacity: 0.95;
   }
 
@@ -132,11 +367,11 @@ import LangSwitch from '../../components/LangSwitch.astro';
   }
 
   .cta-button {
-    padding: 0.875rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 0.5rem;
     font-weight: 600;
     text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s;
     font-size: 1rem;
   }
 
@@ -146,124 +381,413 @@ import LangSwitch from '../../components/LangSwitch.astro';
   }
 
   .cta-button.secondary {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     color: white;
     border: 2px solid white;
   }
 
   .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
 
-  .features {
+  /* 网格布局 */
+  .grid-3 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    margin-bottom: 4rem;
   }
 
+  /* 卡片 */
   .card {
     background: white;
-    border: 1px solid #e5e7eb;
     border-radius: 0.75rem;
     padding: 2rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s;
   }
 
   .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .card-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
   }
 
-  .card h2 {
-    font-size: 1.5rem;
+  .card h3 {
+    font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: #1a1a1a;
+    color: #1f2937;
+    margin: 0;
   }
 
-  .card p {
-    color: #666;
+  .card-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .card-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .card-list li:last-child {
+    border-bottom: none;
+  }
+
+  .card-list a {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .card-list a:hover {
+    color: #667eea;
+  }
+
+  /* 教程网格 */
+  .tutorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .tutorial-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s;
+  }
+
+  .tutorial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .tutorial-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .tutorial-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .tutorial-description {
+    color: #6b7280;
     margin-bottom: 1.5rem;
-    line-height: 1.6;
   }
 
-  .card a {
-    color: #0066cc;
+  .tutorial-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .topic {
+    background: #f3f4f6;
+    color: #4b5563;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .tutorial-link {
+    color: #667eea;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
   }
 
-  .card a:hover {
-    color: #0052a3;
-    text-decoration: underline;
+  .tutorial-link:hover {
+    color: #764ba2;
   }
 
-  .highlights {
+  /* 疑难解答板块 */
+  .troubleshooting-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr 2fr;
     gap: 2rem;
-    margin-bottom: 4rem;
   }
 
-  .highlight-item {
-    background: #f9fafb;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    border-left: 4px solid #667eea;
-  }
-
-  .highlight-item h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #1a1a1a;
-  }
-
-  .highlight-item p {
-    color: #666;
-    line-height: 1.6;
-    font-size: 0.9375rem;
-  }
-
-  .disclaimer {
-    background: #fffbeb;
-    border: 1px solid #fcd34d;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
+  .search-card {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 0.75rem;
+    padding: 2.5rem;
     text-align: center;
   }
 
-  .disclaimer p {
-    color: #92400e;
-    font-size: 0.875rem;
+  .search-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .search-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .search-card p {
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .search-button {
+    display: inline-block;
+    background: white;
+    color: #667eea;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .issues-list {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  }
+
+  .issues-list h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #1f2937;
+  }
+
+  .issue-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .issue-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    background: #f9fafb;
+    border-radius: 0.375rem;
+    color: #4b5563;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 0.9375rem;
+  }
+
+  .issue-item:hover {
+    background: #667eea;
+    color: white;
+    transform: translateX(4px);
+  }
+
+  /* 成本计算器 */
+  .calculator-preview {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+  }
+
+  .preview-content {
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .preview-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .preview-content h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .preview-content p {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    display: inline-block;
+    text-align: left;
+  }
+
+  .feature-list li {
+    padding: 0.5rem 0;
+    color: #4b5563;
+  }
+
+  .preview-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .preview-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  /* 社区板块 */
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .community-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  }
+
+  .community-card .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .community-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .link-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .link-list li {
+    padding: 0.5rem 0;
+  }
+
+  .link-list a {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .link-list a:hover {
+    color: #667eea;
+  }
+
+  /* 页脚 */
+  .footer {
+    background: #1f2937;
+    color: white;
+    padding: 3rem 0;
+    margin-top: 5rem;
+  }
+
+  .footer-content {
+    text-align: center;
+  }
+
+  .disclaimer {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
     line-height: 1.6;
   }
 
   .disclaimer a {
-    color: #dc2626;
+    color: #60a5fa;
     text-decoration: underline;
   }
 
+  .footer-links {
+    color: #9ca3af;
+    font-size: 0.875rem;
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 1024px) {
+    .troubleshooting-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 768px) {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+
+    .tutorial-grid {
+      grid-template-columns: 1fr;
+    }
+
     .hero {
-      padding: 3rem 1rem;
+      padding: 6rem 0 4rem;
     }
 
-    .features {
+    .issue-items {
       grid-template-columns: 1fr;
     }
+  }
 
-    .highlights {
-      grid-template-columns: 1fr;
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .section {
+      padding: 3rem 0;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+    }
+
+    .cta-button {
+      width: 100%;
     }
   }
 </style>

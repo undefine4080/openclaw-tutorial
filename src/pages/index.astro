@@ -1,125 +1,361 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import LangSwitch from '../components/LangSwitch.astro';
 ---
 
-<Layout title="OpenClaw Tutorials & Troubleshooting">
-  <main class="homepage">
-    <!-- Language Switcher -->
-    <div class="lang-switcher-container">
-      <LangSwitch currentPath="/" />
-    </div>
+<Layout title="OpenClaw: From Beginner to Master" currentPath="/">
+  <div class="homepage">
     <!-- Hero Section -->
-    <section class="hero">
-      <h1 class="hero-title">
-        OpenClaw Tutorials & Troubleshooting
-      </h1>
-      <p class="hero-subtitle">
-        Run OpenClaw in 5 minutes. Fix common issues in 30 seconds.
-      </p>
-      <div class="hero-cta">
-        <a href="/posts/" class="cta-button primary">View All Tutorials</a>
-        <a href="/posts/start/" class="cta-button secondary">Start Here</a>
+    <section class="hero" id="hero">
+      <div class="hero-container">
+        <h1 class="hero-title">OpenClaw: From Beginner to Master</h1>
+        <p class="hero-subtitle">
+          Comprehensive tutorials to master OpenClaw, from installation to advanced multi-agent systems
+        </p>
+        <div class="hero-cta">
+          <a href="#tutorials-01" class="cta-button primary">View Tutorials</a>
+          <a href="#troubleshooting" class="cta-button secondary">Troubleshooting</a>
+        </div>
       </div>
     </section>
 
-    <!-- Feature Cards -->
-    <section class="features">
-      <div class="card">
-        <div class="card-icon">⚙️</div>
-        <h2>Install & Setup</h2>
-        <p>Get OpenClaw running on Windows, macOS, or Linux in minutes with Node.js 22.</p>
-        <a href="/posts/install-node-22/">Start Installing →</a>
-      </div>
+    <!-- Installation Section -->
+    <section class="section installation" id="installation">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">⚙️</span>
+          Installation & Deployment
+        </h2>
+        <p class="section-subtitle">Get OpenClaw running on your local machine or deploy to the cloud</p>
 
-      <div class="card">
-        <div class="card-icon">🚀</div>
-        <h2>Quick Start</h2>
-        <p>Use the onboard wizard, start your gateway, and send your first message.</p>
-        <a href="/posts/start/">Get Started →</a>
-      </div>
+        <div class="grid-3">
+          <!-- Local Installation -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon">💻</div>
+              <h3>Local Installation</h3>
+            </div>
+            <ul class="card-list">
+              <li><a href="#">macOS Setup</a></li>
+              <li><a href="#">Linux Installation</a></li>
+              <li><a href="#">Windows Setup</a></li>
+            </ul>
+          </div>
 
-      <div class="card">
-        <div class="card-icon">💬</div>
-        <h2>Channels</h2>
-        <p>Connect Telegram, Discord, Slack, WhatsApp, and more to OpenClaw.</p>
-        <a href="/posts/channels-telegram/">Explore Channels →</a>
+          <!-- Cloud Deployment -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon">☁️</div>
+              <h3>Cloud Deployment</h3>
+            </div>
+            <ul class="card-list">
+              <li><a href="#">Alibaba Cloud</a></li>
+              <li><a href="#">Tencent Cloud</a></li>
+              <li><a href="#">Volc Engine</a></li>
+            </ul>
+          </div>
+
+          <!-- One-Click Platforms -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon">🚀</div>
+              <h3>One-Click Platforms</h3>
+            </div>
+            <ul class="card-list">
+              <li><a href="#">ByteDance ArkClaw</a></li>
+              <li><a href="#">Tencent QClaw</a></li>
+              <li><a href="#">Zhipu AutoClaw</a></li>
+              <li><a href="#">Liebao EasyClaw</a></li>
+              <li><a href="#">Tencent WorkBuddy</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Key Features -->
-    <section class="highlights">
-      <div class="highlight-item">
-        <h3>✅ Node.js 22 Ready</h3>
-        <p>Complete guides for installing and configuring Node.js ≥ 22, which OpenClaw requires.</p>
-      </div>
-      <div class="highlight-item">
-        <h3>🔧 Step-by-Step Guides</h3>
-        <p>Clear, copy-paste instructions with expected outputs so you know when you've succeeded.</p>
-      </div>
-      <div class="highlight-item">
-        <h3>🔍 Quick Troubleshooting</h3>
-        <p>Find solutions for common errors like port conflicts, permission issues, and gateway failures.</p>
-      </div>
-      <div class="highlight-item">
-        <h3>🌐 Multi-Language</h3>
-        <p>Available in English and Chinese (中文), with easy language switching.</p>
+    <!-- Tutorials Section -->
+    <section class="section tutorials" id="tutorials">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">📚</span>
+          Tutorial Categories
+        </h2>
+        <p class="section-subtitle">Master OpenClaw step by step with our comprehensive guides</p>
+
+        <div class="tutorial-grid">
+          <!-- 01 Getting Started -->
+          <div class="tutorial-card" id="tutorials-01">
+            <div class="tutorial-badge">01</div>
+            <h3 class="tutorial-title">Getting Started</h3>
+            <p class="tutorial-description">Begin your journey with OpenClaw</p>
+            <div class="tutorial-topics">
+              <span class="topic">Model Integration</span>
+              <span class="topic">Feishu</span>
+              <span class="topic">WeChat</span>
+              <span class="topic">QQ</span>
+              <span class="topic">WeCom</span>
+            </div>
+            <a href="#" class="tutorial-link">View Tutorials →</a>
+          </div>
+
+          <!-- 02 Initialize OpenClaw -->
+          <div class="tutorial-card" id="tutorials-02">
+            <div class="tutorial-badge">02</div>
+            <h3 class="tutorial-title">Initialize OpenClaw</h3>
+            <p class="tutorial-description">Configure your OpenClaw instance</p>
+            <div class="tutorial-topics">
+              <span class="topic">AGENTS.md</span>
+              <span class="topic">USER.md</span>
+              <span class="topic">SOUL.md</span>
+            </div>
+            <a href="#" class="tutorial-link">View Tutorials →</a>
+          </div>
+
+          <!-- 03 OpenClaw Vision -->
+          <div class="tutorial-card" id="tutorials-03">
+            <div class="tutorial-badge">03</div>
+            <h3 class="tutorial-title">OpenClaw Vision</h3>
+            <p class="tutorial-description">Visual capabilities for image understanding</p>
+            <div class="tutorial-topics">
+              <span class="topic">Visual Capability</span>
+              <span class="topic">Image Processing</span>
+              <span class="topic">Video Understanding</span>
+            </div>
+            <a href="#" class="tutorial-link">View Tutorials →</a>
+          </div>
+
+          <!-- 04 OpenClaw Tools -->
+          <div class="tutorial-card" id="tutorials-04">
+            <div class="tutorial-badge">04</div>
+            <h3 class="tutorial-title">OpenClaw Tools</h3>
+            <p class="tutorial-description">Extend functionality with tools</p>
+            <div class="tutorial-topics">
+              <span class="topic">Tool Calling</span>
+              <span class="topic">API Integration</span>
+              <span class="topic">Automation</span>
+            </div>
+            <a href="#" class="tutorial-link">View Tutorials →</a>
+          </div>
+
+          <!-- 05 OpenClaw Brain -->
+          <div class="tutorial-card" id="tutorials-05">
+            <div class="tutorial-badge">05</div>
+            <h3 class="tutorial-title">OpenClaw Brain</h3>
+            <p class="tutorial-description">Memory and collaboration systems</p>
+            <div class="tutorial-topics">
+              <span class="topic">Memory System</span>
+              <span class="topic">Collaboration</span>
+              <span class="topic">Context Management</span>
+            </div>
+            <a href="#" class="tutorial-link">View Tutorials →</a>
+          </div>
+
+          <!-- 06 Essential Skills -->
+          <div class="tutorial-card" id="tutorials-06">
+            <div class="tutorial-badge">06</div>
+            <h3 class="tutorial-title">Essential Skills</h3>
+            <p class="tutorial-description">Must-have skills for OpenClaw users</p>
+            <div class="tutorial-topics">
+              <span class="topic">Beginner Essentials</span>
+              <span class="topic">Dev Popular</span>
+              <span class="topic">Media Popular</span>
+              <span class="topic">General Popular</span>
+            </div>
+            <a href="#" class="tutorial-link">View Tutorials →</a>
+          </div>
+
+          <!-- 07 Multi-Agent -->
+          <div class="tutorial-card" id="tutorials-07">
+            <div class="tutorial-badge">07</div>
+            <h3 class="tutorial-title">Multi-Agent Systems</h3>
+            <p class="tutorial-description">Advanced multi-agent capabilities</p>
+            <div class="tutorial-topics">
+              <span class="topic">Basic</span>
+              <span class="topic">Advanced</span>
+            </div>
+            <a href="#" class="tutorial-link">View Tutorials →</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Disclaimer -->
-    <section class="disclaimer">
-      <p>
-        <strong>This site is an independent tutorial resource and not affiliated with the official OpenClaw project.</strong>
-        For official documentation, visit <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">GitHub</a>.
-      </p>
+    <!-- Troubleshooting Section -->
+    <section class="section troubleshooting" id="troubleshooting">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">🔧</span>
+          Troubleshooting
+        </h2>
+        <p class="section-subtitle">Quick solutions to common OpenClaw issues</p>
+
+        <div class="troubleshooting-grid">
+          <!-- Search Box -->
+          <div class="search-card">
+            <div class="search-icon">🔍</div>
+            <h3>Search GitHub Issues</h3>
+            <p>Find solutions from the community</p>
+            <a href="/bugs/" class="search-button">Search Issues</a>
+          </div>
+
+          <!-- Common Issues -->
+          <div class="issues-list">
+            <h3>Common Issues</h3>
+            <div class="issue-items">
+              <a href="#" class="issue-item">1. Port already in use</a>
+              <a href="#" class="issue-item">2. Permission denied errors</a>
+              <a href="#" class="issue-item">3. Gateway connection failed</a>
+              <a href="#" class="issue-item">4. Model API key issues</a>
+              <a href="#" class="issue-item">5. Node.js version compatibility</a>
+              <a href="#" class="issue-item">6. Memory allocation problems</a>
+              <a href="#" class="issue-item">7. File path errors</a>
+              <a href="#" class="issue-item">8. Network timeout issues</a>
+              <a href="#" class="issue-item">9. Configuration file errors</a>
+              <a href="#" class="issue-item">10. Dependency conflicts</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-  </main>
+
+    <!-- Cost Calculator Section -->
+    <section class="section cost-calculator" id="cost-calculator">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">💰</span>
+          Cost Calculator
+        </h2>
+        <p class="section-subtitle">Estimate your OpenClaw running costs</p>
+
+        <div class="calculator-preview">
+          <div class="preview-content">
+            <div class="preview-icon">🧮</div>
+            <h3>Calculate Your Costs</h3>
+            <p>Estimate monthly expenses for running OpenClaw based on your usage patterns and chosen AI models</p>
+            <ul class="feature-list">
+              <li>✓ Model API costs comparison</li>
+              <li>✓ Server hosting estimates</li>
+              <li>✓ Usage-based calculations</li>
+            </ul>
+            <a href="#" class="preview-button">Open Calculator →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="section community" id="community">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">👥</span>
+          Community & Resources
+        </h2>
+        <p class="section-subtitle">Join the community and access helpful resources</p>
+
+        <div class="community-grid">
+          <!-- Community Links -->
+          <div class="community-card">
+            <div class="card-icon">🌐</div>
+            <h3>Community Platforms</h3>
+            <ul class="link-list">
+              <li><a href="#" target="_blank" rel="noopener">ClawHub</a></li>
+              <li><a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">OpenClaw GitHub</a></li>
+            </ul>
+          </div>
+
+          <!-- Resources -->
+          <div class="community-card">
+            <div class="card-icon">📥</div>
+            <h3>Essential Downloads</h3>
+            <ul class="link-list">
+              <li><a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js 22+</a></li>
+              <li><a href="https://ubuntu.com/download" target="_blank" rel="noopener">Ubuntu Server</a></li>
+              <li><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></li>
+              <li><a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="disclaimer">
+            <strong>Disclaimer:</strong> This website is an independent tutorial resource and is not affiliated with the official OpenClaw project.
+            For official documentation, visit <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">GitHub</a>.
+          </div>
+          <div class="footer-links">
+            <span>© 2024 OpenClaw Tutorial</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
 </Layout>
 
 <style>
+  /* 基础样式 */
   .homepage {
+    background: #f9fafb;
+  }
+
+  .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1rem;
-    position: relative;
+    padding: 0 2rem;
   }
 
-  .lang-switcher-container {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    z-index: 10;
+  .section {
+    padding: 5rem 0;
   }
 
-  @media (max-width: 768px) {
-    .lang-switcher-container {
-      position: static;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-  }
-
-  .hero {
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
     text-align: center;
-    padding: 4rem 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 1rem;
-    color: white;
+    margin-bottom: 1rem;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .section-icon {
+    font-size: 2.5rem;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #6b7280;
+    font-size: 1.125rem;
     margin-bottom: 3rem;
   }
 
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8rem 0 6rem;
+    text-align: center;
+  }
+
+  .hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
   .hero-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
   }
 
   .hero-subtitle {
     font-size: clamp(1.125rem, 2vw, 1.5rem);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     opacity: 0.95;
   }
 
@@ -131,11 +367,11 @@ import LangSwitch from '../components/LangSwitch.astro';
   }
 
   .cta-button {
-    padding: 0.875rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 0.5rem;
     font-weight: 600;
     text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s;
     font-size: 1rem;
   }
 
@@ -145,124 +381,413 @@ import LangSwitch from '../components/LangSwitch.astro';
   }
 
   .cta-button.secondary {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     color: white;
     border: 2px solid white;
   }
 
   .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
 
-  .features {
+  /* Grid Layouts */
+  .grid-3 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    margin-bottom: 4rem;
   }
 
+  /* Cards */
   .card {
     background: white;
-    border: 1px solid #e5e7eb;
     border-radius: 0.75rem;
     padding: 2rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s;
   }
 
   .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .card-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
   }
 
-  .card h2 {
-    font-size: 1.5rem;
+  .card h3 {
+    font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: #1a1a1a;
+    color: #1f2937;
+    margin: 0;
   }
 
-  .card p {
-    color: #666;
+  .card-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .card-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .card-list li:last-child {
+    border-bottom: none;
+  }
+
+  .card-list a {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .card-list a:hover {
+    color: #667eea;
+  }
+
+  /* Tutorial Grid */
+  .tutorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .tutorial-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s;
+  }
+
+  .tutorial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .tutorial-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .tutorial-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .tutorial-description {
+    color: #6b7280;
     margin-bottom: 1.5rem;
-    line-height: 1.6;
   }
 
-  .card a {
-    color: #0066cc;
+  .tutorial-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .topic {
+    background: #f3f4f6;
+    color: #4b5563;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .tutorial-link {
+    color: #667eea;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
   }
 
-  .card a:hover {
-    color: #0052a3;
-    text-decoration: underline;
+  .tutorial-link:hover {
+    color: #764ba2;
   }
 
-  .highlights {
+  /* Troubleshooting Section */
+  .troubleshooting-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr 2fr;
     gap: 2rem;
-    margin-bottom: 4rem;
   }
 
-  .highlight-item {
-    background: #f9fafb;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    border-left: 4px solid #667eea;
-  }
-
-  .highlight-item h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #1a1a1a;
-  }
-
-  .highlight-item p {
-    color: #666;
-    line-height: 1.6;
-    font-size: 0.9375rem;
-  }
-
-  .disclaimer {
-    background: #fffbeb;
-    border: 1px solid #fcd34d;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
+  .search-card {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 0.75rem;
+    padding: 2.5rem;
     text-align: center;
   }
 
-  .disclaimer p {
-    color: #92400e;
-    font-size: 0.875rem;
+  .search-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .search-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .search-card p {
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .search-button {
+    display: inline-block;
+    background: white;
+    color: #667eea;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .issues-list {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  }
+
+  .issues-list h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #1f2937;
+  }
+
+  .issue-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .issue-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    background: #f9fafb;
+    border-radius: 0.375rem;
+    color: #4b5563;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 0.9375rem;
+  }
+
+  .issue-item:hover {
+    background: #667eea;
+    color: white;
+    transform: translateX(4px);
+  }
+
+  /* Cost Calculator */
+  .calculator-preview {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+  }
+
+  .preview-content {
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .preview-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .preview-content h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .preview-content p {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    display: inline-block;
+    text-align: left;
+  }
+
+  .feature-list li {
+    padding: 0.5rem 0;
+    color: #4b5563;
+  }
+
+  .preview-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .preview-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  /* Community Section */
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .community-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  }
+
+  .community-card .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .community-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .link-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .link-list li {
+    padding: 0.5rem 0;
+  }
+
+  .link-list a {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .link-list a:hover {
+    color: #667eea;
+  }
+
+  /* Footer */
+  .footer {
+    background: #1f2937;
+    color: white;
+    padding: 3rem 0;
+    margin-top: 5rem;
+  }
+
+  .footer-content {
+    text-align: center;
+  }
+
+  .disclaimer {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
     line-height: 1.6;
   }
 
   .disclaimer a {
-    color: #dc2626;
+    color: #60a5fa;
     text-decoration: underline;
   }
 
+  .footer-links {
+    color: #9ca3af;
+    font-size: 0.875rem;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .troubleshooting-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 768px) {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+
+    .tutorial-grid {
+      grid-template-columns: 1fr;
+    }
+
     .hero {
-      padding: 3rem 1rem;
+      padding: 6rem 0 4rem;
     }
 
-    .features {
+    .issue-items {
       grid-template-columns: 1fr;
     }
+  }
 
-    .highlights {
-      grid-template-columns: 1fr;
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .section {
+      padding: 3rem 0;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+    }
+
+    .cta-button {
+      width: 100%;
     }
   }
 </style>
