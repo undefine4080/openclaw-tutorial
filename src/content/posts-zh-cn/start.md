@@ -7,6 +7,9 @@ tags: ["快速开始", "初学者", "安装"]
 difficulty: "beginner"
 estimatedTime: "5 minutes"
 prerequisites: ["Node.js >= 22", "npm或pnpm"]
+category: 01-getting-started
+order: 1
+relatedPosts: ["install-node-22", "channels-telegram"]
 alternates:
   zhCN: "/zh-cn/start/"
 ---

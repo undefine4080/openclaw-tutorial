@@ -2,17 +2,69 @@ import { defineCollection, z } from 'astro:content';
 
 const post = defineCollection({
   schema: z.object({
+    // === 基础元数据 ===
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
     lastUpdated: z.coerce.date().optional(),
+
+    // === 学习辅助信息 ===
     tags: z.array(z.string()).default([]),
     difficulty: z.enum(['beginner', 'intermediate', 'advanced']).default('beginner'),
     estimatedTime: z.string().default('5 minutes'),
     prerequisites: z.array(z.string()).default([]),
+
+    // === 多语言支持 ===
     alternates: z.object({
       zhCN: z.string().optional(),
     }).optional(),
+
+    // === 分类和组织 ===
+
+    // 教程分类（用于组织文章到不同的主题分类）
+    category: z.enum([
+      '01-getting-started',      // 新手上路
+      '02-initialization',       // 初始化小龙虾
+      '03-claw-eyes',           // 小龙虾的眼睛
+      '04-claw-hands',          // 小龙虾的手脚
+      '05-claw-brain',          // 小龙虾的大脑
+      '06-essential-skills',    // 必备技能包
+      '07-multi-agents',        // 多 Agents 能力
+      'installation',           // 安装部署
+      'troubleshooting',        // 疑难解答
+    ]).optional(),
+
+    // 子分类（用于进一步细分某些分类）
+    subcategory: z.enum([
+      'beginner',    // 新手必备（06-essential-skills）
+      'developer',   // 开发者热门（06-essential-skills）
+      'media',       // 自媒体热门（06-essential-skills）
+      'general',     // 热门通用（06-essential-skills）
+      'basic',       // 基础入门（07-multi-agents）
+      'advanced',    // 进阶技巧（07-multi-agents）
+    ]).optional(),
+
+    // 排序权重（同一分类内的显示顺序，数字越小越靠前）
+    order: z.number().default(0),
+
+    // === 导航和推荐 ===
+
+    // 相关文章 slug 数组（用于推荐阅读）
+    relatedPosts: z.array(z.string()).default([]),
+
+    // 上一篇文章 slug（用于导航）
+    prevPost: z.string().optional(),
+
+    // 下一篇文章 slug（用于导航）
+    nextPost: z.string().optional(),
+
+    // === 内容管理 ===
+
+    // 是否为精选文章（用于首页推荐）
+    featured: z.boolean().default(false),
+
+    // 文章状态（草稿/已发布/已归档）
+    status: z.enum(['draft', 'published', 'archived']).default('published'),
   }),
 });
 

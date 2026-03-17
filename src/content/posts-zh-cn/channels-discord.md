@@ -7,6 +7,11 @@ tags: ["discord", "频道", "设置", "中级"]
 difficulty: "intermediate"
 estimatedTime: "10 minutes"
 prerequisites: ["已安装OpenClaw", "Discord账号", "Discord服务器"]
+category: 01-getting-started
+order: 3
+prevPost: channels-telegram
+nextPost: config-gateway
+relatedPosts: ["channels-telegram", "config-gateway", "start"]
 alternates:
   en: "/posts/channels-discord/"
 ---

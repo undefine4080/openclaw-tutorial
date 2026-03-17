@@ -1,0 +1,538 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// 获取所有已发布的中文文章
+const allPosts = await getCollection('posts-zh-cn',
+  ({ data }) => data.status === 'published'
+);
+
+// 教程分类配置
+const categories = [
+  {
+    id: '01-getting-started',
+    title: '新手上路',
+    titleEn: 'Getting Started',
+    description: '快速搭建第一个可用的 OpenClaw 实例',
+    icon: '🚀',
+    topics: ['模型接入', '飞书', '微信', 'QQ', '企业微信'],
+    path: '/zh-cn/tutorials/01-getting-started/'
+  },
+  {
+    id: '02-initialization',
+    title: '初始化小龙虾',
+    titleEn: 'Initialize OpenClaw',
+    description: '理解并配置 OpenClaw 的核心配置文件',
+    icon: '⚙️',
+    topics: ['AGENTS.md', 'USER.md', 'SOUL.md'],
+    path: '/zh-cn/tutorials/02-initialization/'
+  },
+  {
+    id: '03-claw-eyes',
+    title: '小龙虾的眼睛',
+    titleEn: 'OpenClaw Vision',
+    description: '配置和使用 OpenClaw 的图像理解能力',
+    icon: '👁️',
+    topics: ['视觉能力', '图像处理', '视频理解'],
+    path: '/zh-cn/tutorials/03-claw-eyes/'
+  },
+  {
+    id: '04-claw-hands',
+    title: '小龙虾的手脚',
+    titleEn: 'OpenClaw Tools',
+    description: '使用工具调用和 API 集成扩展能力',
+    icon: '🤝',
+    topics: ['工具调用', 'API 集成', '自动化'],
+    path: '/zh-cn/tutorials/04-claw-hands/'
+  },
+  {
+    id: '05-claw-brain',
+    title: '小龙虾的大脑',
+    titleEn: 'OpenClaw Brain',
+    description: '配置记忆系统和多 Agent 协作',
+    icon: '🧠',
+    topics: ['记忆系统', '协作机制', '上下文管理'],
+    path: '/zh-cn/tutorials/05-claw-brain/'
+  },
+  {
+    id: '06-essential-skills',
+    title: '必备技能包',
+    titleEn: 'Essential Skills',
+    description: '掌握常用技能和最佳实践',
+    icon: '🎯',
+    topics: ['新手必备', '开发者热门', '自媒体热门', '热门通用'],
+    path: '/zh-cn/tutorials/06-essential-skills/'
+  },
+  {
+    id: '07-multi-agents',
+    title: '多 Agents 能力',
+    titleEn: 'Multi-Agent Systems',
+    description: '配置和管理多个 Agent 协作',
+    icon: '🤖',
+    topics: ['基础入门', '进阶技巧'],
+    path: '/zh-cn/tutorials/07-multi-agents/'
+  }
+];
+
+// 为每个分类统计文章数量
+const categoriesWithCount = categories.map(cat => ({
+  ...cat,
+  count: allPosts.filter(post => post.data.category === cat.id).length
+}));
+---
+
+<Layout title="教程 - OpenClaw 教程" description="从零开始学习 OpenClaw，掌握从小白到大师的完整技能树" currentPath="/zh-cn/tutorials/">
+  <div class="tutorials-page">
+    <!-- 面包屑导航 -->
+    <nav class="breadcrumb-nav">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li><a href="/zh-cn/">🏠 首页</a></li>
+          <li><span class="separator">/</span></li>
+          <li><span class="current">教程</span></li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">OpenClaw 教程</h1>
+        <p class="page-subtitle">
+          从零开始学习 OpenClaw，掌握从小白到大师的完整技能树
+        </p>
+
+        <!-- 学习路径 -->
+        <div class="learning-path">
+          <h2 class="path-title">📚 学习路径</h2>
+          <p class="path-description">
+            我们的教程按照学习难度和逻辑顺序组织，建议按照以下顺序学习：
+          </p>
+          <ol class="path-steps">
+            <li><strong>新手上路</strong> - 快速上手，搭建第一个实例</li>
+            <li><strong>初始化小龙虾</strong> - 核心配置，理解关键文件</li>
+            <li><strong>小龙虾的眼睛</strong> - 视觉能力，图像理解</li>
+            <li><strong>小龙虾的手脚</strong> - 工具调用，扩展功能</li>
+            <li><strong>小龙虾的大脑</strong> - 记忆系统，智能协作</li>
+            <li><strong>必备技能包</strong> - 必备技能，实用技巧</li>
+            <li><strong>多 Agents 能力</strong> - 高级协作，多 Agent 管理</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 教程分类网格 -->
+    <section class="tutorials-section">
+      <div class="container">
+        <div class="tutorials-grid">
+          {
+            categoriesWithCount.map((category) => (
+              <div class="tutorial-card">
+                <div class="card-badge">{category.id.split('-')[0]}</div>
+                <div class="card-icon">{category.icon}</div>
+                <h3 class="card-title">{category.title}</h3>
+                <p class="card-description">{category.description}</p>
+                <div class="card-topics">
+                  {category.topics.map(topic => (
+                    <span class="topic">{topic}</span>
+                  ))}
+                </div>
+                <div class="card-footer">
+                  {category.count > 0 && (
+                    <span class="post-count">{category.count} 篇文章</span>
+                  )}
+                  <a href={category.path} class="card-button">
+                    开始学习 →
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 学习提示 -->
+    <section class="tips-section">
+      <div class="container">
+        <div class="tips-card">
+          <h2>💡 学习提示</h2>
+          <div class="tips-grid">
+            <div class="tip-item">
+              <div class="tip-icon">⏱️</div>
+              <div class="tip-content">
+                <h4>预计学习时间</h4>
+                <p>完成所有教程约需 10-15 小时，每个分类 1-3 小时</p>
+              </div>
+            </div>
+            <div class="tip-item">
+              <div class="tip-icon">📋</div>
+              <div class="tip-content">
+                <h4>前置要求</h4>
+                <p>Node.js 22+、基础命令行操作、AI 模型 API Key</p>
+              </div>
+            </div>
+            <div class="tip-item">
+              <div class="tip-icon">🎯</div>
+              <div class="tip-content">
+                <h4>学习建议</h4>
+                <p>按顺序学习，边学边练，遇到问题查看疑难解答</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  /* 页面基础样式 */
+  .tutorials-page {
+    background: #f9fafb;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* 面包屑导航 */
+  .breadcrumb-nav {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem 0;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb a {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover {
+    color: #667eea;
+  }
+
+  .breadcrumb .separator {
+    color: #9ca3af;
+  }
+
+  .breadcrumb .current {
+    color: #667eea;
+    font-weight: 600;
+  }
+
+  /* 页面头部 */
+  .page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .page-subtitle {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    opacity: 0.95;
+    margin-bottom: 3rem;
+  }
+
+  /* 学习路径 */
+  .learning-path {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+    backdrop-filter: blur(10px);
+  }
+
+  .path-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .path-description {
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .path-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: step-counter;
+  }
+
+  .path-steps li {
+    padding: 0.75rem 0 0.75rem 2.5rem;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .path-steps li:last-child {
+    border-bottom: none;
+  }
+
+  .path-steps li::before {
+    counter-increment: step-counter;
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .path-steps strong {
+    color: #fbbf24;
+    font-weight: 600;
+  }
+
+  /* 教程分类网格 */
+  .tutorials-section {
+    padding: 4rem 0;
+  }
+
+  .tutorials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .tutorial-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tutorial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  }
+
+  .card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .card-description {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .card-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .topic {
+    background: #f3f4f6;
+    color: #4b5563;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .topic:hover {
+    background: #667eea;
+    color: white;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .post-count {
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+
+  .card-button {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+
+  /* 学习提示 */
+  .tips-section {
+    padding-bottom: 4rem;
+  }
+
+  .tips-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  }
+
+  .tips-card h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .tip-item {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .tip-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .tip-content h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+
+  .tip-content p {
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 0.9375rem;
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 1024px) {
+    .tutorials-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tips-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .tutorials-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .page-title {
+      font-size: 2rem;
+    }
+
+    .learning-path {
+      padding: 1.5rem;
+    }
+
+    .path-steps li {
+      font-size: 0.9375rem;
+    }
+
+    .tips-card {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .page-header {
+      padding: 3rem 0;
+    }
+
+    .tutorial-card {
+      padding: 1.5rem;
+    }
+
+    .card-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .card-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

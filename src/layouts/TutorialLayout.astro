@@ -1,0 +1,705 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  post: {
+    slug: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: Date;
+      lastUpdated?: Date;
+      tags: string[];
+      difficulty: 'beginner' | 'intermediate' | 'advanced';
+      estimatedTime: string;
+      prerequisites: string[];
+      category?: string;
+      prevPost?: string;
+      nextPost?: string;
+      relatedPosts?: string[];
+    };
+    body: string;
+    render(): Promise<{
+      Content: any;
+    }>;
+  };
+}
+
+const { post } = Astro.props;
+
+// 获取所有中文文章用于导航
+const allPosts = await getCollection('posts-zh-cn');
+const publishedPosts = allPosts.filter(p => p.data.status !== 'draft');
+
+// 分类名称映射
+const categoryNames: Record<string, string> = {
+  '01-getting-started': '新手上路',
+  '02-initialization': '初始化小龙虾',
+  '03-claw-eyes': '小龙虾的眼睛',
+  '04-claw-hands': '小龙虾的手脚',
+  '05-claw-brain': '小龙虾的大脑',
+  '06-essential-skills': '必备技能包',
+  '07-multi-agents': '多 Agents 能力',
+  'installation': '安装部署',
+  'troubleshooting': '疑难解答',
+};
+
+// 难度级别映射
+const difficultyLabels: Record<string, string> = {
+  'beginner': '初级',
+  'intermediate': '中级',
+  'advanced': '高级',
+};
+
+// 获取上一篇和下一篇文章
+const getPrevNextPosts = () => {
+  const prevPostSlug = post.data.prevPost;
+  const nextPostSlug = post.data.nextPost;
+
+  const prevPost = prevPostSlug
+    ? publishedPosts.find(p => p.slug === prevPostSlug)
+    : null;
+  const nextPost = nextPostSlug
+    ? publishedPosts.find(p => p.slug === nextPostSlug)
+    : null;
+
+  return { prevPost, nextPost };
+};
+
+const { prevPost, nextPost } = getPrevNextPosts();
+
+// 获取相关文章
+const getRelatedPosts = () => {
+  const relatedSlugs = post.data.relatedPosts || [];
+  return relatedSlugs
+    .map(slug => publishedPosts.find(p => p.slug === slug))
+    .filter(Boolean);
+};
+
+const relatedPosts = getRelatedPosts();
+
+// 格式化日期
+const formatDate = (date: Date) => {
+  return new Date(date).toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+
+const { Content } = await post.render();
+const currentCategory = post.data.category;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{post.data.title} - OpenClaw 教程</title>
+    <meta name="description" content={post.data.description} />
+
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/tutorial.css" />
+  </head>
+  <body>
+    <div class="tutorial-layout">
+      <!-- 面包屑导航 -->
+      <nav class="breadcrumb" aria-label="面包屑导航">
+        <ol class="breadcrumb-list">
+          <li><a href="/zh-cn/">🏠 首页</a></li>
+          <li><span class="separator">/</span></li>
+          <li><a href="/zh-cn/tutorials/">教程</a></li>
+          {currentCategory && (
+            <>
+              <li><span class="separator">/</span></li>
+              <li><a href={`/zh-cn/tutorials/${currentCategory}/`}>{categoryNames[currentCategory]}</a></li>
+            </>
+          )}
+          <li><span class="separator">/</span></li>
+          <li class="active" aria-current="page">{post.data.title}</li>
+        </ol>
+      </nav>
+
+      <!-- 文章容器 -->
+      <article class="tutorial-article">
+        <!-- 文章头部 -->
+        <header class="article-header">
+          <h1 class="article-title">{post.data.title}</h1>
+          <p class="article-description">{post.data.description}</p>
+
+          <div class="article-meta">
+            <div class="meta-item">
+              <span class="meta-icon">📅</span>
+              <time datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate)}
+              </time>
+            </div>
+
+            {post.data.lastUpdated && (
+              <div class="meta-item">
+                <span class="meta-icon">🔄</span>
+                <span>更新于 {formatDate(post.data.lastUpdated)}</span>
+              </div>
+            )}
+
+            <div class="meta-item">
+              <span class="meta-icon">⏱️</span>
+              <span>{post.data.estimatedTime}</span>
+            </div>
+
+            <div class="meta-item">
+              <span class={`difficulty-badge ${post.data.difficulty}`}>
+                {difficultyLabels[post.data.difficulty]}
+              </span>
+            </div>
+          </div>
+
+          {post.data.prerequisites.length > 0 && (
+            <div class="prerequisites">
+              <strong>前置要求：</strong>
+              <ul class="prerequisites-list">
+                {post.data.prerequisites.map(prereq => (
+                  <li>{prereq}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {post.data.tags.length > 0 && (
+            <div class="tags">
+              {post.data.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </header>
+
+        <!-- 文章内容 -->
+        <div class="article-content">
+          <Content />
+        </div>
+
+        <!-- 文章导航 -->
+        {(prevPost || nextPost) && (
+          <nav class="tutorial-nav" aria-label="文章导航">
+            {prevPost && (
+              <a
+                href={`/zh-cn/tutorials/${currentCategory || 'posts'}/${prevPost.slug}/`}
+                class="nav-link prev-post"
+              >
+                <span class="nav-label">← 上一篇</span>
+                <span class="nav-title">{prevPost.data.title}</span>
+              </a>
+            )}
+
+            {nextPost && (
+              <a
+                href={`/zh-cn/tutorials/${currentCategory || 'posts'}/${nextPost.slug}/`}
+                class="nav-link next-post"
+              >
+                <span class="nav-label">下一篇 →</span>
+                <span class="nav-title">{nextPost.data.title}</span>
+              </a>
+            )}
+          </nav>
+        )}
+
+        <!-- 返回分类链接 -->
+        {currentCategory && (
+          <div class="back-to-category">
+            <a href={`/zh-cn/tutorials/${currentCategory}/`}>
+              ← 返回 {categoryNames[currentCategory]}
+            </a>
+          </div>
+        )}
+
+        <!-- 相关文章推荐 -->
+        {relatedPosts.length > 0 && (
+          <aside class="related-posts">
+            <h3>相关文章推荐</h3>
+            <div class="related-posts-grid">
+              {relatedPosts.map((relatedPost) => (
+                relatedPost && (
+                  <a
+                    href={`/zh-cn/tutorials/${relatedPost.data.category || 'posts'}/${relatedPost.slug}/`}
+                    class="related-post-card"
+                  >
+                    <h4>{relatedPost.data.title}</h4>
+                    <p>{relatedPost.data.description}</p>
+                    <div class="related-post-meta">
+                      <span class={`difficulty-badge ${relatedPost.data.difficulty}`}>
+                        {difficultyLabels[relatedPost.data.difficulty]}
+                      </span>
+                      <span class="time">{relatedPost.data.estimatedTime}</span>
+                    </div>
+                  </a>
+                )
+              ))}
+            </div>
+          </aside>
+        )}
+      </article>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  /* 全局重置 */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC',
+                 'Microsoft YaHei', Helvetica, Arial, sans-serif,
+                 'Apple Color Emoji', 'Segoe UI Emoji';
+    line-height: 1.6;
+    color: #333;
+    background: #f9fafb;
+  }
+
+  .tutorial-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  /* 面包屑导航样式 */
+  .breadcrumb {
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .breadcrumb li {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumb .separator {
+    color: #9ca3af;
+    margin: 0 0.5rem;
+  }
+
+  .breadcrumb a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover {
+    color: #0052a3;
+    text-decoration: underline;
+  }
+
+  .breadcrumb .active {
+    color: #666;
+    font-weight: 500;
+  }
+
+  /* 文章容器 */
+  .tutorial-article {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 文章头部样式 */
+  .article-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .article-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+
+  .article-description {
+    font-size: 1.125rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    color: #666;
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .meta-icon {
+    font-size: 1.125rem;
+  }
+
+  /* 难度徽章 */
+  .difficulty-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .difficulty-badge.beginner {
+    background: #d1fae5;
+    color: #065f46;
+  }
+
+  .difficulty-badge.intermediate {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .difficulty-badge.advanced {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  /* 前置要求 */
+  .prerequisites {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f0f9ff;
+    border-left: 4px solid #0066cc;
+    border-radius: 0.5rem;
+  }
+
+  .prerequisites strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+  }
+
+  .prerequisites-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .prerequisites-list li {
+    padding: 0.25rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .prerequisites-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #0066cc;
+    font-weight: bold;
+  }
+
+  /* 标签 */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    padding: 0.25rem 0.75rem;
+    background: #f3f4f6;
+    color: #4b5563;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+  }
+
+  /* 文章内容 */
+  .article-content {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #374151;
+  }
+
+  .article-content h2 {
+    font-size: 1.875rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+  }
+
+  .article-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
+  }
+
+  .article-content h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #374151;
+  }
+
+  .article-content p {
+    margin-bottom: 1.25rem;
+  }
+
+  .article-content ul,
+  .article-content ol {
+    margin-bottom: 1.25rem;
+    padding-left: 2rem;
+  }
+
+  .article-content li {
+    margin-bottom: 0.5rem;
+  }
+
+  .article-content code {
+    background: #f3f4f6;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.9375em;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  }
+
+  .article-content pre {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-content pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+  }
+
+  .article-content blockquote {
+    border-left: 4px solid #0066cc;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: #666;
+    font-style: italic;
+  }
+
+  .article-content a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+
+  .article-content a:hover {
+    text-decoration: underline;
+  }
+
+  .article-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-content th,
+  .article-content td {
+    border: 1px solid #e5e7eb;
+    padding: 0.75rem;
+    text-align: left;
+  }
+
+  .article-content th {
+    background: #f9fafb;
+    font-weight: 600;
+  }
+
+  /* 文章导航 */
+  .tutorial-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .nav-link {
+    flex: 1;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-link:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .nav-link.prev-post {
+    align-items: flex-start;
+  }
+
+  .nav-link.next-post {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .nav-label {
+    color: #666;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .nav-title {
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 1.0625rem;
+  }
+
+  /* 返回分类链接 */
+  .back-to-category {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .back-to-category a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #f3f4f6;
+    color: #374151;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+
+  .back-to-category a:hover {
+    background: #e5e7eb;
+    color: #1a1a1a;
+  }
+
+  /* 相关文章 */
+  .related-posts {
+    margin-top: 4rem;
+    padding: 2rem;
+    background: #f9fafb;
+    border-radius: 0.75rem;
+  }
+
+  .related-posts h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #1a1a1a;
+  }
+
+  .related-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .related-post-card {
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .related-post-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .related-post-card h4 {
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+    font-size: 1.125rem;
+  }
+
+  .related-post-card p {
+    color: #666;
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+
+  .related-post-meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+
+  .related-post-meta .time {
+    color: #666;
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .tutorial-layout {
+      padding: 1rem 0.5rem;
+    }
+
+    .tutorial-article {
+      padding: 1.5rem 1rem;
+    }
+
+    .article-title {
+      font-size: 1.875rem;
+    }
+
+    .article-description {
+      font-size: 1rem;
+    }
+
+    .article-meta {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .tutorial-nav {
+      flex-direction: column;
+    }
+
+    .nav-link.next-post {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .related-posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

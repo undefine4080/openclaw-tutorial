@@ -1,0 +1,695 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout title="安装部署 - OpenClaw 教程" currentPath="/zh-cn/installation/" description="选择适合您的安装方式，快速开始使用 OpenClaw">
+  <div class="installation-page">
+    <!-- 面包屑导航 -->
+    <div class="breadcrumb-container">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="/zh-cn/">首页</a>
+          <span class="separator">/</span>
+          <span class="current">安装部署</span>
+        </nav>
+      </div>
+    </div>
+
+    <!-- 页面头部 -->
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">安装部署</h1>
+        <p class="page-subtitle">选择适合您的安装方式，快速开始使用 OpenClaw</p>
+
+        <!-- 系统要求提示 -->
+        <div class="info-card">
+          <div class="info-icon">💡</div>
+          <div class="info-content">
+            <h3>系统要求</h3>
+            <ul>
+              <li><strong>Node.js</strong>: 22 或更高版本（官方推荐）</li>
+              <li><strong>npm</strong>: 10 或更高版本</li>
+              <li><strong>操作系统</strong>: macOS、Linux、Windows</li>
+              <li><strong>内存</strong>: 至少 2GB 可用内存</li>
+              <li><strong>磁盘</strong>: 至少 500MB 可用空间</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 板块 1: 本地安装 -->
+    <section class="install-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>💻 本地安装</h2>
+          <p class="section-description">在您的个人电脑上安装 OpenClaw，适合开发和测试</p>
+        </div>
+
+        <div class="install-cards">
+          <div class="install-card">
+            <div class="card-icon">🍎</div>
+            <h3>macOS</h3>
+            <p class="card-description">支持 Intel 和 Apple Silicon</p>
+            <ul class="card-features">
+              <li>一键安装脚本</li>
+              <li>Homebrew 支持</li>
+              <li>完整开发环境</li>
+            </ul>
+            <a href="/zh-cn/installation/local-mac/" class="card-button">查看教程 →</a>
+          </div>
+
+          <div class="install-card">
+            <div class="card-icon">🐧</div>
+            <h3>Linux</h3>
+            <p class="card-description">Ubuntu、Debian、CentOS 等</p>
+            <ul class="card-features">
+              <li>apt/yum 支持</li>
+              <li>Docker 容器化</li>
+              <li>服务器优化</li>
+            </ul>
+            <a href="/zh-cn/installation/local-linux/" class="card-button">查看教程 →</a>
+          </div>
+
+          <div class="install-card">
+            <div class="card-icon">🪟</div>
+            <h3>Windows</h3>
+            <p class="card-description">Windows 10/11 支持</p>
+            <ul class="card-features">
+              <li>WSL2 集成</li>
+              <li>PowerShell 脚本</li>
+              <li>图形界面工具</li>
+            </ul>
+            <a href="/zh-cn/installation/local-windows/" class="card-button">查看教程 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 板块 2: 云端部署 -->
+    <section class="install-section cloud-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>☁️ 云端部署</h2>
+          <p class="section-description">在云服务器上部署，适合生产环境和团队协作</p>
+        </div>
+
+        <div class="install-cards">
+          <div class="install-card">
+            <div class="card-icon">🟠</div>
+            <h3>阿里云</h3>
+            <p class="card-description">ECS 云服务器部署</p>
+            <ul class="card-features">
+              <li>一键部署镜像</li>
+              <li>弹性计算支持</li>
+              <li>高可用方案</li>
+            </ul>
+            <a href="/zh-cn/installation/cloud-aliyun/" class="card-button">查看教程 →</a>
+          </div>
+
+          <div class="install-card">
+            <div class="card-icon">🔵</div>
+            <h3>腾讯云</h3>
+            <p class="card-description">CVM 云服务器部署</p>
+            <ul class="card-features">
+              <li>轻量应用服务器</li>
+              <li>容器服务集成</li>
+              <li>自动扩缩容</li>
+            </ul>
+            <a href="/zh-cn/installation/cloud-tencent/" class="card-button">查看教程 →</a>
+          </div>
+
+          <div class="install-card">
+            <div class="card-icon">🔴</div>
+            <h3>火山引擎</h3>
+            <p class="card-description">字节跳动云服务</p>
+            <ul class="card-features">
+              <li>高性能计算</li>
+              <li>GPU 实例支持</li>
+              <li>成本优化</li>
+            </ul>
+            <a href="/zh-cn/installation/cloud-volcano/" class="card-button">查看教程 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 板块 3: 一键部署平台 -->
+    <section class="install-section platform-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>🚀 一键部署平台</h2>
+          <p class="section-description">使用第三方平台，零配置快速开始</p>
+        </div>
+
+        <div class="platform-grid">
+          <div class="platform-item featured">
+            <div class="platform-header">
+              <h4>字节 ArkClaw</h4>
+              <span class="platform-tag recommended">推荐</span>
+            </div>
+            <p>字节跳动官方平台，开箱即用</p>
+            <ul class="platform-features">
+              <li>免费额度</li>
+              <li>自动更新</li>
+              <li>企业级支持</li>
+            </ul>
+          </div>
+
+          <div class="platform-item">
+            <div class="platform-header">
+              <h4>腾讯 QClaw</h4>
+            </div>
+            <p>腾讯云集成方案</p>
+            <ul class="platform-features">
+              <li>云函数部署</li>
+              <li>API 网关集成</li>
+              <li>监控告警</li>
+            </ul>
+          </div>
+
+          <div class="platform-item">
+            <div class="platform-header">
+              <h4>智谱 AutoClaw</h4>
+            </div>
+            <p>智谱 AI 托管服务</p>
+            <ul class="platform-features">
+              <li>GLM 模型优化</li>
+              <li>智能调度</li>
+              <li>数据分析</li>
+            </ul>
+          </div>
+
+          <div class="platform-item">
+            <div class="platform-header">
+              <h4>猎豹 EasyClaw</h4>
+            </div>
+            <p>简化版部署方案</p>
+            <ul class="platform-features">
+              <li>零配置</li>
+              <li>快速启动</li>
+              <li>新手友好</li>
+            </ul>
+          </div>
+
+          <div class="platform-item enterprise">
+            <div class="platform-header">
+              <h4>腾讯 WorkBuddy</h4>
+              <span class="platform-tag enterprise">企业</span>
+            </div>
+            <p>企业级解决方案</p>
+            <ul class="platform-features">
+              <li>私有化部署</li>
+              <li>权限管理</li>
+              <li>审计日志</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cta-section">
+          <a href="/zh-cn/installation/one-click-deployment/" class="cta-button">
+            查看一键部署教程 →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 帮助提示 -->
+    <section class="help-section">
+      <div class="container">
+        <div class="help-card">
+          <h3>💬 需要帮助？</h3>
+          <p>如果在安装过程中遇到问题，可以查看我们的疑难解答页面或在社区提问</p>
+          <div class="help-links">
+            <a href="/zh-cn/troubleshooting/" class="help-link">疑难解答</a>
+            <a href="https://github.com/openclaw/openclaw/issues" target="_blank" rel="noopener" class="help-link external">
+              GitHub Issues
+            </a>
+            <a href="/bugs/" class="help-link">搜索问题</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  /* 基础布局 */
+  .installation-page {
+    background: #f9fafb;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* 面包屑导航 */
+  .breadcrumb-container {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem 0;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .breadcrumb a {
+    color: #6b7280;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover {
+    color: #667eea;
+  }
+
+  .separator {
+    color: #d1d5db;
+  }
+
+  .current {
+    color: #1f2937;
+    font-weight: 600;
+  }
+
+  /* 页面头部 */
+  .page-header {
+    background: white;
+    padding: 3rem 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+
+  /* 信息卡片 */
+  .info-card {
+    display: flex;
+    gap: 1.5rem;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .info-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .info-content h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e40af;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .info-content li {
+    padding: 0.375rem 0;
+    color: #1e40af;
+    font-size: 0.9375rem;
+  }
+
+  /* 安装板块 */
+  .install-section {
+    padding: 4rem 0;
+  }
+
+  .cloud-section {
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .platform-section {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-description {
+    color: #6b7280;
+    font-size: 1rem;
+  }
+
+  /* 安装卡片网格 */
+  .install-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .install-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .install-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .install-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    border-color: #667eea;
+  }
+
+  .install-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .install-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-description {
+    color: #6b7280;
+    margin-bottom: 1rem;
+    font-size: 0.9375rem;
+  }
+
+  .card-features {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    text-align: left;
+  }
+
+  .card-features li {
+    padding: 0.375rem 0;
+    color: #4b5563;
+    font-size: 0.875rem;
+    position: relative;
+    padding-left: 1.25rem;
+  }
+
+  .card-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #667eea;
+    font-weight: 700;
+  }
+
+  .card-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+
+  /* 平台网格 */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .platform-item {
+    position: relative;
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+  }
+
+  .platform-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    border-color: #667eea;
+  }
+
+  .platform-item.featured {
+    border: 2px solid #667eea;
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  }
+
+  .platform-item.enterprise {
+    border: 2px solid #f59e0b;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  }
+
+  .platform-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .platform-header h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+  }
+
+  .platform-tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .platform-tag.recommended {
+    background: #667eea;
+    color: white;
+  }
+
+  .platform-tag.enterprise {
+    background: #f59e0b;
+    color: white;
+  }
+
+  .platform-item p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .platform-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .platform-features li {
+    padding: 0.375rem 0;
+    color: #4b5563;
+    font-size: 0.8125rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .platform-features li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #667eea;
+    font-weight: 700;
+  }
+
+  /* CTA 区域 */
+  .cta-section {
+    text-align: center;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  /* 帮助区域 */
+  .help-section {
+    background: white;
+    padding: 4rem 0;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .help-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .help-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+
+  .help-card p {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+  }
+
+  .help-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .help-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    color: #4b5563;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .help-link:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+  }
+
+  .help-link.external::after {
+    content: ' ↗';
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 1024px) {
+    .install-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .platform-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+    }
+
+    .install-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .platform-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .info-card {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .help-links {
+      flex-direction: column;
+    }
+
+    .help-link {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .page-header {
+      padding: 2rem 0;
+    }
+
+    .install-section {
+      padding: 3rem 0;
+    }
+
+    .help-section {
+      padding: 3rem 0;
+    }
+  }
+</style>

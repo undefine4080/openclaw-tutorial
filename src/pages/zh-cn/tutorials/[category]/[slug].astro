@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import TutorialLayout from '../../../../layouts/TutorialLayout.astro';
+
+export async function getStaticPaths() {
+  // 获取所有中文文章
+  const allPosts = await getCollection('posts-zh-cn');
+
+  // 筛选有 category 字段的已发布文章
+  const tutorialPosts = allPosts
+    .filter(post => post.data.category && post.data.status !== 'draft')
+    .map(post => ({
+      params: {
+        category: post.data.category,
+        slug: post.slug,
+      },
+      props: { post },
+    }));
+
+  return tutorialPosts;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<TutorialLayout post={post}>
+  <Content />
+</TutorialLayout>
