@@ -7,6 +7,11 @@ tags: ["telegram", "频道", "快速开始", "初学者"]
 difficulty: "beginner"
 estimatedTime: "5 minutes"
 prerequisites: ["已安装OpenClaw", "Telegram账号"]
+category: 01-getting-started
+order: 2
+prevPost: start
+nextPost: channels-discord
+relatedPosts: ["start", "channels-discord", "config-gateway"]
 alternates:
   en: "/posts/channels-telegram/"
 ---
