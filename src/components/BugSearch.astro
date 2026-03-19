@@ -77,21 +77,26 @@
   // 执行搜索
   async function performSearch(query: string) {
     try {
-      // 加载 bug 数据
-      const response = await fetch('/data/bug-reports/bugs-zh-cn.json');
-      const data = await response.json();
-      const bugs = data.bugs;
+      // 加载搜索索引（优化：使用索引而不是完整数据）
+      const response = await fetch('/data/bug-reports/bugs-search-index.json');
+      const data = { bugs: await response.json() }; // 适配现有结构
+      const bugs = data.bugs.index; // 搜索索引中的数据
 
-      // 搜索逻辑
+      // 搜索逻辑（优化：使用预提取的搜索词）
+      const searchTerms = query.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+
       const results = bugs.filter((bug: any) => {
-        const title = (bug.translations?.zhCN?.title || bug.title).toLowerCase();
-        const description = (bug.translations?.zhCN?.description || bug.description).toLowerCase();
-        const errorMessage = (bug.error_message || '').toLowerCase();
-        const searchQuery = query.toLowerCase();
+        const title = bug.title.toLowerCase();
+        const shortDesc = bug.short_desc.toLowerCase();
 
-        return title.includes(searchQuery) ||
-               description.includes(searchQuery) ||
-               errorMessage.includes(searchQuery);
+        // 使用预提取的搜索词进行快速匹配
+        const hasSearchTermMatch = searchTerms.some((term: string) =>
+          bug.search_terms.includes(term)
+        );
+
+        return hasSearchTermMatch ||
+               title.includes(query.toLowerCase()) ||
+               shortDesc.includes(query.toLowerCase());
       });
 
       // 显示结果
@@ -122,13 +127,14 @@
 
     let html = '';
     results.forEach((bug: any) => {
-      const title = bug.translations?.zhCN?.title || bug.title;
-      const description = bug.translations?.zhCN?.description || bug.description;
+      // 适配搜索索引的数据结构
+      const title = bug.title;
+      const description = bug.short_desc;
 
       html += `
         <div class="result-card">
           <h4>${title}</h4>
-          <p>${description.substring(0, 150)}${description.length > 150 ? '...' : ''}</p>
+          <p>${description}${description.length >= 200 ? '...' : ''}</p>
           <div class="result-footer">
             <div class="result-labels">
               ${bug.labels.slice(0, 2).map((label: string) =>

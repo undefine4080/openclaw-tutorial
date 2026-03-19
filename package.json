@@ -12,7 +12,9 @@
     "postbuild": "pagefind --site dist",
     "collect-issues": "node scripts/collect-github-issues.js",
     "convert-issues": "node scripts/convert-issues-to-posts.js",
-    "collect-bugs": "node scripts/collect-bug-reports.js"
+    "collect-bugs": "node scripts/collect-bug-reports.js",
+    "translate-bugs": "node scripts/translate-bugs.js",
+    "generate-search-index": "node scripts/generate-search-index.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

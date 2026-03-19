@@ -52,7 +52,8 @@ import BugSearch from '../../components/BugSearch.astro';
   // 加载 bug reports 数据
   async function loadBugReports() {
     try {
-      const response = await fetch('/data/bug-reports/bugs-zh-cn.json');
+      // 加载搜索索引（优化：使用轻量级索引）
+      const response = await fetch('/data/bug-reports/bugs-search-index.json');
       const data = await response.json();
 
       // 更新统计
@@ -61,8 +62,8 @@ import BugSearch from '../../components/BugSearch.astro';
         totalBugsElement.textContent = data.meta.total_count;
       }
 
-      // 渲染 bug 列表
-      renderBugs(data.bugs);
+      // 渲染 bug 列表（适配索引结构）
+      renderBugs(data.index);
 
     } catch (error) {
       console.error('Failed to load bug reports:', error);
@@ -70,8 +71,7 @@ import BugSearch from '../../components/BugSearch.astro';
       if (bugsContainer) {
         bugsContainer.innerHTML =
           '<div class="error-message">' +
-          '<p>加载失败，请确保已运行 <code>npm run collect-bugs</code></p>' +
-          '<p>并将数据复制到 <code>public/data/bug-reports/</code></p>' +
+          '<p>加载失败，请确保已运行 <code>npm run generate-search-index</code></p>' +
           '</div>';
       }
     }
@@ -89,8 +89,9 @@ import BugSearch from '../../components/BugSearch.astro';
     let html = '';
 
     pageBugs.forEach((bug: any, index: number) => {
-      const title = bug.translations?.zhCN?.title || bug.title;
-      const description = bug.translations?.zhCN?.description || bug.description;
+      // 适配搜索索引的数据结构
+      const title = bug.title;
+      const description = bug.short_desc;
       const globalIndex = start + index + 1;
 
       html += `
@@ -104,18 +105,10 @@ import BugSearch from '../../components/BugSearch.astro';
             ${bug.labels.map((label: string) =>
               `<span class="badge">${label}</span>`
             ).join('')}
-            <span class="badge badge-info">版本 ${bug.version}</span>
-            <span class="badge badge-purple">${bug.platform}</span>
           </div>
 
-          ${bug.error_message ? `
-            <div class="error-box">
-              <code>${bug.error_message.substring(0, 150)}...</code>
-            </div>
-          ` : ''}
-
           <p class="bug-description">
-            ${description.substring(0, 300)}${description.length > 300 ? '...' : ''}
+            ${description}${description.length >= 200 ? '...' : ''}
           </p>
 
           <div class="bug-footer">
