@@ -10,67 +10,67 @@ const allPosts = await getCollection('posts-zh-cn',
 // 教程分类配置
 const categories = [
   {
-    id: '01-getting-started',
+    id: 'getting-started',
     title: '新手上路',
     titleEn: 'Getting Started',
     description: '快速搭建第一个可用的 OpenClaw 实例',
     icon: '🚀',
     topics: ['模型接入', '飞书', '微信', 'QQ', '企业微信'],
-    path: '/zh-cn/tutorials/01-getting-started/'
+    path: '/zh-cn/tutorials/getting-started/'
   },
   {
-    id: '02-initialization',
+    id: 'initialization',
     title: '初始化小龙虾',
     titleEn: 'Initialize OpenClaw',
     description: '理解并配置 OpenClaw 的核心配置文件',
     icon: '⚙️',
     topics: ['AGENTS.md', 'USER.md', 'SOUL.md'],
-    path: '/zh-cn/tutorials/02-initialization/'
+    path: '/zh-cn/tutorials/initialization/'
   },
   {
-    id: '03-claw-eyes',
+    id: 'claw-eyes',
     title: '小龙虾的眼睛',
     titleEn: 'OpenClaw Vision',
     description: '配置和使用 OpenClaw 的图像理解能力',
     icon: '👁️',
     topics: ['视觉能力', '图像处理', '视频理解'],
-    path: '/zh-cn/tutorials/03-claw-eyes/'
+    path: '/zh-cn/tutorials/claw-eyes/'
   },
   {
-    id: '04-claw-hands',
+    id: 'claw-hands',
     title: '小龙虾的手脚',
     titleEn: 'OpenClaw Tools',
     description: '使用工具调用和 API 集成扩展能力',
     icon: '🤝',
     topics: ['工具调用', 'API 集成', '自动化'],
-    path: '/zh-cn/tutorials/04-claw-hands/'
+    path: '/zh-cn/tutorials/claw-hands/'
   },
   {
-    id: '05-claw-brain',
+    id: 'claw-brain',
     title: '小龙虾的大脑',
     titleEn: 'OpenClaw Brain',
     description: '配置记忆系统和多 Agent 协作',
     icon: '🧠',
     topics: ['记忆系统', '协作机制', '上下文管理'],
-    path: '/zh-cn/tutorials/05-claw-brain/'
+    path: '/zh-cn/tutorials/claw-brain/'
   },
   {
-    id: '06-essential-skills',
+    id: 'essential-skills',
     title: '必备技能包',
     titleEn: 'Essential Skills',
     description: '掌握常用技能和最佳实践',
     icon: '🎯',
     topics: ['新手必备', '开发者热门', '自媒体热门', '热门通用'],
-    path: '/zh-cn/tutorials/06-essential-skills/'
+    path: '/zh-cn/tutorials/essential-skills/'
   },
   {
-    id: '07-multi-agents',
+    id: 'multi-agents',
     title: '多 Agents 能力',
     titleEn: 'Multi-Agent Systems',
     description: '配置和管理多个 Agent 协作',
     icon: '🤖',
     topics: ['基础入门', '进阶技巧'],
-    path: '/zh-cn/tutorials/07-multi-agents/'
+    path: '/zh-cn/tutorials/multi-agents/'
   }
 ];
 
@@ -533,6 +533,158 @@ const categoriesWithCount = categories.map(cat => ({
     .card-button {
       width: 100%;
       text-align: center;
+    }
+  }
+
+  /* 亮色模式样式 */
+  html.light-mode {
+    /* 页面背景 - 浅灰渐变 */
+    .tutorials-page {
+      background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+    }
+
+    /* 面包屑导航 */
+    .breadcrumb-nav {
+      background: linear-gradient(to bottom, #ffffff, #f9fafb);
+      border-bottom: 1px solid #d1d5db;
+    }
+
+    .breadcrumb a {
+      color: #374151;
+    }
+
+    .breadcrumb a:hover {
+      color: #667eea;
+    }
+
+    .breadcrumb .separator {
+      color: #9ca3af;
+    }
+
+    .breadcrumb .current {
+      color: #667eea;
+    }
+
+    /* 页面头部 - 亮色渐变背景 */
+    .page-header {
+      background: linear-gradient(135deg, #818cf8 0%, #6366f1 50%, #4f46e5 100%);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .page-title {
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-subtitle {
+      color: #e0e7ff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 学习路径卡片 */
+    .learning-path {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(249, 250, 251, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .path-title {
+      color: #1f2937;
+      text-shadow: none;
+    }
+
+    .path-description {
+      color: #4b5563;
+    }
+
+    .path-steps li {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      color: #374151;
+    }
+
+    .path-steps li::before {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+    }
+
+    .path-steps strong {
+      color: #4f46e5;
+    }
+
+    /* 教程卡片 */
+    .tutorial-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    .tutorial-card:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-color: #d1d5db;
+    }
+
+    .card-badge {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      box-shadow: 0 4px 6px rgba(102, 126, 234, 0.25);
+    }
+
+    .card-title {
+      color: #111827;
+      text-shadow: none;
+    }
+
+    .card-description {
+      color: #6b7280;
+    }
+
+    .topic {
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+
+    .topic:hover {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-color: #667eea;
+    }
+
+    .card-footer {
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .post-count {
+      color: #9ca3af;
+    }
+
+    .card-button {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      box-shadow: 0 4px 6px rgba(102, 126, 234, 0.25);
+    }
+
+    .card-button:hover {
+      box-shadow: 0 6px 8px rgba(102, 126, 234, 0.3);
+    }
+
+    /* 学习提示卡片 */
+    .tips-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    .tips-card h2 {
+      color: #111827;
+      text-shadow: none;
+    }
+
+    .tip-content h4 {
+      color: #1f2937;
+    }
+
+    .tip-content p {
+      color: #6b7280;
     }
   }
 </style>

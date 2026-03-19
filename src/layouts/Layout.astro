@@ -92,4 +92,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     flex: 1;
     padding-top: 65px; /* 为固定导航栏留出空间 */
   }
+
+  /* ========================================
+     亮色模式全局样式
+     ======================================== */
+  html.light-mode body {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.02) 2px,
+        rgba(0, 0, 0, 0.02) 4px
+      ),
+      linear-gradient(
+        135deg,
+        #f9fafb 0%,
+        #e5e7eb 50%,
+        #f9fafb 100%
+      );
+    background-attachment: fixed;
+  }
 </style>

@@ -23,13 +23,13 @@ const post = defineCollection({
 
     // 教程分类（用于组织文章到不同的主题分类）
     category: z.enum([
-      '01-getting-started',      // 新手上路
-      '02-initialization',       // 初始化小龙虾
-      '03-claw-eyes',           // 小龙虾的眼睛
-      '04-claw-hands',          // 小龙虾的手脚
-      '05-claw-brain',          // 小龙虾的大脑
-      '06-essential-skills',    // 必备技能包
-      '07-multi-agents',        // 多 Agents 能力
+      'getting-started',      // 新手上路
+      'initialization',       // 初始化小龙虾
+      'claw-eyes',           // 小龙虾的眼睛
+      'claw-hands',          // 小龙虾的手脚
+      'claw-brain',          // 小龙虾的大脑
+      'essential-skills',    // 必备技能包
+      'multi-agents',        // 多 Agents 能力
       'installation',           // 安装部署
       'troubleshooting',        // 疑难解答
     ]).optional(),

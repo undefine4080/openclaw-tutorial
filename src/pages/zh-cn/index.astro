@@ -94,7 +94,7 @@ import Layout from '../../layouts/Layout.astro';
               <span class="topic">QQ</span>
               <span class="topic">企业微信</span>
             </div>
-            <a href="#" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/getting-started/" class="tutorial-link">查看教程 →</a>
           </div>
 
           <!-- 02 初始化小龙虾 -->
@@ -107,7 +107,7 @@ import Layout from '../../layouts/Layout.astro';
               <span class="topic">USER.md</span>
               <span class="topic">SOUL.md</span>
             </div>
-            <a href="#" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/initialization/" class="tutorial-link">查看教程 →</a>
           </div>
 
           <!-- 03 小龙虾的眼睛 -->
@@ -120,7 +120,7 @@ import Layout from '../../layouts/Layout.astro';
               <span class="topic">图像处理</span>
               <span class="topic">视频理解</span>
             </div>
-            <a href="#" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/claw-eyes/" class="tutorial-link">查看教程 →</a>
           </div>
 
           <!-- 04 小龙虾的手脚 -->
@@ -133,7 +133,7 @@ import Layout from '../../layouts/Layout.astro';
               <span class="topic">API 集成</span>
               <span class="topic">自动化</span>
             </div>
-            <a href="#" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/claw-hands/" class="tutorial-link">查看教程 →</a>
           </div>
 
           <!-- 05 小龙虾的大脑 -->
@@ -146,7 +146,7 @@ import Layout from '../../layouts/Layout.astro';
               <span class="topic">协作机制</span>
               <span class="topic">上下文管理</span>
             </div>
-            <a href="#" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/claw-brain/" class="tutorial-link">查看教程 →</a>
           </div>
 
           <!-- 06 必备技能包 -->
@@ -160,7 +160,7 @@ import Layout from '../../layouts/Layout.astro';
               <span class="topic">自媒体热门</span>
               <span class="topic">热门通用</span>
             </div>
-            <a href="#" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/essential-skills/" class="tutorial-link">查看教程 →</a>
           </div>
 
           <!-- 07 多 Agents 能力 -->
@@ -172,7 +172,7 @@ import Layout from '../../layouts/Layout.astro';
               <span class="topic">基础入门</span>
               <span class="topic">进阶技巧</span>
             </div>
-            <a href="#" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/multi-agents/" class="tutorial-link">查看教程 →</a>
           </div>
         </div>
       </div>
@@ -1124,5 +1124,446 @@ import Layout from '../../layouts/Layout.astro';
     .cta-button {
       width: 100%;
     }
+  }
+
+  /* ========================================
+     亮色模式样式
+     ======================================== */
+  html.light-mode .homepage {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(209, 213, 219, 0.03) 2px,
+        rgba(209, 213, 219, 0.03) 4px
+      ),
+      linear-gradient(
+        135deg,
+        #f9fafb 0%,
+        #e5e7eb 50%,
+        #f9fafb 100%
+      );
+  }
+
+  html.light-mode .section-title {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .section-icon {
+    filter: none;
+  }
+
+  html.light-mode .section-subtitle {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .hero {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.05) 1px,
+        rgba(209, 213, 219, 0.05) 2px
+      ),
+      linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+    color: #111827;
+    border-bottom-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 0 30px rgba(0, 0, 0, 0.05);
+  }
+
+  html.light-mode .hero-title {
+    text-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light-mode .hero-subtitle {
+    text-shadow: none;
+  }
+
+  html.light-mode .cta-button.primary {
+    background: linear-gradient(180deg, #e5e7eb 0%, #d1d5db 50%, #9ca3af 100%);
+    color: #111827;
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+  }
+
+  html.light-mode .cta-button.secondary {
+    background: linear-gradient(180deg, rgba(229, 231, 235, 0.5) 0%, rgba(209, 213, 219, 0.5) 100%);
+    color: #374151;
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.05),
+      0 2px 6px rgba(0, 0, 0, 0.08);
+    text-shadow: none;
+  }
+
+  html.light-mode .cta-button.primary:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .cta-button.secondary:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.05),
+      0 4px 10px rgba(0, 0, 0, 0.12);
+  }
+
+  html.light-mode .card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.1) 1px,
+        rgba(209, 213, 219, 0.1) 2px
+      ),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .card::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
+  }
+
+  html.light-mode .card:hover {
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  html.light-mode .card-header {
+    border-bottom-color: #e5e7eb;
+  }
+
+  html.light-mode .card-icon {
+    filter: none;
+  }
+
+  html.light-mode .card h3 {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .card-list li {
+    border-bottom-color: #e5e7eb;
+  }
+
+  html.light-mode .card-list a {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .card-list a:hover {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .tutorial-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.1) 1px,
+        rgba(209, 213, 219, 0.1) 2px
+      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .tutorial-card::before {
+    border-color: #d1d5db;
+  }
+
+  html.light-mode .tutorial-card:hover {
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  html.light-mode .tutorial-badge {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #e5e7eb,
+        #f3f4f6 2px,
+        #e5e7eb 4px
+      );
+    color: #374151;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 6px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+  }
+
+  html.light-mode .tutorial-title {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .tutorial-description {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .topic {
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+    color: #374151;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    text-shadow: none;
+  }
+
+  html.light-mode .tutorial-link {
+    color: #374151;
+    text-shadow: none;
+  }
+
+  html.light-mode .tutorial-link:hover {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .search-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.15) 1px,
+        rgba(209, 213, 219, 0.15) 2px
+      ),
+      linear-gradient(135deg, #e5e7eb 0%, #d1d5db 50%, #9ca3af 100%);
+    color: #111827;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.6),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .search-icon {
+    filter: none;
+  }
+
+  html.light-mode .search-card h3 {
+    text-shadow: none;
+  }
+
+  html.light-mode .search-card p {
+    text-shadow: none;
+  }
+
+  html.light-mode .search-button {
+    background: linear-gradient(180deg, #d1d5db 0%, #9ca3af 100%);
+    color: #111827;
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.6),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.15);
+    text-shadow: none;
+  }
+
+  html.light-mode .search-button:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.6),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  html.light-mode .issues-list {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.08) 1px,
+        rgba(209, 213, 219, 0.08) 2px
+      ),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .issues-list h3 {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .issue-item {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    color: #4b5563;
+    border-color: #e5e7eb;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .issue-item:hover {
+    background: linear-gradient(180deg, rgba(229, 231, 235, 0.5) 0%, rgba(209, 213, 219, 0.3) 100%);
+    color: #111827;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 2px 6px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+  }
+
+  html.light-mode .calculator-preview {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.1) 1px,
+        rgba(209, 213, 219, 0.1) 2px
+      ),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .preview-icon {
+    filter: none;
+  }
+
+  html.light-mode .preview-content h3 {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .preview-content p {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .feature-list li {
+    color: #374151;
+    text-shadow: none;
+  }
+
+  html.light-mode .preview-button {
+    background: linear-gradient(180deg, #d1d5db 0%, #9ca3af 100%);
+    color: #111827;
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.6),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.12);
+    text-shadow: none;
+  }
+
+  html.light-mode .preview-button:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.6),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.18);
+  }
+
+  html.light-mode .community-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.1) 1px,
+        rgba(209, 213, 219, 0.1) 2px
+      ),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .community-card .card-icon {
+    filter: none;
+  }
+
+  html.light-mode .community-card h3 {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .link-list a {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .link-list a:hover {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .footer {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(209, 213, 219, 0.1) 2px,
+        rgba(209, 213, 219, 0.1) 4px
+      ),
+      linear-gradient(
+        180deg,
+        #e5e7eb 0%,
+        #d1d5db 100%
+      );
+    color: #374151;
+    border-top-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.6),
+      0 -4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .disclaimer {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  html.light-mode .disclaimer a {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .footer-links {
+    color: #6b7280;
+    text-shadow: none;
   }
 </style>

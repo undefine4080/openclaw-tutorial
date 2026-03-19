@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import Navigation from '../components/Navigation.astro';
 
 interface Props {
   post: {
@@ -31,22 +32,22 @@ const { post } = Astro.props;
 const allPosts = await getCollection('posts-zh-cn');
 const publishedPosts = allPosts.filter(p => p.data.status !== 'draft');
 
-// 分类名称映射
+// 分类名称映射（更新为不带编号的版本）
 const categoryNames: Record<string, string> = {
-  '01-getting-started': '新手上路',
-  '02-initialization': '初始化小龙虾',
-  '03-claw-eyes': '小龙虾的眼睛',
-  '04-claw-hands': '小龙虾的手脚',
-  '05-claw-brain': '小龙虾的大脑',
-  '06-essential-skills': '必备技能包',
-  '07-multi-agents': '多 Agents 能力',
+  'getting-started': '新手上路',
+  'initialization': '初始化小龙虾',
+  'claw-eyes': '小龙虾的眼睛',
+  'claw-hands': '小龙虾的手脚',
+  'claw-brain': '小龙虾的大脑',
+  'essential-skills': '必备技能包',
+  'multi-agents': '多 Agents 能力',
   'installation': '安装部署',
   'troubleshooting': '疑难解答',
 };
 
 // 难度级别映射
 const difficultyLabels: Record<string, string> = {
-  'beginner': '初级',
+  'beginner': '入门',
   'intermediate': '中级',
   'advanced': '高级',
 };
@@ -95,32 +96,32 @@ const currentCategory = post.data.category;
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{post.data.title} - OpenClaw 教程</title>
     <meta name="description" content={post.data.description} />
-
-    <link rel="stylesheet" href="/styles/global.css" />
-    <link rel="stylesheet" href="/styles/tutorial.css" />
   </head>
   <body>
+    <Navigation currentPath={`/zh-cn/tutorials/${currentCategory}/${post.slug}/`} />
     <div class="tutorial-layout">
       <!-- 面包屑导航 -->
       <nav class="breadcrumb" aria-label="面包屑导航">
-        <ol class="breadcrumb-list">
-          <li><a href="/zh-cn/">🏠 首页</a></li>
-          <li><span class="separator">/</span></li>
-          <li><a href="/zh-cn/tutorials/">教程</a></li>
-          {currentCategory && (
-            <>
-              <li><span class="separator">/</span></li>
-              <li><a href={`/zh-cn/tutorials/${currentCategory}/`}>{categoryNames[currentCategory]}</a></li>
-            </>
-          )}
-          <li><span class="separator">/</span></li>
-          <li class="active" aria-current="page">{post.data.title}</li>
-        </ol>
+        <div class="breadcrumb-container">
+          <ol class="breadcrumb-list">
+            <li><a href="/zh-cn/">🏠 首页</a></li>
+            <li><span class="separator">/</span></li>
+            <li><a href="/zh-cn/tutorials/">教程</a></li>
+            {currentCategory && (
+              <>
+                <li><span class="separator">/</span></li>
+                <li><a href={`/zh-cn/tutorials/${currentCategory}/`}>{categoryNames[currentCategory]}</a></li>
+              </>
+            )}
+            <li><span class="separator">/</span></li>
+            <li class="active" aria-current="page">{post.data.title}</li>
+          </ol>
+        </div>
       </nav>
 
       <!-- 文章容器 -->
@@ -151,7 +152,7 @@ const currentCategory = post.data.category;
             </div>
 
             <div class="meta-item">
-              <span class={`difficulty-badge ${post.data.difficulty}`}>
+              <span class={`difficulty-badge difficulty-${post.data.difficulty}`}>
                 {difficultyLabels[post.data.difficulty]}
               </span>
             </div>
@@ -159,7 +160,7 @@ const currentCategory = post.data.category;
 
           {post.data.prerequisites.length > 0 && (
             <div class="prerequisites">
-              <strong>前置要求：</strong>
+              <strong>⚡ 前置要求</strong>
               <ul class="prerequisites-list">
                 {post.data.prerequisites.map(prereq => (
                   <li>{prereq}</li>
@@ -188,20 +189,26 @@ const currentCategory = post.data.category;
             {prevPost && (
               <a
                 href={`/zh-cn/tutorials/${currentCategory || 'posts'}/${prevPost.slug}/`}
-                class="nav-link prev-post"
+                class="nav-link prev-post titanium-button-secondary"
               >
-                <span class="nav-label">← 上一篇</span>
-                <span class="nav-title">{prevPost.data.title}</span>
+                <span class="nav-icon">←</span>
+                <div class="nav-content">
+                  <span class="nav-label">上一篇</span>
+                  <span class="nav-title">{prevPost.data.title}</span>
+                </div>
               </a>
             )}
 
             {nextPost && (
               <a
                 href={`/zh-cn/tutorials/${currentCategory || 'posts'}/${nextPost.slug}/`}
-                class="nav-link next-post"
+                class="nav-link next-post titanium-button-secondary"
               >
-                <span class="nav-label">下一篇 →</span>
-                <span class="nav-title">{nextPost.data.title}</span>
+                <div class="nav-content">
+                  <span class="nav-label">下一篇</span>
+                  <span class="nav-title">{nextPost.data.title}</span>
+                </div>
+                <span class="nav-icon">→</span>
               </a>
             )}
           </nav>
@@ -210,7 +217,7 @@ const currentCategory = post.data.category;
         <!-- 返回分类链接 -->
         {currentCategory && (
           <div class="back-to-category">
-            <a href={`/zh-cn/tutorials/${currentCategory}/`}>
+            <a href={`/zh-cn/tutorials/${currentCategory}/`} class="titanium-button">
               ← 返回 {categoryNames[currentCategory]}
             </a>
           </div>
@@ -219,21 +226,21 @@ const currentCategory = post.data.category;
         <!-- 相关文章推荐 -->
         {relatedPosts.length > 0 && (
           <aside class="related-posts">
-            <h3>相关文章推荐</h3>
+            <h3>📚 相关文章推荐</h3>
             <div class="related-posts-grid">
               {relatedPosts.map((relatedPost) => (
                 relatedPost && (
                   <a
                     href={`/zh-cn/tutorials/${relatedPost.data.category || 'posts'}/${relatedPost.slug}/`}
-                    class="related-post-card"
+                    class="related-post-card titanium-card"
                   >
                     <h4>{relatedPost.data.title}</h4>
                     <p>{relatedPost.data.description}</p>
                     <div class="related-post-meta">
-                      <span class={`difficulty-badge ${relatedPost.data.difficulty}`}>
+                      <span class={`difficulty-badge difficulty-${relatedPost.data.difficulty}`}>
                         {difficultyLabels[relatedPost.data.difficulty]}
                       </span>
-                      <span class="time">{relatedPost.data.estimatedTime}</span>
+                      <span class="time">⏱️ {relatedPost.data.estimatedTime}</span>
                     </div>
                   </a>
                 )
@@ -247,7 +254,11 @@ const currentCategory = post.data.category;
 </html>
 
 <style is:global>
-  /* 全局重置 */
+  /* ========================================
+     钛金属深色拟物化设计风格
+     ======================================== */
+
+  /* 全局重置和基础样式 */
   * {
     box-sizing: border-box;
     margin: 0;
@@ -259,20 +270,55 @@ const currentCategory = post.data.category;
                  'Microsoft YaHei', Helvetica, Arial, sans-serif,
                  'Apple Color Emoji', 'Segoe UI Emoji';
     line-height: 1.6;
-    color: #333;
-    background: #f9fafb;
+    color: #e4e4e7;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(113, 113, 122, 0.03) 2px,
+        rgba(113, 113, 122, 0.03) 4px
+      ),
+      linear-gradient(
+        135deg,
+        #0a0e27 0%,
+        #1a1f3a 50%,
+        #0a0e27 100%
+      );
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 
   .tutorial-layout {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 6.5rem 1rem 4rem 1rem;
   }
 
-  /* 面包屑导航样式 */
+  /* ========================================
+     面包屑导航 - 钛金属风格
+     ======================================== */
   .breadcrumb {
     padding: 1rem 0;
     margin-bottom: 2rem;
+  }
+
+  .breadcrumb-container {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, rgba(39, 39, 42, 0.8) 0%, rgba(24, 24, 27, 0.8) 100%);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(212, 212, 216, 0.3);
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.15),
+      0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   .breadcrumb-list {
@@ -281,6 +327,7 @@ const currentCategory = post.data.category;
     list-style: none;
     gap: 0.5rem;
     align-items: center;
+    font-size: 0.875rem;
   }
 
   .breadcrumb li {
@@ -289,61 +336,86 @@ const currentCategory = post.data.category;
   }
 
   .breadcrumb .separator {
-    color: #9ca3af;
+    color: #71717a;
     margin: 0 0.5rem;
   }
 
   .breadcrumb a {
-    color: #0066cc;
+    color: #a1a1aa;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.2s;
+    text-shadow: 0 0 4px rgba(161, 161, 170, 0.3);
   }
 
   .breadcrumb a:hover {
-    color: #0052a3;
-    text-decoration: underline;
+    color: #e4e4e7;
+    text-shadow: 0 0 8px rgba(228, 228, 231, 0.6);
   }
 
   .breadcrumb .active {
-    color: #666;
+    color: #e4e4e7;
     font-weight: 500;
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.5);
   }
 
-  /* 文章容器 */
+  /* ========================================
+     文章容器 - 钛金属卡片
+     ======================================== */
   .tutorial-article {
-    background: white;
-    border-radius: 0.75rem;
-    padding: 2rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, #27272a 0%, #18181b 100%);
+    border-radius: 12px;
+    padding: 3rem;
+    border: 2px solid #e4e4e7;
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.15),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(228, 228, 231, 0.2),
+      0 8px 24px rgba(0, 0, 0, 0.4);
   }
 
-  /* 文章头部样式 */
+  /* ========================================
+     文章头部 - 钛金属风格
+     ======================================== */
   .article-header {
     margin-bottom: 3rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 2px solid rgba(212, 212, 216, 0.3);
   }
 
   .article-title {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
     margin-bottom: 1rem;
-    color: #1a1a1a;
+    color: #e4e4e7;
     line-height: 1.2;
+    text-shadow:
+      0 0 15px rgba(228, 228, 231, 0.5),
+      0 0 30px rgba(228, 228, 231, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.02em;
   }
 
   .article-description {
     font-size: 1.125rem;
-    color: #666;
+    color: #a1a1aa;
     margin-bottom: 1.5rem;
     line-height: 1.6;
+    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
   }
 
   .article-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-    color: #666;
+    color: #a1a1aa;
     font-size: 0.9375rem;
     margin-bottom: 1rem;
   }
@@ -356,44 +428,82 @@ const currentCategory = post.data.category;
 
   .meta-icon {
     font-size: 1.125rem;
+    filter: drop-shadow(0 0 6px rgba(161, 161, 170, 0.5));
   }
 
-  /* 难度徽章 */
+  /* 难度徽章 - 钛金属风格 */
   .difficulty-badge {
     padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
-    font-size: 0.875rem;
-    font-weight: 500;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: 1px solid rgba(212, 212, 216, 0.4);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.15),
+      0 0 8px rgba(228, 228, 231, 0.3);
+    text-shadow: 0 0 4px rgba(228, 228, 231, 0.5);
   }
 
-  .difficulty-badge.beginner {
-    background: #d1fae5;
-    color: #065f46;
+  .difficulty-beginner {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #059669,
+        #10b981 2px,
+        #059669 4px
+      );
+    color: #e4e4e7;
   }
 
-  .difficulty-badge.intermediate {
-    background: #fef3c7;
-    color: #92400e;
+  .difficulty-intermediate {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #d97706,
+        #f59e0b 2px,
+        #d97706 4px
+      );
+    color: #e4e4e7;
   }
 
-  .difficulty-badge.advanced {
-    background: #fee2e2;
-    color: #991b1b;
+  .difficulty-advanced {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #dc2626,
+        #ef4444 2px,
+        #dc2626 4px
+      );
+    color: #e4e4e7;
   }
 
-  /* 前置要求 */
+  /* 前置要求 - 钛金属风格 */
   .prerequisites {
     margin-top: 1.5rem;
-    padding: 1rem;
-    background: #f0f9ff;
-    border-left: 4px solid #0066cc;
-    border-radius: 0.5rem;
+    padding: 1.5rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.08) 1px,
+        rgba(113, 113, 122, 0.08) 2px
+      ),
+      linear-gradient(135deg, rgba(39, 39, 42, 0.6) 0%, rgba(24, 24, 27, 0.6) 100%);
+    border-left: 4px solid #d4d4d8;
+    border-radius: 8px;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   .prerequisites strong {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    color: #e4e4e7;
+    font-size: 1rem;
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.4);
   }
 
   .prerequisites-list {
@@ -402,20 +512,22 @@ const currentCategory = post.data.category;
   }
 
   .prerequisites-list li {
-    padding: 0.25rem 0;
+    padding: 0.375rem 0;
     position: relative;
-    padding-left: 1.5rem;
+    padding-left: 1.75rem;
+    color: #a1a1aa;
   }
 
   .prerequisites-list li::before {
     content: '✓';
     position: absolute;
     left: 0;
-    color: #0066cc;
+    color: #10b981;
     font-weight: bold;
+    text-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
   }
 
-  /* 标签 */
+  /* 标签 - 钛金属风格 */
   .tags {
     display: flex;
     flex-wrap: wrap;
@@ -425,43 +537,57 @@ const currentCategory = post.data.category;
 
   .tag {
     padding: 0.25rem 0.75rem;
-    background: #f3f4f6;
-    color: #4b5563;
-    border-radius: 0.375rem;
+    background: linear-gradient(180deg, rgba(161, 161, 170, 0.2) 0%, rgba(113, 113, 122, 0.15) 100%);
+    color: #e4e4e7;
+    border: 1px solid rgba(212, 212, 216, 0.3);
+    border-radius: 4px;
     font-size: 0.875rem;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.15),
+      0 0 6px rgba(228, 228, 231, 0.2);
+    text-shadow: 0 0 4px rgba(228, 228, 231, 0.4);
   }
 
-  /* 文章内容 */
+  /* ========================================
+     文章内容 - 钛金属风格
+     ======================================== */
   .article-content {
     font-size: 1.0625rem;
     line-height: 1.75;
-    color: #374151;
+    color: #d4d4d8;
   }
 
   .article-content h2 {
     font-size: 1.875rem;
-    font-weight: 600;
-    margin-top: 2.5rem;
+    font-weight: 700;
+    margin-top: 3rem;
     margin-bottom: 1rem;
-    color: #1a1a1a;
-    border-bottom: 2px solid #e5e7eb;
+    color: #e4e4e7;
+    border-bottom: 2px solid rgba(212, 212, 216, 0.3);
     padding-bottom: 0.5rem;
+    text-shadow:
+      0 0 10px rgba(228, 228, 231, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .article-content h3 {
     font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 2rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
     margin-bottom: 0.75rem;
-    color: #1a1a1a;
+    color: #e4e4e7;
+    text-shadow:
+      0 0 8px rgba(228, 228, 231, 0.4),
+      0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .article-content h4 {
     font-size: 1.25rem;
     font-weight: 600;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     margin-bottom: 0.5rem;
-    color: #374151;
+    color: #d4d4d8;
+    text-shadow: 0 0 6px rgba(212, 212, 216, 0.3);
   }
 
   .article-content p {
@@ -476,112 +602,222 @@ const currentCategory = post.data.category;
 
   .article-content li {
     margin-bottom: 0.5rem;
+    color: #d4d4d8;
   }
 
   .article-content code {
-    background: #f3f4f6;
-    padding: 0.125rem 0.375rem;
-    border-radius: 0.25rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        rgba(113, 113, 122, 0.2),
+        rgba(113, 113, 122, 0.2) 2px,
+        rgba(161, 161, 170, 0.15) 2px,
+        rgba(161, 161, 170, 0.15) 4px
+      );
+    color: #e4e4e7;
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
     font-size: 0.9375em;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    border: 1px solid rgba(212, 212, 216, 0.2);
+    box-shadow:
+      inset 0 1px 2px rgba(0, 0, 0, 0.3),
+      0 1px 2px rgba(228, 228, 231, 0.1);
   }
 
   .article-content pre {
-    background: #1f2937;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, #1f2937 0%, #111827 100%);
     color: #f9fafb;
     padding: 1.5rem;
-    border-radius: 0.5rem;
+    border-radius: 8px;
+    border: 2px solid rgba(212, 212, 216, 0.2);
     overflow-x: auto;
     margin-bottom: 1.5rem;
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.5),
+      0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   .article-content pre code {
     background: transparent;
     padding: 0;
     color: inherit;
+    border: none;
+    box-shadow: none;
   }
 
   .article-content blockquote {
-    border-left: 4px solid #0066cc;
+    border-left: 4px solid #d4d4d8;
     padding-left: 1rem;
     margin: 1.5rem 0;
-    color: #666;
+    padding: 1rem 1.5rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.08) 1px,
+        rgba(113, 113, 122, 0.08) 2px
+      ),
+      linear-gradient(135deg, rgba(39, 39, 42, 0.4) 0%, rgba(24, 24, 27, 0.4) 100%);
+    border-radius: 8px;
+    color: #a1a1aa;
     font-style: italic;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   .article-content a {
-    color: #0066cc;
+    color: #a1a1aa;
     text-decoration: none;
+    transition: all 0.2s;
+    text-shadow: 0 0 4px rgba(161, 161, 170, 0.3);
   }
 
   .article-content a:hover {
-    text-decoration: underline;
+    color: #e4e4e7;
+    text-shadow:
+      0 0 8px rgba(228, 228, 231, 0.6),
+      0 0 16px rgba(228, 228, 231, 0.4);
   }
 
   .article-content table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1.5rem;
+    border: 1px solid rgba(212, 212, 216, 0.2);
   }
 
   .article-content th,
   .article-content td {
-    border: 1px solid #e5e7eb;
+    border: 1px solid rgba(212, 212, 216, 0.15);
     padding: 0.75rem;
     text-align: left;
   }
 
   .article-content th {
-    background: #f9fafb;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        rgba(113, 113, 122, 0.3),
+        rgba(113, 113, 122, 0.3) 2px,
+        rgba(161, 161, 170, 0.2) 2px,
+        rgba(161, 161, 170, 0.2) 4px
+      );
+    color: #e4e4e7;
     font-weight: 600;
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.4);
   }
 
-  /* 文章导航 */
+  .article-content td {
+    color: #d4d4d8;
+  }
+
+  /* ========================================
+     文章导航 - 钛金属风格
+     ======================================== */
   .tutorial-nav {
     display: flex;
     justify-content: space-between;
     gap: 2rem;
     margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e5e7eb;
   }
 
   .nav-link {
     flex: 1;
     padding: 1.5rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
     text-decoration: none;
     transition: all 0.2s;
     display: flex;
-    flex-direction: column;
-  }
-
-  .nav-link:hover {
-    border-color: #667eea;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
-    transform: translateY(-2px);
+    align-items: center;
+    gap: 1rem;
   }
 
   .nav-link.prev-post {
-    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   .nav-link.next-post {
+    justify-content: flex-end;
+  }
+
+  .nav-icon {
+    font-size: 1.5rem;
+    color: #e4e4e7;
+    text-shadow: 0 0 8px rgba(228, 228, 231, 0.6);
+    transition: transform 0.2s;
+  }
+
+  .nav-link:hover .nav-icon {
+    transform: scale(1.2);
+  }
+
+  .nav-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-link.next-post .nav-content {
     align-items: flex-end;
-    text-align: right;
   }
 
   .nav-label {
-    color: #666;
+    color: #71717a;
     font-size: 0.875rem;
     margin-bottom: 0.5rem;
+    text-shadow: 0 0 4px rgba(161, 161, 170, 0.3);
   }
 
   .nav-title {
-    color: #1a1a1a;
+    color: #e4e4e7;
     font-weight: 600;
     font-size: 1.0625rem;
+    text-shadow:
+      0 0 8px rgba(228, 228, 231, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* 钛金属按钮次要样式 */
+  .titanium-button-secondary {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, rgba(39, 39, 42, 0.6) 0%, rgba(24, 24, 27, 0.6) 100%);
+    color: #e4e4e7;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    border: 2px solid rgba(212, 212, 216, 0.4);
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.15),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.2),
+      0 0 15px rgba(228, 228, 231, 0.2),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.4);
+    transition: all 0.2s;
+  }
+
+  .titanium-button-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.15),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.2),
+      0 0 22px rgba(228, 228, 231, 0.35),
+      0 8px 16px rgba(0, 0, 0, 0.4);
   }
 
   /* 返回分类链接 */
@@ -590,33 +826,72 @@ const currentCategory = post.data.category;
     text-align: center;
   }
 
-  .back-to-category a {
+  .titanium-button {
     display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: #f3f4f6;
-    color: #374151;
+    background: linear-gradient(180deg, #71717a 0%, #52525b 50%, #3f3f46 100%);
+    color: #e4e4e7;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
     text-decoration: none;
-    border-radius: 0.5rem;
-    transition: all 0.2s;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 2px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(228, 228, 231, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.4);
+    transition: all 0.15s ease;
   }
 
-  .back-to-category a:hover {
-    background: #e5e7eb;
-    color: #1a1a1a;
+  .titanium-button:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 22px rgba(228, 228, 231, 0.4),
+      0 6px 12px rgba(0, 0, 0, 0.4);
   }
 
-  /* 相关文章 */
+  .titanium-button:active {
+    transform: translateY(1px);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.4),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.1),
+      0 0 12px rgba(228, 228, 231, 0.3);
+  }
+
+  /* ========================================
+     相关文章 - 钛金属风格
+     ======================================== */
   .related-posts {
     margin-top: 4rem;
     padding: 2rem;
-    background: #f9fafb;
-    border-radius: 0.75rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.08) 1px,
+        rgba(113, 113, 122, 0.08) 2px
+      ),
+      linear-gradient(135deg, rgba(39, 39, 42, 0.4) 0%, rgba(24, 24, 27, 0.4) 100%);
+    border-radius: 12px;
+    border: 2px solid rgba(212, 212, 216, 0.3);
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.15),
+      0 0 18px rgba(228, 228, 231, 0.2),
+      0 8px 16px rgba(0, 0, 0, 0.3);
   }
 
   .related-posts h3 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     font-size: 1.5rem;
-    color: #1a1a1a;
+    color: #e4e4e7;
+    text-shadow:
+      0 0 12px rgba(228, 228, 231, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .related-posts-grid {
@@ -625,34 +900,55 @@ const currentCategory = post.data.category;
     gap: 1.5rem;
   }
 
-  .related-post-card {
+  /* 钛金属卡片 */
+  .titanium-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, #27272a 0%, #18181b 100%);
+    border-radius: 8px;
     padding: 1.5rem;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
+    border: 2px solid rgba(228, 228, 231, 0.3);
     text-decoration: none;
     transition: all 0.2s;
     display: flex;
     flex-direction: column;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.15),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 12px rgba(228, 228, 231, 0.2),
+      0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
-  .related-post-card:hover {
-    border-color: #667eea;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+  .titanium-card:hover {
     transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.15),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(228, 228, 231, 0.35),
+      0 8px 16px rgba(0, 0, 0, 0.4);
   }
 
   .related-post-card h4 {
     margin-bottom: 0.5rem;
-    color: #1a1a1a;
+    color: #e4e4e7;
     font-size: 1.125rem;
+    text-shadow:
+      0 0 8px rgba(228, 228, 231, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .related-post-card p {
-    color: #666;
+    color: #a1a1aa;
     font-size: 0.9375rem;
     margin-bottom: 1rem;
     flex: 1;
+    text-shadow: 0 0 4px rgba(161, 161, 170, 0.3);
   }
 
   .related-post-meta {
@@ -663,17 +959,19 @@ const currentCategory = post.data.category;
   }
 
   .related-post-meta .time {
-    color: #666;
+    color: #a1a1aa;
   }
 
-  /* 响应式设计 */
+  /* ========================================
+     响应式设计
+     ======================================== */
   @media (max-width: 768px) {
     .tutorial-layout {
-      padding: 1rem 0.5rem;
+      padding: 6.5rem 0.5rem 3rem 0.5rem;
     }
 
     .tutorial-article {
-      padding: 1.5rem 1rem;
+      padding: 2rem 1.5rem;
     }
 
     .article-title {
@@ -693,13 +991,193 @@ const currentCategory = post.data.category;
       flex-direction: column;
     }
 
-    .nav-link.next-post {
-      align-items: flex-start;
-      text-align: left;
+    .nav-link {
+      width: 100%;
     }
 
     .related-posts-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  @media (max-width: 480px) {
+    .tutorial-article {
+      padding: 1.5rem 1rem;
+    }
+
+    .breadcrumb-container {
+      padding: 0.75rem 1rem;
+    }
+
+    .article-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* ========================================
+     亮色模式样式
+     ======================================== */
+  html.light-mode .tutorial-layout {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.02) 2px,
+        rgba(0, 0, 0, 0.02) 4px
+      ),
+      linear-gradient(
+        135deg,
+        #f9fafb 0%,
+        #e5e7eb 50%,
+        #f9fafb 100%
+      );
+  }
+
+  html.light-mode .breadcrumb {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    border-bottom-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light-mode .breadcrumb-list a {
+    color: #374151;
+    text-shadow: none;
+  }
+
+  html.light-mode .breadcrumb-list a:hover {
+    color: #111827;
+  }
+
+  html.light-mode .breadcrumb-list .active {
+    color: #1f2937;
+  }
+
+  html.light-mode .tutorial-article {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(243, 244, 246, 0.8) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      0 0 18px rgba(0, 0, 0, 0.1),
+      0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .article-title {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .article-description {
+    color: #6b7280;
+  }
+
+  html.light-mode .article-content {
+    color: #1f2937;
+  }
+
+  html.light-mode .article-content h2 {
+    color: #111827;
+    border-bottom-color: #d1d5db;
+  }
+
+  html.light-mode .article-content h3 {
+    color: #1f2937;
+  }
+
+  html.light-mode .article-content p {
+    color: #374151;
+  }
+
+  html.light-mode .article-content a {
+    color: #2563eb;
+  }
+
+  html.light-mode .article-content a:hover {
+    color: #1d4ed8;
+  }
+
+  html.light-mode .article-content li {
+    color: #374151;
+  }
+
+  html.light-mode .article-content code {
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    color: #111827;
+    border-color: #d1d5db;
+  }
+
+  html.light-mode .article-content pre {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    color: #111827;
+    border-color: #d1d5db;
+  }
+
+  html.light-mode .difficulty-badge {
+    background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+    color: #f9fafb;
+    border-color: #d1d5db;
+  }
+
+  html.light-mode .difficulty-beginner {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  }
+
+  html.light-mode .difficulty-intermediate {
+    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  }
+
+  html.light-mode .difficulty-advanced {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  }
+
+  html.light-mode .tag-item {
+    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+    color: #374151;
+    border-color: #9ca3af;
+  }
+
+  html.light-mode .nav-link {
+    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+    border-color: #9ca3af;
+    color: #1f2937;
+  }
+
+  html.light-mode .nav-link:hover {
+    background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+  }
+
+  html.light-mode .related-post-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      0 0 15px rgba(0, 0, 0, 0.1),
+      0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .related-post-card:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      0 0 22px rgba(0, 0, 0, 0.15),
+      0 10px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  html.light-mode .related-post-title {
+    color: #111827;
+  }
+
+  html.light-mode .related-post-description {
+    color: #6b7280;
   }
 </style>
