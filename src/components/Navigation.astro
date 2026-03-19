@@ -1,4 +1,6 @@
 ---
+import ThemeSwitcher from './ThemeSwitcher.astro';
+
 const { currentPath } = Astro.props;
 
 // 判断当前语言
@@ -13,13 +15,13 @@ const navData = isZhCN ? {
   costCalculator: '成本计算器',
   community: '社区',
   tutorialCategories: [
-    { name: '01 新手上路', href: '#tutorials-01', topics: ['模型接入', '飞书', '微信', 'QQ', '企业微信'] },
-    { name: '02 初始化小龙虾', href: '#tutorials-02', topics: ['AGENTS.md', 'USER.md', 'SOUL.md'] },
-    { name: '03 小龙虾的眼睛', href: '#tutorials-03', topics: ['视觉能力', '图像处理', '视频理解'] },
-    { name: '04 小龙虾的手脚', href: '#tutorials-04', topics: ['工具调用', 'API集成', '自动化'] },
-    { name: '05 小龙虾的大脑', href: '#tutorials-05', topics: ['记忆系统', '协作机制', '上下文管理'] },
-    { name: '06 必备技能包', href: '#tutorials-06', topics: ['新手必备', '开发者热门', '自媒体热门', '热门通用'] },
-    { name: '07 多 Agents 能力', href: '#tutorials-07', topics: ['基础入门', '进阶技巧'] }
+    { name: '新手上路', href: '/zh-cn/tutorials/getting-started/', topics: ['模型接入', '飞书', '微信', 'QQ', '企业微信'] },
+    { name: '初始化小龙虾', href: '/zh-cn/tutorials/initialization/', topics: ['AGENTS.md', 'USER.md', 'SOUL.md'] },
+    { name: '小龙虾的眼睛', href: '/zh-cn/tutorials/claw-eyes/', topics: ['视觉能力', '图像处理', '视频理解'] },
+    { name: '小龙虾的手脚', href: '/zh-cn/tutorials/claw-hands/', topics: ['工具调用', 'API集成', '自动化'] },
+    { name: '小龙虾的大脑', href: '/zh-cn/tutorials/claw-brain/', topics: ['记忆系统', '协作机制', '上下文管理'] },
+    { name: '必备技能包', href: '/zh-cn/tutorials/essential-skills/', topics: ['新手必备', '开发者热门', '自媒体热门', '热门通用'] },
+    { name: '多 Agents 能力', href: '/zh-cn/tutorials/multi-agents/', topics: ['基础入门', '进阶技巧'] }
   ]
 } : {
   logo: '🦞 OpenClaw Tutorial',
@@ -29,13 +31,13 @@ const navData = isZhCN ? {
   costCalculator: 'Cost Calculator',
   community: 'Community',
   tutorialCategories: [
-    { name: '01 Getting Started', href: '#tutorials-01', topics: ['Model Integration', 'Feishu', 'WeChat', 'QQ', 'WeCom'] },
-    { name: '02 Initialize OpenClaw', href: '#tutorials-02', topics: ['AGENTS.md', 'USER.md', 'SOUL.md'] },
-    { name: '03 OpenClaw Vision', href: '#tutorials-03', topics: ['Visual Capability', 'Image Processing', 'Video Understanding'] },
-    { name: '04 OpenClaw Tools', href: '#tutorials-04', topics: ['Tool Calling', 'API Integration', 'Automation'] },
-    { name: '05 OpenClaw Brain', href: '#tutorials-05', topics: ['Memory System', 'Collaboration', 'Context Management'] },
-    { name: '06 Essential Skills', href: '#tutorials-06', topics: ['Beginner Essentials', 'Dev Popular', 'Media Popular', 'General Popular'] },
-    { name: '07 Multi-Agent', href: '#tutorials-07', topics: ['Basic', 'Advanced'] }
+    { name: 'Getting Started', href: '/tutorials/getting-started/', topics: ['Model Integration', 'Feishu', 'WeChat', 'QQ', 'WeCom'] },
+    { name: 'Initialize OpenClaw', href: '/tutorials/initialization/', topics: ['AGENTS.md', 'USER.md', 'SOUL.md'] },
+    { name: 'OpenClaw Vision', href: '/tutorials/claw-eyes/', topics: ['Visual Capability', 'Image Processing', 'Video Understanding'] },
+    { name: 'OpenClaw Tools', href: '/tutorials/claw-hands/', topics: ['Tool Calling', 'API Integration', 'Automation'] },
+    { name: 'OpenClaw Brain', href: '/tutorials/claw-brain/', topics: ['Memory System', 'Collaboration', 'Context Management'] },
+    { name: 'Essential Skills', href: '/tutorials/essential-skills/', topics: ['Beginner Essentials', 'Dev Popular', 'Media Popular', 'General Popular'] },
+    { name: 'Multi-Agent', href: '/tutorials/multi-agents/', topics: ['Basic', 'Advanced'] }
   ]
 };
 
@@ -82,11 +84,17 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
       <a href="#cost-calculator" class="nav-link">{navData.costCalculator}</a>
       <a href="#community" class="nav-link">{navData.community}</a>
 
-      <!-- Language Switcher -->
-      <div class="lang-switcher">
-        <a href={enPath} class:list={[!isZhCN && 'active']}>EN</a>
-        <span class="divider">/</span>
-        <a href={zhPath} class:list={[isZhCN && 'active']}>中文</a>
+      <!-- Language & Theme Switcher -->
+      <div class="switcher-group">
+        <!-- Language Switcher -->
+        <div class="lang-switcher">
+          <a href={enPath} class:list={[!isZhCN && 'active']}>EN</a>
+          <span class="divider">/</span>
+          <a href={zhPath} class:list={[isZhCN && 'active']}>中文</a>
+        </div>
+
+        <!-- Theme Switcher -->
+        <ThemeSwitcher />
       </div>
     </div>
 
@@ -121,10 +129,25 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     <a href="#cost-calculator" class="mobile-nav-link">{navData.costCalculator}</a>
     <a href="#community" class="mobile-nav-link">{navData.community}</a>
 
-    <div class="mobile-lang-switcher">
-      <a href={enPath} class:list={[!isZhCN && 'active']}>English</a>
-      <span class="divider">/</span>
-      <a href={zhPath} class:list={[isZhCN && 'active']}>中文</a>
+    <div class="mobile-switcher-group">
+      <!-- Language Switcher -->
+      <div class="mobile-lang-switcher">
+        <a href={enPath} class:list={[!isZhCN && 'active']}>English</a>
+        <span class="divider">/</span>
+        <a href={zhPath} class:list={[isZhCN && 'active']}>中文</a>
+      </div>
+
+      <!-- Theme Switcher (Mobile) -->
+      <div class="mobile-theme-switcher">
+        <button
+          class="mobile-theme-toggle"
+          id="mobileThemeToggle"
+          aria-label="切换主题"
+          title="切换亮暗主题"
+        >
+          <span class="theme-icon" id="mobileThemeIcon">🌙</span>
+        </button>
+      </div>
     </div>
   </div>
 </nav>
@@ -315,14 +338,19 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     text-shadow: 0 0 6px rgba(228, 228, 231, 0.5);
   }
 
+  /* 语言和主题切换器组 */
+  .switcher-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   /* 语言切换器 - 钛金属按钮效果 */
   .lang-switcher {
     display: flex;
     gap: 0.5rem;
     align-items: center;
     font-size: 0.875rem;
-    padding-left: 1rem;
-    border-left: 2px solid #d4d4d8;
   }
 
   .lang-switcher a {
@@ -558,6 +586,82 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     text-shadow: 0 0 8px rgba(228, 228, 231, 0.6);
   }
 
+  /* 移动端主题切换器 */
+  .mobile-theme-switcher {
+    padding: 1rem 2rem;
+    border-top: 1px solid #d4d4d8;
+    background: rgba(39, 39, 42, 0.3);
+    display: flex;
+    justify-content: center;
+  }
+
+  .mobile-theme-toggle {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(180deg, #27272a 0%, #18181b 100%);
+    border: 2px solid #d4d4d8;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.15s ease;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 12px rgba(228, 228, 231, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .mobile-theme-toggle:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 18px rgba(228, 228, 231, 0.5),
+      0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .mobile-theme-toggle:active {
+    transform: translateY(1px);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.5),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.1),
+      0 0 10px rgba(228, 228, 231, 0.3);
+  }
+
+  .mobile-theme-toggle .theme-icon {
+    font-size: 1.125rem;
+    filter: drop-shadow(0 0 6px rgba(228, 228, 231, 0.5));
+  }
+
+  /* 移动端主题切换器 - 亮色模式 */
+  .mobile-theme-toggle.light-mode {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.05) 1px,
+        rgba(0, 0, 0, 0.05) 2px
+      ),
+      linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 100%);
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 12px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-theme-toggle.light-mode .theme-icon {
+    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+  }
+
   /* 响应式设计 */
   @media (max-width: 1024px) {
     .nav-menu.desktop {
@@ -581,6 +685,256 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     .dropdown-menu {
       min-width: 240px;
     }
+  }
+
+  /* ========================================
+     亮色模式样式
+     ======================================== */
+  html.light-mode .navbar {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.02) 1px,
+        rgba(0, 0, 0, 0.02) 2px
+      ),
+      linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 100%);
+    border-bottom-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      0 0 15px rgba(0, 0, 0, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .nav-logo {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .nav-link {
+    color: #374151;
+    text-shadow: none;
+  }
+
+  html.light-mode .nav-link:hover {
+    color: #111827;
+  }
+
+  html.light-mode .dropdown-toggle {
+    color: #374151;
+    text-shadow: none;
+  }
+
+  html.light-mode .dropdown-toggle:hover {
+    color: #111827;
+  }
+
+  html.light-mode .dropdown-menu {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      0 0 18px rgba(0, 0, 0, 0.15),
+      0 12px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  html.light-mode .dropdown-item {
+    border-bottom-color: #e5e7eb;
+  }
+
+  html.light-mode .dropdown-link {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .dropdown-link:hover {
+    color: #111827;
+  }
+
+  html.light-mode .topic-tag {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.02) 100%);
+    color: #374151;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 0 8px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+  }
+
+  html.light-mode .lang-switcher a {
+    color: #6b7280;
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.8) 100%);
+    text-shadow: none;
+  }
+
+  html.light-mode .lang-switcher a.active,
+  html.light-mode .lang-switcher a:hover {
+    color: #111827;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 0 12px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+  }
+
+  html.light-mode .divider {
+    color: #9ca3af;
+  }
+
+  html.light-mode .mobile-menu-btn {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 0 12px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .mobile-menu-btn:active {
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.15),
+      0 0 8px rgba(0, 0, 0, 0.05);
+  }
+
+  html.light-mode .hamburger {
+    background: #374151;
+    box-shadow: none;
+  }
+
+  html.light-mode .nav-menu.mobile {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.02) 1px,
+        rgba(0, 0, 0, 0.02) 2px
+      ),
+      linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 100%);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 0 18px rgba(0, 0, 0, 0.15),
+      0 8px 24px rgba(0, 0, 0, 0.2);
+    border-top-color: #d1d5db;
+  }
+
+  html.light-mode .mobile-nav-link {
+    color: #1f2937;
+    border-bottom-color: #e5e7eb;
+  }
+
+  html.light-mode .mobile-nav-link:hover {
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.8) 100%);
+  }
+
+  html.light-mode .mobile-dropdown-toggle {
+    color: #1f2937;
+  }
+
+  html.light-mode .mobile-dropdown-menu {
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.5) 0%, rgba(229, 231, 235, 0.5) 100%);
+  }
+
+  html.light-mode .mobile-dropdown-link {
+    color: #4b5563;
+  }
+
+  html.light-mode .mobile-dropdown-link:hover {
+    background: linear-gradient(180deg, rgba(229, 231, 235, 0.8) 0%, rgba(209, 213, 219, 0.8) 100%);
+  }
+
+  html.light-mode .mobile-lang-switcher {
+    border-top-color: #e5e7eb;
+    background: rgba(243, 244, 246, 0.5);
+  }
+
+  html.light-mode .mobile-lang-switcher a {
+    color: #6b7280;
+  }
+
+  html.light-mode .mobile-lang-switcher a.active,
+  html.light-mode .mobile-lang-switcher a:hover {
+    color: #111827;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 0 12px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light-mode .mobile-theme-switcher {
+    border-top-color: #e5e7eb;
+    background: rgba(243, 244, 246, 0.5);
+  }
+
+  html.light-mode .mobile-theme-toggle {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 12px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .mobile-theme-toggle:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 18px rgba(0, 0, 0, 0.15),
+      0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  html.light-mode .mobile-theme-toggle:active {
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.15),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.1),
+      0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  html.light-mode .mobile-theme-toggle .theme-icon {
+    filter: none;
   }
 </style>
 
@@ -613,6 +967,54 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     link?.addEventListener('click', () => {
       mobileMenu?.classList.remove('active');
     });
+  });
+
+  // 移动端主题切换
+  const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+  const mobileThemeIcon = document.getElementById('mobileThemeIcon');
+
+  mobileThemeToggle?.addEventListener('click', () => {
+    const html = document.documentElement;
+    const isDark = html.classList.contains('dark-mode');
+
+    if (isDark) {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+      mobileThemeToggle.classList.add('light-mode');
+      mobileThemeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'light');
+    } else {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+      mobileThemeToggle.classList.remove('light-mode');
+      mobileThemeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'dark');
+    }
+
+    // 同步桌面端主题切换器状态
+    const desktopThemeToggle = document.getElementById('themeToggle');
+    const desktopThemeIcon = document.getElementById('themeIcon');
+    if (desktopThemeToggle && desktopThemeIcon) {
+      desktopThemeToggle.classList.toggle('light-mode');
+      desktopThemeIcon.textContent = mobileThemeIcon.textContent;
+    }
+
+    // 触发主题切换事件
+    window.dispatchEvent(new CustomEvent('themechange', {
+      detail: { theme: isDark ? 'light' : 'dark' }
+    }));
+  });
+
+  // 监听主题变化事件，同步移动端和桌面端
+  window.addEventListener('themechange', (e) => {
+    const theme = e.detail.theme;
+    if (theme === 'light') {
+      mobileThemeToggle?.classList.add('light-mode');
+      mobileThemeIcon && (mobileThemeIcon.textContent = '☀️');
+    } else {
+      mobileThemeToggle?.classList.remove('light-mode');
+      mobileThemeIcon && (mobileThemeIcon.textContent = '🌙');
+    }
   });
 
   // 滚动时添加阴影效果

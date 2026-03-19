@@ -1,0 +1,230 @@
+---
+// 主题切换组件 - 钛金属深色拟物化风格
+---
+
+<div class="theme-switcher" id="themeSwitcher">
+  <button
+    class="theme-toggle"
+    id="themeToggle"
+    aria-label="切换主题"
+    title="切换亮暗主题"
+  >
+    <span class="theme-icon" id="themeIcon">
+      🌙
+    </span>
+  </button>
+</div>
+
+<style>
+  /* 主题切换器 - 钛金属按钮风格 */
+  .theme-switcher {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid #d4d4d8;
+  }
+
+  .theme-toggle {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(180deg, #27272a 0%, #18181b 100%);
+    border: 2px solid #d4d4d8;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    transition: all 0.15s ease;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 12px rgba(228, 228, 231, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .theme-toggle:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 18px rgba(228, 228, 231, 0.5),
+      0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .theme-toggle:active {
+    transform: translateY(1px);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.5),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.1),
+      0 0 10px rgba(228, 228, 231, 0.3);
+  }
+
+  .theme-icon {
+    font-size: 1.125rem;
+    display: block;
+    filter: drop-shadow(0 0 6px rgba(228, 228, 231, 0.5));
+    transition: transform 0.3s ease;
+  }
+
+  /* 主题切换动画 */
+  .theme-toggle:hover .theme-icon {
+    transform: rotate(20deg) scale(1.1);
+  }
+
+  /* 亮色主题样式 */
+  .theme-toggle.light-mode {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.05) 1px,
+        rgba(0, 0, 0, 0.05) 2px
+      ),
+      linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 100%);
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 12px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .theme-toggle.light-mode .theme-icon {
+    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+  }
+
+  /* 响应式 */
+  @media (max-width: 640px) {
+    .theme-switcher {
+      margin-left: 0.5rem;
+      padding-left: 0.5rem;
+    }
+  }
+
+  /* ========================================
+     亮色模式样式
+     ======================================== */
+  html.light-mode .theme-switcher {
+    border-left-color: #9ca3af;
+  }
+
+  html.light-mode .theme-toggle {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.05) 1px,
+        rgba(0, 0, 0, 0.05) 2px
+      ),
+      linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 100%);
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 12px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .theme-toggle:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 18px rgba(0, 0, 0, 0.15),
+      0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  html.light-mode .theme-toggle:active {
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.15),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.1),
+      0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  html.light-mode .theme-icon {
+    filter: none;
+  }
+</style>
+
+<script is:inline>
+  // 主题切换功能实现
+  (function() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    // 主题配置
+    const themes = {
+      dark: {
+        icon: '🌙',
+        class: 'dark-mode'
+      },
+      light: {
+        icon: '☀️',
+        class: 'light-mode'
+      }
+    };
+
+    // 从 localStorage 读取主题偏好，默认使用深色
+    let currentTheme = localStorage.getItem('theme') || 'dark';
+
+    // 应用主题
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        html.classList.remove('dark-mode');
+        html.classList.add('light-mode');
+        themeToggle?.classList.add('light-mode');
+        themeIcon.textContent = themes.light.icon;
+      } else {
+        html.classList.remove('light-mode');
+        html.classList.add('dark-mode');
+        themeToggle?.classList.remove('light-mode');
+        themeIcon.textContent = themes.dark.icon;
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    // 切换主题
+    function toggleTheme() {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(currentTheme);
+
+      // 触发自定义事件，让其他组件知道主题已切换
+      window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: currentTheme } }));
+    }
+
+    // 初始化主题
+    applyTheme(currentTheme);
+
+    // 绑定点击事件
+    themeToggle?.addEventListener('click', toggleTheme);
+
+    // 监听系统主题变化（可选）
+    if (window.matchMedia) {
+      const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      darkModeQuery.addEventListener('change', (e) => {
+        // 只有在没有手动设置过主题时才跟随系统
+        if (!localStorage.getItem('theme')) {
+          currentTheme = e.matches ? 'dark' : 'light';
+          applyTheme(currentTheme);
+        }
+      });
+    }
+
+    // 暴露主题切换函数到全局（可选，用于调试）
+    window.setTheme = (theme) => {
+      if (theme === 'dark' || theme === 'light') {
+        currentTheme = theme;
+        applyTheme(theme);
+      }
+    };
+
+    window.getTheme = () => currentTheme;
+  })();
+</script>

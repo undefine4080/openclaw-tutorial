@@ -140,201 +140,32 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"posts": {
-"channels-discord.md": {
-	id: "channels-discord.md";
-  slug: "channels-discord";
+		"posts": Record<string, {
+  id: string;
+  slug: string;
   body: string;
   collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"channels-telegram.md": {
-	id: "channels-telegram.md";
-  slug: "channels-telegram";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"cli-commands.md": {
-	id: "cli-commands.md";
-  slug: "cli-commands";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"config-gateway.md": {
-	id: "config-gateway.md";
-  slug: "config-gateway";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"config-reference.md": {
-	id: "config-reference.md";
-  slug: "config-reference";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"get-openclaw-running-in-10-minutes.md": {
-	id: "get-openclaw-running-in-10-minutes.md";
-  slug: "get-openclaw-running-in-10-minutes";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"install-node-22.md": {
-	id: "install-node-22.md";
-  slug: "install-node-22";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"install-npm-global.md": {
-	id: "install-npm-global.md";
-  slug: "install-npm-global";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"install-openclaw-on-ubuntu-desktop.md": {
-	id: "install-openclaw-on-ubuntu-desktop.md";
-  slug: "install-openclaw-on-ubuntu-desktop";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"install-windows.md": {
-	id: "install-windows.md";
-  slug: "install-windows";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"start-onboard-wizard.md": {
-	id: "start-onboard-wizard.md";
-  slug: "start-onboard-wizard";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"start.md": {
-	id: "start.md";
-  slug: "start";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"troubleshooting-common-errors.md": {
-	id: "troubleshooting-common-errors.md";
-  slug: "troubleshooting-common-errors";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-"troubleshooting-doctor.md": {
-	id: "troubleshooting-doctor.md";
-  slug: "troubleshooting-doctor";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".md"] };
-};
+  data: InferEntrySchema<"posts">;
+  render(): Render[".md"];
+}>;
 "posts-zh-cn": {
-"channels-discord.md": {
-	id: "channels-discord.md";
-  slug: "channels-discord";
+"channel-feishu.md": {
+	id: "channel-feishu.md";
+  slug: "channel-feishu";
   body: string;
   collection: "posts-zh-cn";
   data: InferEntrySchema<"posts-zh-cn">
 } & { render(): Render[".md"] };
-"channels-telegram.md": {
-	id: "channels-telegram.md";
-  slug: "channels-telegram";
+"channel-wechat.md": {
+	id: "channel-wechat.md";
+  slug: "channel-wechat";
   body: string;
   collection: "posts-zh-cn";
   data: InferEntrySchema<"posts-zh-cn">
 } & { render(): Render[".md"] };
-"cli-commands.md": {
-	id: "cli-commands.md";
-  slug: "cli-commands";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"config-gateway.md": {
-	id: "config-gateway.md";
-  slug: "config-gateway";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"config-reference.md": {
-	id: "config-reference.md";
-  slug: "config-reference";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"get-openclaw-running-in-10-minutes.md": {
-	id: "get-openclaw-running-in-10-minutes.md";
-  slug: "get-openclaw-running-in-10-minutes";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"install-node-22.md": {
-	id: "install-node-22.md";
-  slug: "install-node-22";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"install-npm-global.md": {
-	id: "install-npm-global.md";
-  slug: "install-npm-global";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"install-openclaw-on-ubuntu-desktop.md": {
-	id: "install-openclaw-on-ubuntu-desktop.md";
-  slug: "install-openclaw-on-ubuntu-desktop";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"install-windows.md": {
-	id: "install-windows.md";
-  slug: "install-windows";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"start-onboard-wizard.md": {
-	id: "start-onboard-wizard.md";
-  slug: "start-onboard-wizard";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"start.md": {
-	id: "start.md";
-  slug: "start";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"troubleshooting-common-errors.md": {
-	id: "troubleshooting-common-errors.md";
-  slug: "troubleshooting-common-errors";
-  body: string;
-  collection: "posts-zh-cn";
-  data: InferEntrySchema<"posts-zh-cn">
-} & { render(): Render[".md"] };
-"troubleshooting-doctor.md": {
-	id: "troubleshooting-doctor.md";
-  slug: "troubleshooting-doctor";
+"model-integration.md": {
+	id: "model-integration.md";
+  slug: "model-integration";
   body: string;
   collection: "posts-zh-cn";
   data: InferEntrySchema<"posts-zh-cn">
