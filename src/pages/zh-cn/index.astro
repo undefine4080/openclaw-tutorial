@@ -18,6 +18,44 @@ import Layout from '../../layouts/Layout.astro';
       </div>
     </section>
 
+    <!-- 最新文章板块 -->
+    <section class="section latest-posts" id="latest-posts">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="section-icon">📝</span>
+          最新文章
+        </h2>
+        <p class="section-subtitle">深度教程与实战指南</p>
+
+        <div class="latest-posts-grid">
+          <!-- 文章卡片 -->
+          <a href="/zh-cn/posts/llm-integration-guide/" class="latest-post-card">
+            <div class="post-card-header">
+              <div class="post-badge">精选</div>
+              <div class="post-meta">
+                <span class="post-date">📅 2026-03-21</span>
+                <span class="post-difficulty intermediate">中等难度</span>
+                <span class="post-time">⏱️ 30 分钟</span>
+              </div>
+            </div>
+            <h3 class="post-title">OpenClaw 接入大模型完全指南：选型、配置与多模型智能路由</h3>
+            <p class="post-description">
+              横评 10+ 款主流大模型的价格与能力，详解 Onboard 向导和配置文件两种接入方式，并手把手教你配置多模型智能路由，让不同任务自动找到最合适的模型。
+            </p>
+            <div class="post-tags">
+              <span class="tag">llm</span>
+              <span class="tag">configuration</span>
+              <span class="tag">multi-model</span>
+              <span class="tag">routing</span>
+            </div>
+            <div class="read-more">
+              阅读全文 →
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- 安装部署板块 -->
     <section class="section installation" id="installation">
       <div class="container">
@@ -601,6 +639,168 @@ import Layout from '../../layouts/Layout.astro';
     text-shadow: 0 0 10px rgba(228, 228, 231, 0.6);
   }
 
+  /* 最新文章板块 */
+  .latest-posts-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  /* 最新文章卡片 - 钛金属质感 */
+  .latest-post-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, #27272a 0%, #18181b 100%);
+    border-radius: 12px;
+    padding: 2.5rem;
+    position: relative;
+    border: 2px solid #e4e4e7;
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.15),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 18px rgba(228, 228, 231, 0.2),
+      0 8px 16px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: block;
+  }
+
+  .latest-post-card::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    border: 2px dashed #e4e4e7;
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .latest-post-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.2),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 30px rgba(228, 228, 231, 0.35),
+      0 12px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .post-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  /* 精选徽章 */
+  .post-badge {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #d4d4d8,
+        #e4e4e7 2px,
+        #d4d4d8 4px
+      );
+    color: #18181b;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    border: 2px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.4),
+      0 0 12px rgba(228, 228, 231, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: #a1a1aa;
+    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
+  }
+
+  .post-date, .post-time {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .post-difficulty {
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .post-difficulty.intermediate {
+    background: linear-gradient(180deg, rgba(228, 228, 231, 0.2) 0%, rgba(212, 212, 216, 0.15) 100%);
+    color: #e4e4e7;
+    border: 1px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.2),
+      0 0 8px rgba(228, 228, 231, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.5);
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e4e4e7;
+    margin: 0 0 1rem 0;
+    text-shadow: 0 0 10px rgba(228, 228, 231, 0.5);
+    line-height: 1.4;
+  }
+
+  .post-description {
+    color: #a1a1aa;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    background: linear-gradient(180deg, rgba(228, 228, 231, 0.2) 0%, rgba(212, 212, 216, 0.15) 100%);
+    color: #e4e4e7;
+    padding: 0.35rem 0.85rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    border: 1px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.2),
+      0 0 8px rgba(228, 228, 231, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.5);
+  }
+
+  .read-more {
+    color: #e4e4e7;
+    font-weight: 600;
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.4);
+    font-size: 1rem;
+  }
+
+  .latest-post-card:hover .read-more {
+    color: #d4d4d8;
+    text-shadow: 0 0 12px rgba(212, 212, 216, 0.6);
+  }
+
   /* 教程网格 */
   .tutorial-grid {
     display: grid;
@@ -665,7 +865,7 @@ import Layout from '../../layouts/Layout.astro';
         #e4e4e7 2px,
         #d4d4d8 4px
       );
-    color: #e4e4e7;
+    color: #18181b;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -674,13 +874,13 @@ import Layout from '../../layouts/Layout.astro';
     justify-content: center;
     font-weight: 700;
     font-size: 1rem;
-    border: 3px solid #e4e4e7;
+    border: 3px solid #d4d4d8;
     box-shadow:
       inset 0 1px 2px rgba(255, 255, 255, 0.3),
       inset 0 -1px 2px rgba(0, 0, 0, 0.4),
       0 0 15px rgba(228, 228, 231, 0.5),
       0 2px 4px rgba(0, 0, 0, 0.4);
-    text-shadow: 0 0 8px rgba(228, 228, 231, 0.6);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
   }
 
   .tutorial-title {
@@ -1157,6 +1357,96 @@ import Layout from '../../layouts/Layout.astro';
 
   html.light-mode .section-subtitle {
     color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .latest-post-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.1) 1px,
+        rgba(209, 213, 219, 0.1) 2px
+      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .latest-post-card::before {
+    border-color: #d1d5db;
+  }
+
+  html.light-mode .latest-post-card:hover {
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  html.light-mode .post-badge {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #e5e7eb,
+        #f3f4f6 2px,
+        #e5e7eb 4px
+      );
+    color: #374151;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 6px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+  }
+
+  html.light-mode .post-meta {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .post-difficulty.intermediate {
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+    color: #374151;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    text-shadow: none;
+  }
+
+  html.light-mode .post-title {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .post-description {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .tag {
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+    color: #374151;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    text-shadow: none;
+  }
+
+  html.light-mode .read-more {
+    color: #374151;
+    text-shadow: none;
+  }
+
+  html.light-mode .latest-post-card:hover .read-more {
+    color: #111827;
     text-shadow: none;
   }
 
