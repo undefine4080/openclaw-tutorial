@@ -250,6 +250,57 @@ const currentCategory = post.data.category;
         )}
       </article>
     </div>
+
+    <script>
+      // 为所有代码块添加复制按钮
+      document.addEventListener('DOMContentLoaded', () => {
+        const codeBlocks = document.querySelectorAll('.article-content pre');
+
+        codeBlocks.forEach((pre) => {
+          // 创建复制按钮
+          const copyButton = document.createElement('button');
+          copyButton.className = 'copy-button';
+          copyButton.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="copy-text">复制</span>
+          `;
+
+          // 插入按钮到 pre 元素
+          pre.style.position = 'relative';
+          pre.appendChild(copyButton);
+
+          // 点击复制
+          copyButton.addEventListener('click', async () => {
+            const code = pre.querySelector('code');
+            const text = code ? code.textContent : pre.textContent;
+
+            try {
+              await navigator.clipboard.writeText(text);
+
+              // 显示成功状态
+              copyButton.classList.add('copied');
+              copyButton.querySelector('.copy-text').textContent = '已复制';
+
+              // 2秒后恢复
+              setTimeout(() => {
+                copyButton.classList.remove('copied');
+                copyButton.querySelector('.copy-text').textContent = '复制';
+              }, 2000);
+            } catch (err) {
+              console.error('复制失败:', err);
+              copyButton.querySelector('.copy-text').textContent = '失败';
+
+              setTimeout(() => {
+                copyButton.querySelector('.copy-text').textContent = '复制';
+              }, 2000);
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
 
@@ -290,9 +341,9 @@ const currentCategory = post.data.category;
   }
 
   .tutorial-layout {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 6.5rem 1rem 4rem 1rem;
+    padding: 5rem 2rem 4rem 2rem;
   }
 
   /* ========================================
@@ -300,7 +351,7 @@ const currentCategory = post.data.category;
      ======================================== */
   .breadcrumb {
     padding: 1rem 0;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
 
   .breadcrumb-container {
@@ -393,9 +444,9 @@ const currentCategory = post.data.category;
   .article-title {
     font-size: clamp(2rem, 4vw, 2.75rem);
     font-weight: 800;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     color: #e4e4e7;
-    line-height: 1.2;
+    line-height: 1.4;
     text-shadow:
       0 0 15px rgba(228, 228, 231, 0.5),
       0 0 30px rgba(228, 228, 231, 0.3),
@@ -406,7 +457,7 @@ const currentCategory = post.data.category;
   .article-description {
     font-size: 1.125rem;
     color: #a1a1aa;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
     line-height: 1.6;
     text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
   }
@@ -414,10 +465,10 @@ const currentCategory = post.data.category;
   .article-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1.75rem;
     color: #a1a1aa;
     font-size: 0.9375rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 
   .meta-item {
@@ -512,10 +563,11 @@ const currentCategory = post.data.category;
   }
 
   .prerequisites-list li {
-    padding: 0.375rem 0;
+    padding: 0.5rem 0;
     position: relative;
     padding-left: 1.75rem;
     color: #a1a1aa;
+    font-size: 1rem;
   }
 
   .prerequisites-list li::before {
@@ -553,7 +605,7 @@ const currentCategory = post.data.category;
      ======================================== */
   .article-content {
     font-size: 1.0625rem;
-    line-height: 1.75;
+    line-height: 1.8;
     color: #d4d4d8;
   }
 
@@ -740,6 +792,7 @@ const currentCategory = post.data.category;
     display: flex;
     align-items: center;
     gap: 1rem;
+    border-radius: 8px;
   }
 
   .nav-link.prev-post {
@@ -1035,33 +1088,46 @@ const currentCategory = post.data.category;
   }
 
   html.light-mode .breadcrumb {
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+  }
+
+  html.light-mode .breadcrumb-container {
     background:
       repeating-linear-gradient(
         90deg,
         transparent,
         transparent 1px,
-        rgba(0, 0, 0, 0.03) 1px,
-        rgba(0, 0, 0, 0.03) 2px
+        rgba(0, 0, 0, 0.02) 1px,
+        rgba(0, 0, 0, 0.02) 2px
       ),
-      linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-    border-bottom-color: #9ca3af;
+      linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(243, 244, 246, 0.8) 100%);
+    border-color: #d1d5db;
     box-shadow:
       inset 0 1px 2px rgba(255, 255, 255, 0.5),
-      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
-      0 0 15px rgba(0, 0, 0, 0.1);
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .breadcrumb-list {
+    color: #374151;
+  }
+
+  html.light-mode .breadcrumb .separator {
+    color: #6b7280;
   }
 
   html.light-mode .breadcrumb-list a {
-    color: #374151;
+    color: #2563eb;
     text-shadow: none;
   }
 
   html.light-mode .breadcrumb-list a:hover {
-    color: #111827;
+    color: #1d4ed8;
+    text-decoration: underline;
   }
 
   html.light-mode .breadcrumb-list .active {
-    color: #1f2937;
+    color: #111827;
   }
 
   html.light-mode .tutorial-article {
@@ -1076,6 +1142,7 @@ const currentCategory = post.data.category;
   html.light-mode .article-title {
     color: #111827;
     text-shadow: none;
+    line-height: 1.4;
   }
 
   html.light-mode .article-description {
@@ -1118,9 +1185,47 @@ const currentCategory = post.data.category;
   }
 
   html.light-mode .article-content pre {
-    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-    color: #111827;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    color: #f9fafb;
+    border-color: #4b5563;
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.5),
+      0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  html.light-mode .article-content pre code {
+    background: transparent;
+    color: #f9fafb;
+    border: none;
+    box-shadow: none;
+  }
+
+  html.light-mode .article-content table {
     border-color: #d1d5db;
+  }
+
+  html.light-mode .article-content th,
+  html.light-mode .article-content td {
+    border-color: #e5e7eb;
+  }
+
+  html.light-mode .article-content th {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+      );
+    color: #111827;
+    font-weight: 700;
+    border-bottom: 2px solid #9ca3af;
+    text-shadow: none;
+  }
+
+  html.light-mode .article-content td {
+    color: #1f2937;
   }
 
   html.light-mode .difficulty-badge {
@@ -1141,20 +1246,64 @@ const currentCategory = post.data.category;
     background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
   }
 
+  html.light-mode .prerequisites {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.02) 1px,
+        rgba(0, 0, 0, 0.02) 2px
+      ),
+      linear-gradient(135deg, rgba(243, 244, 246, 0.6) 0%, rgba(229, 231, 235, 0.6) 100%);
+    border-left-color: #3b82f6;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .prerequisites strong {
+    color: #111827;
+  }
+
+  html.light-mode .prerequisites-list li {
+    color: #4b5563;
+  }
+
+  html.light-mode .prerequisites-list li::before {
+    color: #059669;
+    text-shadow: none;
+  }
+
   html.light-mode .tag-item {
     background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
     color: #374151;
     border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 0 6px rgba(0, 0, 0, 0.05);
+  }
+
+  html.light-mode .tag {
+    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+    color: #374151;
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 0 6px rgba(0, 0, 0, 0.05);
   }
 
   html.light-mode .nav-link {
-    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
-    border-color: #9ca3af;
+    background: linear-gradient(135deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.8) 100%);
+    border-color: #d1d5db;
     color: #1f2937;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   html.light-mode .nav-link:hover {
-    background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
   }
 
   html.light-mode .related-post-card {
@@ -1179,5 +1328,183 @@ const currentCategory = post.data.category;
 
   html.light-mode .related-post-description {
     color: #6b7280;
+  }
+
+  html.light-mode .titanium-button {
+    background: linear-gradient(180deg, #d1d5db 0%, #9ca3af 50%, #6b7280 100%);
+    color: #111827;
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 15px rgba(0, 0, 0, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.15);
+    text-shadow: none;
+  }
+
+  html.light-mode .titanium-button:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 22px rgba(0, 0, 0, 0.15),
+      0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  html.light-mode .titanium-button:active {
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.2),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.3),
+      0 0 12px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light-mode .titanium-button-secondary {
+    background: linear-gradient(135deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.8) 100%);
+    border-color: #d1d5db;
+    color: #1f2937;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 15px rgba(0, 0, 0, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.15);
+    text-shadow: none;
+  }
+
+  html.light-mode .titanium-button-secondary:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 0 22px rgba(0, 0, 0, 0.15),
+      0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  html.light-mode .article-meta {
+    color: #6b7280;
+  }
+
+  html.light-mode .meta-icon {
+    filter: none;
+  }
+
+  html.light-mode .nav-label {
+    color: #6b7280;
+  }
+
+  html.light-mode .nav-title {
+    color: #111827;
+  }
+
+  html.light-mode .nav-icon {
+    color: #374151;
+    text-shadow: none;
+  }
+
+  html.light-mode .related-posts h3 {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .related-post-card h4 {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .related-post-card p {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .related-post-meta .time {
+    color: #6b7280;
+  }
+
+  /* ========================================
+     代码块复制按钮样式
+     ======================================== */
+  .article-content pre {
+    position: relative;
+  }
+
+  .copy-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background:
+      linear-gradient(180deg, rgba(113, 113, 122, 0.5) 0%, rgba(63, 63, 70, 0.5) 100%);
+    border: 1px solid rgba(212, 212, 216, 0.3);
+    border-radius: 6px;
+    padding: 0.375rem 0.75rem;
+    color: #e4e4e7;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    z-index: 10;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .article-content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background:
+      linear-gradient(180deg, rgba(113, 113, 122, 0.7) 0%, rgba(63, 63, 70, 0.7) 100%);
+    border-color: rgba(212, 212, 216, 0.5);
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.15),
+      0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .copy-button:active {
+    transform: translateY(0);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.5),
+      0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .copy-button.copied {
+    background:
+      linear-gradient(180deg, rgba(16, 185, 129, 0.5) 0%, rgba(5, 150, 105, 0.5) 100%);
+    border-color: rgba(16, 185, 129, 0.5);
+  }
+
+  /* 亮色模式下的复制按钮 */
+  html.light-mode .copy-button {
+    background:
+      linear-gradient(180deg, rgba(243, 244, 246, 0.9) 0%, rgba(229, 231, 235, 0.9) 100%);
+    border-color: #d1d5db;
+    color: #374151;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light-mode .copy-button:hover {
+    background:
+      linear-gradient(180deg, #e5e7eb 0%, #d1d5db 100%);
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .copy-button:active {
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.2),
+      0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light-mode .copy-button.copied {
+    background:
+      linear-gradient(180deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
+    border-color: #10b981;
+    color: #059669;
   }
 </style>

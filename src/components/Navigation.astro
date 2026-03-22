@@ -207,7 +207,7 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
   .nav-menu.desktop {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
   }
 
   /* 导航链接 - 霓虹蓝效果 */
@@ -218,9 +218,10 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     font-size: 0.9375rem;
     transition: all 0.2s;
     white-space: nowrap;
-    padding: 0.5rem 0;
+    padding: 0.5rem 0.75rem;
     text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
     position: relative;
+    border-radius: 6px;
   }
 
   .nav-link:hover {
@@ -228,6 +229,15 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     text-shadow:
       0 0 8px rgba(228, 228, 231, 0.6),
       0 0 12px rgba(212, 212, 216, 0.5);
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(180deg, rgba(39, 39, 42, 0.5) 0%, rgba(24, 24, 27, 0.5) 100%);
   }
 
   /* 下拉菜单 */
@@ -715,10 +725,24 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
   html.light-mode .nav-link {
     color: #374151;
     text-shadow: none;
+    box-shadow: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
   }
 
   html.light-mode .nav-link:hover {
     color: #111827;
+    text-shadow: none;
+    box-shadow: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.8) 100%);
   }
 
   html.light-mode .dropdown-toggle {
