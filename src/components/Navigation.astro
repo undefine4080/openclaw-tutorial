@@ -86,12 +86,12 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
 
       <!-- Language & Theme Switcher -->
       <div class="switcher-group">
-        <!-- Language Switcher -->
-        <div class="lang-switcher">
+        <!-- Language Switcher - 暂时注释，英文版建设中 -->
+        <!-- <div class="lang-switcher">
           <a href={enPath} class:list={[!isZhCN && 'active']}>EN</a>
           <span class="divider">/</span>
           <a href={zhPath} class:list={[isZhCN && 'active']}>中文</a>
-        </div>
+        </div> -->
 
         <!-- Theme Switcher -->
         <ThemeSwitcher />
@@ -130,12 +130,12 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     <a href="#community" class="mobile-nav-link">{navData.community}</a>
 
     <div class="mobile-switcher-group">
-      <!-- Language Switcher -->
-      <div class="mobile-lang-switcher">
+      <!-- Language Switcher - 暂时注释，英文版建设中 -->
+      <!-- <div class="mobile-lang-switcher">
         <a href={enPath} class:list={[!isZhCN && 'active']}>English</a>
         <span class="divider">/</span>
         <a href={zhPath} class:list={[isZhCN && 'active']}>中文</a>
-      </div>
+      </div> -->
 
       <!-- Theme Switcher (Mobile) -->
       <div class="mobile-theme-switcher">
@@ -597,12 +597,18 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
   }
 
   /* 移动端主题切换器 */
+  .mobile-switcher-group {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
   .mobile-theme-switcher {
     padding: 1rem 2rem;
-    border-top: 1px solid #d4d4d8;
     background: rgba(39, 39, 42, 0.3);
     display: flex;
     justify-content: center;
+    width: 100%;
   }
 
   .mobile-theme-toggle {
@@ -920,8 +926,8 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
   }
 
   html.light-mode .mobile-theme-switcher {
-    border-top-color: #e5e7eb;
     background: rgba(243, 244, 246, 0.5);
+    width: 100%;
   }
 
   html.light-mode .mobile-theme-toggle {

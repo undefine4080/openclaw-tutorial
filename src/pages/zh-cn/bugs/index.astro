@@ -1,0 +1,754 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import BugSearch from '../../../components/BugSearch.astro';
+---
+
+<Layout title="Bug 问题库 - OpenClaw 已解决 Bug">
+  <main class="bugs-page">
+    <!-- 页面标题 -->
+    <div class="bugs-header">
+      <h1>🐛 Bug 问题库</h1>
+      <p>快速找到已解决的 Bug 和解决方案，无需在 GitHub 中搜索</p>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="bugs-search-section">
+      <BugSearch />
+    </div>
+
+    <!-- 统计信息 -->
+    <div class="bugs-stats">
+      <div class="stat-card">
+        <h3>已解决 Bug</h3>
+        <p class="stat-number" id="total-bugs">-</p>
+      </div>
+      <div class="stat-card">
+        <h3>本周新增</h3>
+        <p class="stat-number">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>平均解决时间</h3>
+        <p class="stat-number">2天</p>
+      </div>
+    </div>
+
+    <!-- Bug 列表 -->
+    <div id="bugs-container" class="bugs-list">
+      <div class="loading">
+        <p>正在加载 Bug 数据...</p>
+      </div>
+    </div>
+
+    <!-- 加载更多 -->
+    <div class="bugs-footer">
+      <button id="load-more" class="btn btn-primary" style="display: none;">
+        加载更多
+      </button>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // 加载 bug reports 数据
+  async function loadBugReports() {
+    try {
+      // 加载搜索索引（优化：使用轻量级索引）
+      const response = await fetch('/data/bug-reports/bugs-search-index.json');
+      const data = await response.json();
+
+      // 更新统计
+      const totalBugsElement = document.getElementById('total-bugs');
+      if (totalBugsElement) {
+        totalBugsElement.textContent = data.meta.total_count;
+      }
+
+      // 渲染 bug 列表（适配索引结构）
+      renderBugs(data.index);
+
+    } catch (error) {
+      console.error('Failed to load bug reports:', error);
+      const bugsContainer = document.getElementById('bugs-container');
+      if (bugsContainer) {
+        bugsContainer.innerHTML =
+          '<div class="error-message">' +
+          '<p>加载失败，请确保已运行 <code>npm run generate-search-index</code></p>' +
+          '</div>';
+      }
+    }
+  }
+
+  // 渲染 bug cards
+  function renderBugs(bugs: any[], page = 1, perPage = 20) {
+    const container = document.getElementById('bugs-container');
+    if (!container) return;
+
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    const pageBugs = bugs.slice(start, end);
+
+    let html = '';
+
+    pageBugs.forEach((bug: any, index: number) => {
+      // 适配搜索索引的数据结构
+      const title = bug.title;
+      const description = bug.short_desc;
+      const globalIndex = start + index + 1;
+
+      html += `
+        <div class="bug-card">
+          <div class="bug-card-header">
+            <h2>${globalIndex}. ${title}</h2>
+            <span class="badge badge-success">已解决</span>
+          </div>
+
+          <div class="bug-meta">
+            ${bug.labels.map((label: string) =>
+              `<span class="badge">${label}</span>`
+            ).join('')}
+          </div>
+
+          <p class="bug-description">
+            ${description}${description.length >= 200 ? '...' : ''}
+          </p>
+
+          <div class="bug-footer">
+            <a href="${bug.url}" target="_blank" rel="noopener noreferrer" class="bug-link">
+              查看完整讨论 →
+            </a>
+            <span class="bug-date">
+              ${new Date(bug.closed_at).toLocaleDateString('zh-CN')}
+            </span>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+
+    // 更新加载更多按钮
+    const loadMoreBtn = document.getElementById('load-more');
+    if (!loadMoreBtn) return;
+
+    if (end >= bugs.length) {
+      loadMoreBtn.style.display = 'none';
+    } else {
+      loadMoreBtn.style.display = 'inline-block';
+      loadMoreBtn.onclick = () => renderBugs(bugs, page + 1, perPage);
+    }
+  }
+
+  // 页面加载时执行
+  document.addEventListener('DOMContentLoaded', loadBugReports);
+</script>
+
+<style>
+  /* ========================================
+     钛金属深色拟物化设计风格
+     ======================================== */
+
+  .bugs-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    min-height: 100vh;
+    color: #e4e4e7; /* 强制设置暗色模式下的文字颜色 */
+  }
+
+  .bugs-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .bugs-header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: #e4e4e7;
+    text-shadow:
+      0 0 15px rgba(228, 228, 231, 0.5),
+      0 0 30px rgba(228, 228, 231, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .bugs-header p {
+    font-size: 1.25rem;
+    color: #a1a1aa;
+    font-style: italic;
+    text-shadow: 0 0 8px rgba(161, 161, 170, 0.5);
+  }
+
+  .bugs-search-section {
+    margin-bottom: 2.5rem;
+  }
+
+  /* 统计卡片 - 钛金属质感 */
+  .bugs-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .stat-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, #27272a 0%, #18181b 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid #d4d4d8;
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.15),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 15px rgba(228, 228, 231, 0.2),
+      0 6px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(228, 228, 231, 0.4) 0%, transparent 50%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.2),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 22px rgba(228, 228, 231, 0.3),
+      0 8px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  .stat-card h3 {
+    font-size: 0.875rem;
+    color: #a1a1aa;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 12px rgba(228, 228, 231, 0.5);
+  }
+
+  .stat-card:nth-child(1) .stat-number {
+    color: #60a5fa;
+    text-shadow: 0 0 12px rgba(96, 165, 250, 0.6);
+  }
+  .stat-card:nth-child(2) .stat-number {
+    color: #34d399;
+    text-shadow: 0 0 12px rgba(52, 211, 153, 0.6);
+  }
+  .stat-card:nth-child(3) .stat-number {
+    color: #a78bfa;
+    text-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+  }
+
+  /* Bug 列表 */
+  .bugs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #a1a1aa;
+    font-size: 1.125rem;
+    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
+  }
+
+  .error-message {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(239, 68, 68, 0.1) 1px,
+        rgba(239, 68, 68, 0.1) 2px
+      ),
+      linear-gradient(135deg, rgba(127, 29, 29, 0.2) 0%, rgba(185, 28, 28, 0.1) 100%);
+    border: 2px solid #f87171;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    color: #fca5a5;
+    box-shadow:
+      inset 0 2px 4px rgba(248, 113, 113, 0.2),
+      0 0 15px rgba(248, 113, 113, 0.3);
+  }
+
+  .error-message code {
+    background: rgba(248, 113, 113, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-family: 'Monaco', 'Courier New', monospace;
+    border: 1px solid #f87171;
+  }
+
+  /* Bug 卡片 - 钛金属拟物化 */
+  .bug-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, #27272a 0%, #18181b 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 2px solid #d4d4d8;
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.15),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 15px rgba(228, 228, 231, 0.2),
+      0 6px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .bug-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(228, 228, 231, 0.4) 0%, transparent 50%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .bug-card:hover {
+    transform: translateY(-2px);
+    border-color: #60a5fa;
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.2),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 22px rgba(96, 165, 250, 0.4),
+      0 8px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  .bug-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1.25rem;
+    gap: 1rem;
+  }
+
+  .bug-card-header h2 {
+    font-size: 1.375rem;
+    margin: 0;
+    color: #e4e4e7;
+    flex: 1;
+    text-shadow: 0 0 8px rgba(228, 228, 231, 0.4);
+    line-height: 1.4;
+  }
+
+  /* 徽章 - 银色光晕效果 */
+  .badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.2),
+      0 0 8px rgba(228, 228, 231, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.5);
+  }
+
+  .badge-success {
+    background: linear-gradient(180deg, rgba(52, 211, 153, 0.2) 0%, rgba(16, 185, 129, 0.15) 100%);
+    color: #34d399;
+    border-color: #34d399;
+    box-shadow:
+      inset 0 1px 2px rgba(52, 211, 153, 0.2),
+      0 0 8px rgba(52, 211, 153, 0.4);
+    text-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
+  }
+
+  .bug-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .bug-meta .badge {
+    background: linear-gradient(180deg, rgba(228, 228, 231, 0.2) 0%, rgba(212, 212, 216, 0.15) 100%);
+    color: #a1a1aa;
+  }
+
+  .error-box {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(239, 68, 68, 0.05) 1px,
+        rgba(239, 68, 68, 0.05) 2px
+      ),
+      linear-gradient(135deg, rgba(127, 29, 29, 0.15) 0%, rgba(185, 28, 28, 0.1) 100%);
+    border-left: 4px solid #f87171;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-radius: 6px;
+    box-shadow:
+      inset 2px 2px 4px rgba(0, 0, 0, 0.3),
+      0 0 8px rgba(248, 113, 113, 0.2);
+  }
+
+  .error-box code {
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: #fca5a5;
+    word-break: break-all;
+    text-shadow: 0 0 6px rgba(252, 165, 165, 0.4);
+  }
+
+  .bug-description {
+    color: #a1a1aa;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
+  }
+
+  .bug-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    border-top: 2px solid #d4d4d8;
+  }
+
+  .bug-link {
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: 600;
+    text-shadow: 0 0 6px rgba(96, 165, 250, 0.4);
+    transition: all 0.2s;
+  }
+
+  .bug-link:hover {
+    color: #93c5fd;
+    text-shadow: 0 0 12px rgba(147, 197, 253, 0.6);
+    text-decoration: underline;
+  }
+
+  .bug-date {
+    color: #71717a;
+    font-size: 0.875rem;
+    text-shadow: 0 0 6px rgba(113, 113, 122, 0.4);
+  }
+
+  .bugs-footer {
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  /* 按钮 - 钛金属质感 */
+  .btn {
+    padding: 0.85rem 2rem;
+    border: 2px solid #d4d4d8;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+
+  .btn-primary {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(180deg, #71717a 0%, #52525b 50%, #3f3f46 100%);
+    color: #e4e4e7;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(228, 228, 231, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.4);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 22px rgba(228, 228, 231, 0.4),
+      0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .btn-primary:active {
+    transform: translateY(1px);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.4),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.1),
+      0 0 12px rgba(228, 228, 231, 0.3);
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .bugs-page {
+      padding: 2rem 1rem;
+    }
+
+    .bugs-header h1 {
+      font-size: 2.25rem;
+    }
+
+    .bugs-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .bug-card-header {
+      flex-direction: column;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+    }
+  }
+
+  /* ========================================
+     亮色模式样式
+     ======================================== */
+  html.light-mode .bugs-page {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(209, 213, 219, 0.03) 2px,
+        rgba(209, 213, 219, 0.03) 4px
+      ),
+      linear-gradient(
+        135deg,
+        #f9fafb 0%,
+        #e5e7eb 50%,
+        #f9fafb 100%
+      );
+  }
+
+  html.light-mode .bugs-header h1 {
+    color: #111827;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light-mode .bugs-header p {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .stat-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.1) 1px,
+        rgba(209, 213, 219, 0.1) 2px
+      ),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .stat-card::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
+  }
+
+  html.light-mode .stat-card h3 {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .stat-card:nth-child(1) .stat-number {
+    color: #3b82f6;
+    text-shadow: none;
+  }
+
+  html.light-mode .stat-card:nth-child(2) .stat-number {
+    color: #10b981;
+    text-shadow: none;
+  }
+
+  html.light-mode .stat-card:nth-child(3) .stat-number {
+    color: #8b5cf6;
+    text-shadow: none;
+  }
+
+  html.light-mode .loading {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .bug-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.1) 1px,
+        rgba(209, 213, 219, 0.1) 2px
+      ),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .bug-card::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
+  }
+
+  html.light-mode .bug-card:hover {
+    border-color: #3b82f6;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 4px 12px rgba(59, 130, 246, 0.2);
+  }
+
+  html.light-mode .bug-card-header h2 {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .badge {
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    text-shadow: none;
+  }
+
+  html.light-mode .badge-success {
+    background: linear-gradient(180deg, rgba(209, 250, 229, 0.8) 0%, rgba(167, 243, 208, 0.6) 100%);
+    color: #059669;
+    border-color: #10b981;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      0 1px 3px rgba(16, 185, 129, 0.2);
+  }
+
+  html.light-mode .bug-meta .badge {
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+    color: #6b7280;
+  }
+
+  html.light-mode .error-box {
+    background: rgba(254, 226, 226, 0.5);
+    border-left-color: #ef4444;
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  html.light-mode .error-box code {
+    color: #991b1b;
+    text-shadow: none;
+  }
+
+  html.light-mode .bug-description {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .bug-footer {
+    border-top-color: #e5e7eb;
+  }
+
+  html.light-mode .bug-link {
+    color: #3b82f6;
+    text-shadow: none;
+  }
+
+  html.light-mode .bug-link:hover {
+    color: #2563eb;
+    text-shadow: none;
+  }
+
+  html.light-mode .bug-date {
+    color: #9ca3af;
+    text-shadow: none;
+  }
+
+  html.light-mode .btn-primary {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(180deg, #e5e7eb 0%, #d1d5db 50%, #9ca3af 100%);
+    color: #111827;
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+  }
+
+  html.light-mode .btn-primary:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .btn-primary:active {
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.15),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.5),
+      0 0 8px rgba(0, 0, 0, 0.1);
+  }
+</style>

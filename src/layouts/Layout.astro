@@ -94,6 +94,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   /* ========================================
+     暗色模式全局样式
+     ======================================== */
+  html.dark-mode body,
+  body {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(113, 113, 122, 0.03) 2px,
+        rgba(113, 113, 122, 0.03) 4px
+      ),
+      linear-gradient(
+        135deg,
+        #0a0e27 0%,
+        #1a1f3a 50%,
+        #0a0e27 100%
+      );
+    background-attachment: fixed;
+    color: #e4e4e7;
+  }
+
+  /* ========================================
      亮色模式全局样式
      ======================================== */
   html.light-mode body {
@@ -112,5 +135,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         #f9fafb 100%
       );
     background-attachment: fixed;
+    color: #333;
   }
 </style>
