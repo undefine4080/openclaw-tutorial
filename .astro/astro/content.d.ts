@@ -163,6 +163,13 @@ declare module 'astro:content' {
   collection: "posts-zh-cn";
   data: InferEntrySchema<"posts-zh-cn">
 } & { render(): Render[".md"] };
+"llm-integration-guide.md": {
+	id: "llm-integration-guide.md";
+  slug: "llm-integration-guide";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
 "model-integration.md": {
 	id: "model-integration.md";
   slug: "model-integration";
