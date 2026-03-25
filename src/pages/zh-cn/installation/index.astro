@@ -75,10 +75,10 @@ const subcategories = [...new Set(
                   'local': '本地安装',
                   'cloud': '云端部署',
                   'platform': '一键部署'
-                };
+                } as const;
                 return (
                   <div class="subcategory-group">
-                    <h2 class="subcategory-title">{subcatNames[subcat] || subcat}</h2>
+                    <h2 class="subcategory-title">{subcat ? (subcatNames[subcat] || subcat) : ''}</h2>
                     <div class="posts-grid">
                       {subcatPosts.map((post) => (
                         <a href={`/zh-cn/installation/${post.slug}/`} class="titanium-card">

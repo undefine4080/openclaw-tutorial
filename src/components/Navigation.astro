@@ -710,20 +710,24 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
       html.classList.remove('dark-mode');
       html.classList.add('light-mode');
       mobileThemeToggle.classList.add('light-mode');
-      mobileThemeIcon.textContent = '☀️';
+      if (mobileThemeIcon) {
+        mobileThemeIcon.textContent = '☀️';
+      }
       localStorage.setItem('theme', 'light');
     } else {
       html.classList.remove('light-mode');
       html.classList.add('dark-mode');
       mobileThemeToggle.classList.remove('light-mode');
-      mobileThemeIcon.textContent = '🌙';
+      if (mobileThemeIcon) {
+        mobileThemeIcon.textContent = '🌙';
+      }
       localStorage.setItem('theme', 'dark');
     }
 
     // 同步桌面端主题切换器状态
     const desktopThemeToggle = document.getElementById('themeToggle');
     const desktopThemeIcon = document.getElementById('themeIcon');
-    if (desktopThemeToggle && desktopThemeIcon) {
+    if (desktopThemeToggle && desktopThemeIcon && mobileThemeIcon) {
       desktopThemeToggle.classList.toggle('light-mode');
       desktopThemeIcon.textContent = mobileThemeIcon.textContent;
     }
@@ -736,7 +740,8 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
 
   // 监听主题变化事件，同步移动端和桌面端
   window.addEventListener('themechange', (e) => {
-    const theme = e.detail.theme;
+    const customEvent = e as CustomEvent;
+    const theme = customEvent.detail.theme;
     if (theme === 'light') {
       mobileThemeToggle?.classList.add('light-mode');
       mobileThemeIcon && (mobileThemeIcon.textContent = '☀️');

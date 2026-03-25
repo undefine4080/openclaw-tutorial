@@ -298,7 +298,7 @@ const currentCategory = post.data.category;
           `;
 
           // 插入按钮到 pre 元素
-          pre.style.position = 'relative';
+          (pre as HTMLElement).style.position = 'relative';
           pre.appendChild(copyButton);
 
           // 点击复制
@@ -311,19 +311,31 @@ const currentCategory = post.data.category;
 
               // 显示成功状态
               copyButton.classList.add('copied');
-              copyButton.querySelector('.copy-text').textContent = '已复制';
+              const copyText = copyButton.querySelector('.copy-text');
+              if (copyText) {
+                copyText.textContent = '已复制';
+              }
 
               // 2秒后恢复
               setTimeout(() => {
                 copyButton.classList.remove('copied');
-                copyButton.querySelector('.copy-text').textContent = '复制';
+                const copyText = copyButton.querySelector('.copy-text');
+                if (copyText) {
+                  copyText.textContent = '复制';
+                }
               }, 2000);
             } catch (err) {
               console.error('复制失败:', err);
-              copyButton.querySelector('.copy-text').textContent = '失败';
+              const copyText = copyButton.querySelector('.copy-text');
+              if (copyText) {
+                copyText.textContent = '失败';
+              }
 
               setTimeout(() => {
-                copyButton.querySelector('.copy-text').textContent = '复制';
+                const copyText = copyButton.querySelector('.copy-text');
+                if (copyText) {
+                  copyText.textContent = '复制';
+                }
               }, 2000);
             }
           });
@@ -343,15 +355,15 @@ const currentCategory = post.data.category;
 
         // 打开目录
         const openToc = () => {
-          tocSidebar.classList.add('active');
-          tocOverlay.classList.add('active');
+          if (tocSidebar) tocSidebar.classList.add('active');
+          if (tocOverlay) tocOverlay.classList.add('active');
           document.body.style.overflow = 'hidden';
         };
 
         // 关闭目录
         const closeToc = () => {
-          tocSidebar.classList.remove('active');
-          tocOverlay.classList.remove('active');
+          if (tocSidebar) tocSidebar.classList.remove('active');
+          if (tocOverlay) tocOverlay.classList.remove('active');
           document.body.style.overflow = '';
         };
 
@@ -361,7 +373,7 @@ const currentCategory = post.data.category;
 
           const headings = articleContent.querySelectorAll('h2, h3');
           if (headings.length === 0) {
-            tocToggle.style.display = 'none';
+            if (tocToggle) tocToggle.style.display = 'none';
             return;
           }
 
@@ -408,7 +420,7 @@ const currentCategory = post.data.category;
                   const id = entry.target.id;
                   tocNav.querySelectorAll('.toc-item').forEach((item) => {
                     item.classList.remove('active');
-                    if (item.dataset.target === id) {
+                    if ((item as HTMLElement).dataset.target === id) {
                       item.classList.add('active');
                     }
                   });
