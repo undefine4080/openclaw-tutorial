@@ -149,9 +149,30 @@ declare module 'astro:content' {
   render(): Render[".md"];
 }>;
 "posts-zh-cn": {
+"feishu.md": {
+	id: "feishu.md";
+  slug: "feishu";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
 "llm-integration-guide.md": {
 	id: "llm-integration-guide.md";
   slug: "llm-integration-guide";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"local-mac.md": {
+	id: "local-mac.md";
+  slug: "local-mac";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
+"memory.md": {
+	id: "memory.md";
+  slug: "memory";
   body: string;
   collection: "posts-zh-cn";
   data: InferEntrySchema<"posts-zh-cn">

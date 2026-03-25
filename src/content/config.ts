@@ -30,8 +30,8 @@ const post = defineCollection({
       'claw-brain',          // 小龙虾的大脑
       'essential-skills',    // 必备技能包
       'multi-agents',        // 多 Agents 能力
-      'installation',           // 安装部署
-      'troubleshooting',        // 疑难解答
+      'installation',        // 安装部署
+      'troubleshooting',     // 疑难解答
     ]).optional(),
 
     // 子分类（用于进一步细分某些分类）
