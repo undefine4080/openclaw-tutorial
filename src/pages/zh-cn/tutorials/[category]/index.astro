@@ -150,10 +150,10 @@ const subcategories = [...new Set(
                   'general': '热门通用',
                   'basic': '基础入门',
                   'advanced': '进阶技巧'
-                };
+                } as const;
                 return (
                   <div class="subcategory-group">
-                    <h2 class="subcategory-title">{subcatNames[subcat] || subcat}</h2>
+                    <h2 class="subcategory-title">{subcat ? (subcatNames[subcat] || subcat) : ''}</h2>
                     <div class="posts-grid">
                       {subcatPosts.map((post) => (
                         <a href={`/zh-cn/tutorials/${category}/${post.slug}/`} class="titanium-card">
