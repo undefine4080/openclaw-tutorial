@@ -31,3 +31,6 @@ npm-debug.log*
 
 # Collected data (auto-generated)
 data/
+# 数据文件
+data/
+public/data/
