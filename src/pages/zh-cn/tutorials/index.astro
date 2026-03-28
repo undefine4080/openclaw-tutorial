@@ -125,7 +125,7 @@ const totalPosts = allPosts.filter(post => post.data.category && categories.some
       <div class="container">
         <div class="tutorial-grid">
           {categoriesWithCount.map((cat) => (
-            <a href={cat.path} class="tutorial-card">
+            <a href={cat.path} class="tutorial-card" id={cat.id}>
               <div class="tutorial-badge">{String(cat.order).padStart(2, '0')}</div>
               <div class="card-icon">{cat.icon}</div>
               <h3 class="tutorial-title">{cat.title}</h3>

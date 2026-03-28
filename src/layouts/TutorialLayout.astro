@@ -1225,7 +1225,7 @@ const currentCategory = post.data.category;
   /* ========================================
      亮色模式样式
      ======================================== */
-  html.light-mode .tutorial-layout {
+  html.light-mode body {
     background:
       repeating-linear-gradient(
         90deg,
@@ -1240,6 +1240,8 @@ const currentCategory = post.data.category;
         #e5e7eb 50%,
         #f9fafb 100%
       );
+    background-attachment: fixed;
+    color: #1f2937;
   }
 
   html.light-mode .breadcrumb {

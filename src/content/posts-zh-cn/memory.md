@@ -12,7 +12,6 @@ order: 1
 alternates:
   zhCN: /zh-cn/tutorials/claw-brain/memory/
 ---
-
 # OpenClaw 记忆系统深度掌握
 
 > **写在前面：** OpenClaw 官方文档对记忆系统的介绍只有寥寥数行，大部分经验需要自己踩坑摸索。这篇文章整合了官方源码、社区实践、真实踩坑记录，目标是把你需要知道的都说清楚，让你少走弯路。

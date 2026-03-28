@@ -1,5 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts-zh-cn',
+  ({ data }) => data.status === 'published'
+);
+const totalPosts = allPosts.length;
 ---
 
 <Layout title="OpenClaw：从新手到大师" currentPath="/zh-cn/">
@@ -7,13 +13,16 @@ import Layout from '../../layouts/Layout.astro';
     <!-- Hero 区域 -->
     <section class="hero" id="hero">
       <div class="hero-container">
-        <h1 class="hero-title">OpenClaw：从新手到大师</h1>
+        <h1 class="hero-title"><span class="title-highlight">OpenClaw</span>：从新手到大师</h1>
         <p class="hero-subtitle">
           全面、深度的 OpenClaw 教程，持续更新中...
         </p>
+        <p class="hero-stats">
+          已更新 <span class="stats-count">{totalPosts}</span> 篇文章
+        </p>
         <div class="hero-cta">
-          <a href="#tutorials-01" class="cta-button primary">查看教程</a>
-          <a href="#troubleshooting" class="cta-button secondary">疑难解答</a>
+          <a href="/zh-cn/tutorials/installation/" class="cta-button primary">查看教程</a>
+          <a href="/zh-cn/bugs/" class="cta-button secondary">疑难解答</a>
         </div>
       </div>
     </section>
@@ -451,20 +460,75 @@ import Layout from '../../layouts/Layout.astro';
     font-weight: 800;
     margin-bottom: 1.5rem;
     line-height: 1.1;
-    text-shadow:
-      0 0 15px rgba(228, 228, 231, 0.5),
-      0 0 30px rgba(228, 228, 231, 0.3),
-      0 4px 8px rgba(0, 0, 0, 0.5);
     letter-spacing: 0.02em;
+  }
+
+  /* 小龙虾主题渐变 - 橘红色调 */
+  .title-highlight {
+    background: linear-gradient(
+      90deg,
+      #dc2626 0%,
+      #ef4444 15%,
+      #f97316 30%,
+      #fb923c 45%,
+      #fbbf24 55%,
+      #f97316 70%,
+      #ef4444 85%,
+      #dc2626 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: claw-gradient-flow 3s linear infinite;
+  }
+
+  @keyframes claw-gradient-flow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
   }
 
   .hero-subtitle {
     font-size: clamp(1.125rem, 2vw, 1.5rem);
-    margin-bottom: 2.5rem;
+    margin-bottom: 1rem;
     opacity: 0.95;
     text-shadow:
       0 0 8px rgba(212, 212, 216, 0.4),
       0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* 苹果风格多彩渐变统计文字 */
+  .hero-stats {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    color: #a1a1aa;
+    margin: 0 0 2rem 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .stats-count {
+    font-weight: 800;
+    font-size: 1.5em;
+    padding: 0 0.1em;
+    background: linear-gradient(
+      90deg,
+      #ff6b6b 0%,
+      #ffa502 20%,
+      #ffd43b 35%,
+      #51cf66 50%,
+      #339af0 65%,
+      #845ef7 80%,
+      #f06595 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-flow 4s linear infinite;
+  }
+
+  @keyframes gradient-flow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
   }
 
   .hero-cta {
@@ -1474,6 +1538,11 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   html.light-mode .hero-subtitle {
+    text-shadow: none;
+  }
+
+  html.light-mode .hero-stats {
+    color: #6b7280;
     text-shadow: none;
   }
 
