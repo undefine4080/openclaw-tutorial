@@ -1,9 +1,10 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-const allPosts = await getCollection('posts-zh-cn',
-  ({ data }) => data.status === 'published'
+const allPosts = await getCollection(
+  "posts-zh-cn",
+  ({ data }) => data.status === "published",
 );
 const totalPosts = allPosts.length;
 ---
@@ -13,15 +14,17 @@ const totalPosts = allPosts.length;
     <!-- Hero 区域 -->
     <section class="hero" id="hero">
       <div class="hero-container">
-        <h1 class="hero-title"><span class="title-highlight">OpenClaw</span>：从新手到大师</h1>
-        <p class="hero-subtitle">
-          全面、深度的 OpenClaw 教程，持续更新中...
-        </p>
+        <h1 class="hero-title">
+          <span class="title-highlight">OpenClaw</span>：从新手到大师
+        </h1>
+        <p class="hero-subtitle">全面、深度的 OpenClaw 教程，持续更新中...</p>
         <p class="hero-stats">
           已更新 <span class="stats-count">{totalPosts}</span> 篇文章
         </p>
         <div class="hero-cta">
-          <a href="/zh-cn/tutorials/installation/" class="cta-button primary">查看教程</a>
+          <a href="/zh-cn/tutorials/installation/" class="cta-button primary"
+            >查看教程</a
+          >
           <a href="/zh-cn/bugs/" class="cta-button secondary">疑难解答</a>
         </div>
       </div>
@@ -38,7 +41,10 @@ const totalPosts = allPosts.length;
 
         <div class="latest-posts-grid">
           <!-- 文章卡片 -->
-          <a href="/zh-cn/tutorials/getting-started/llm-integration-guide/" class="latest-post-card">
+          <a
+            href="/zh-cn/tutorials/getting-started/llm-integration-guide/"
+            class="latest-post-card"
+          >
             <div class="post-card-header">
               <div class="post-badge">精选</div>
               <div class="post-meta">
@@ -47,9 +53,12 @@ const totalPosts = allPosts.length;
                 <span class="post-time">⏱️ 30 分钟</span>
               </div>
             </div>
-            <h3 class="post-title">OpenClaw 接入大模型完全指南：选型、配置与多模型智能路由</h3>
+            <h3 class="post-title">
+              OpenClaw 接入大模型完全指南：选型、配置与多模型智能路由
+            </h3>
             <p class="post-description">
-              横评 10+ 款主流大模型的价格与能力，详解 Onboard 向导和配置文件两种接入方式，并手把手教你配置多模型智能路由，让不同任务自动找到最合适的模型。
+              横评 10+ 款主流大模型的价格与能力，详解 Onboard
+              向导和配置文件两种接入方式，并手把手教你配置多模型智能路由，让不同任务自动找到最合适的模型。
             </p>
             <div class="post-tags">
               <span class="tag">llm</span>
@@ -57,9 +66,7 @@ const totalPosts = allPosts.length;
               <span class="tag">multi-model</span>
               <span class="tag">routing</span>
             </div>
-            <div class="read-more">
-              阅读全文 →
-            </div>
+            <div class="read-more">阅读全文 →</div>
           </a>
         </div>
       </div>
@@ -70,7 +77,10 @@ const totalPosts = allPosts.length;
       <div class="container">
         <h2 class="section-title">
           <span class="section-icon">⚙️</span>
-          <a href="/zh-cn/installation/" style="text-decoration: none; color: inherit;">安装部署</a>
+          <a
+            href="/zh-cn/installation/"
+            style="text-decoration: none; color: inherit;">安装部署</a
+          >
         </h2>
         <p class="section-subtitle">在本地机器或云端运行 OpenClaw</p>
 
@@ -84,7 +94,9 @@ const totalPosts = allPosts.length;
             <ul class="card-list">
               <li><a href="/zh-cn/installation/local-mac/">macOS 安装</a></li>
               <li><a href="/zh-cn/installation/local-linux/">Linux 安装</a></li>
-              <li><a href="/zh-cn/installation/local-windows/">Windows 安装</a></li>
+              <li>
+                <a href="/zh-cn/installation/local-windows/">Windows 安装</a>
+              </li>
             </ul>
           </div>
 
@@ -108,11 +120,31 @@ const totalPosts = allPosts.length;
               <h3>一键部署平台</h3>
             </div>
             <ul class="card-list">
-              <li><a href="/zh-cn/installation/one-click-deployment/">字节 ArkClaw</a></li>
-              <li><a href="/zh-cn/installation/one-click-deployment/">腾讯 QClaw</a></li>
-              <li><a href="/zh-cn/installation/one-click-deployment/">智谱 AutoClaw</a></li>
-              <li><a href="/zh-cn/installation/one-click-deployment/">猎豹 EasyClaw</a></li>
-              <li><a href="/zh-cn/installation/one-click-deployment/">腾讯 WorkBuddy</a></li>
+              <li>
+                <a href="/zh-cn/installation/one-click-deployment/"
+                  >字节 ArkClaw</a
+                >
+              </li>
+              <li>
+                <a href="/zh-cn/installation/one-click-deployment/"
+                  >腾讯 QClaw</a
+                >
+              </li>
+              <li>
+                <a href="/zh-cn/installation/one-click-deployment/"
+                  >智谱 AutoClaw</a
+                >
+              </li>
+              <li>
+                <a href="/zh-cn/installation/one-click-deployment/"
+                  >猎豹 EasyClaw</a
+                >
+              </li>
+              <li>
+                <a href="/zh-cn/installation/one-click-deployment/"
+                  >腾讯 WorkBuddy</a
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -141,7 +173,9 @@ const totalPosts = allPosts.length;
               <span class="topic">QQ</span>
               <span class="topic">企业微信</span>
             </div>
-            <a href="/zh-cn/tutorials/getting-started/" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/getting-started/" class="tutorial-link"
+              >查看教程 →</a
+            >
           </div>
 
           <!-- 02 初始化小龙虾 -->
@@ -154,7 +188,9 @@ const totalPosts = allPosts.length;
               <span class="topic">USER.md</span>
               <span class="topic">SOUL.md</span>
             </div>
-            <a href="/zh-cn/tutorials/initialization/" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/initialization/" class="tutorial-link"
+              >查看教程 →</a
+            >
           </div>
 
           <!-- 03 小龙虾的眼睛 -->
@@ -167,7 +203,9 @@ const totalPosts = allPosts.length;
               <span class="topic">图像处理</span>
               <span class="topic">视频理解</span>
             </div>
-            <a href="/zh-cn/tutorials/claw-eyes/" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/claw-eyes/" class="tutorial-link"
+              >查看教程 →</a
+            >
           </div>
 
           <!-- 04 小龙虾的手脚 -->
@@ -180,7 +218,9 @@ const totalPosts = allPosts.length;
               <span class="topic">API 集成</span>
               <span class="topic">自动化</span>
             </div>
-            <a href="/zh-cn/tutorials/claw-hands/" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/claw-hands/" class="tutorial-link"
+              >查看教程 →</a
+            >
           </div>
 
           <!-- 05 小龙虾的大脑 -->
@@ -193,7 +233,9 @@ const totalPosts = allPosts.length;
               <span class="topic">协作机制</span>
               <span class="topic">上下文管理</span>
             </div>
-            <a href="/zh-cn/tutorials/claw-brain/" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/claw-brain/" class="tutorial-link"
+              >查看教程 →</a
+            >
           </div>
 
           <!-- 06 必备技能包 -->
@@ -207,7 +249,9 @@ const totalPosts = allPosts.length;
               <span class="topic">自媒体热门</span>
               <span class="topic">热门通用</span>
             </div>
-            <a href="/zh-cn/tutorials/essential-skills/" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/essential-skills/" class="tutorial-link"
+              >查看教程 →</a
+            >
           </div>
 
           <!-- 07 多 Agents 能力 -->
@@ -219,7 +263,9 @@ const totalPosts = allPosts.length;
               <span class="topic">基础入门</span>
               <span class="topic">进阶技巧</span>
             </div>
-            <a href="/zh-cn/tutorials/multi-agents/" class="tutorial-link">查看教程 →</a>
+            <a href="/zh-cn/tutorials/multi-agents/" class="tutorial-link"
+              >查看教程 →</a
+            >
           </div>
         </div>
       </div>
@@ -295,28 +341,159 @@ const totalPosts = allPosts.length;
           <span class="section-icon">👥</span>
           社区与资源
         </h2>
-        <p class="section-subtitle">加入社区，获取有用资源</p>
+        <p class="section-subtitle">加入社区，获取开发资源，共同成长</p>
 
-        <div class="community-grid">
-          <!-- 社区链接 -->
-          <div class="community-card">
-            <div class="card-icon">🌐</div>
-            <h3>社区平台</h3>
-            <ul class="link-list">
-              <li><a href="#" target="_blank" rel="noopener">ClawHub</a></li>
-              <li><a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">OpenClaw GitHub</a></li>
+        <div class="community-grid-enhanced">
+          <!-- 社区交流 -->
+          <div class="community-card-enhanced">
+            <div class="card-header-enhanced">
+              <div class="card-icon-large">💬</div>
+              <h3>社区交流</h3>
+              <p class="card-desc">与全球开发者交流经验</p>
+            </div>
+            <ul class="link-list-enhanced">
+              <li>
+                <a
+                  href="https://github.com/openclaw/openclaw/issues"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="link-icon">💬</span>
+                  <span class="link-content">
+                    <span class="link-title">GitHub Issues</span>
+                    <span class="link-desc">问题讨论与反馈</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://discord.com/invite/openclaw"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="link-icon">🎮</span>
+                  <span class="link-content">
+                    <span class="link-title">Discord 社区</span>
+                    <span class="link-desc">实时聊天与协作</span>
+                  </span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://github.com/openclaw/openclaw"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="link-icon">🐙</span>
+                  <span class="link-content">
+                    <span class="link-title">GitHub 仓库</span>
+                    <span class="link-desc">源码与 Issue 追踪</span>
+                  </span>
+                </a>
+              </li>
             </ul>
           </div>
 
-          <!-- 资源下载 -->
-          <div class="community-card">
-            <div class="card-icon">📥</div>
-            <h3>必备下载</h3>
-            <ul class="link-list">
-              <li><a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js 22+</a></li>
-              <li><a href="https://ubuntu.com/download" target="_blank" rel="noopener">Ubuntu Server</a></li>
-              <li><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></li>
-              <li><a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></li>
+          <!-- 学习资源 -->
+          <div class="community-card-enhanced">
+            <div class="card-header-enhanced">
+              <div class="card-icon-large">📚</div>
+              <h3>学习资源</h3>
+              <p class="card-desc">官方文档与学习材料</p>
+            </div>
+            <ul class="link-list-enhanced">
+              <li>
+                <a
+                  href="https://docs.openclaw.ai/zh-CN"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="link-icon">📖</span>
+                  <span class="link-content">
+                    <span class="link-title">官方中文文档</span>
+                    <span class="link-desc">快速开始与配置指南</span>
+                  </span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://clawhub.ai/matrixy/agent-browser-clawdbot"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="link-icon">🌍</span>
+                  <span class="link-content">
+                    <span class="link-title">Agent Browser</span>
+                    <span class="link-desc">强大的在线访问能力</span>
+                  </span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://clawhub.ai/pskoett/self-improving-agent"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="link-icon">👦</span>
+                  <span class="link-content">
+                    <span class="link-title">Self Improving Agent</span>
+                    <span class="link-desc">会自我进化的龙虾</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 相关项目 -->
+          <div class="community-card-enhanced">
+            <div class="card-header-enhanced">
+              <div class="card-icon-large">🔗</div>
+              <h3>相关项目</h3>
+              <p class="card-desc">生态工具与扩展</p>
+            </div>
+            <ul class="link-list-enhanced">
+              <li>
+                <a
+                  href="https://clawhub.ai/skills"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="link-icon">🔧</span>
+                  <span class="link-content">
+                    <span class="link-title">ClawHub Skills </span>
+                    <span class="link-desc">官方技能中心</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://clawhub.ai/plugins"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="link-icon">🔌</span>
+                  <span class="link-content">
+                    <span class="link-title">ClawHub Plugins</span>
+                    <span class="link-desc">官方插件中心</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://pinchbench.com/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="link-icon">📈</span>
+                  <span class="link-content">
+                    <span class="link-title">PinchBench</span>
+                    <span class="link-desc">openclaw 最佳模型榜单</span>
+                  </span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -328,11 +505,11 @@ const totalPosts = allPosts.length;
       <div class="container">
         <div class="footer-content">
           <div class="disclaimer">
-            <strong>免责声明：</strong>本网站是独立的教程资源，与 OpenClaw 官方项目无关联。
-            访问 <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">GitHub</a> 查看官方文档。
+            <strong>免责声明：</strong>本网站是独立的教程资源，与 OpenClaw
+            官方项目无关联。
           </div>
           <div class="footer-links">
-            <span>© 2024 OpenClaw Tutorial</span>
+            <span>© 2026 OpenClaw Tutorial</span>
           </div>
         </div>
       </div>
@@ -355,12 +532,7 @@ const totalPosts = allPosts.length;
         rgba(113, 113, 122, 0.03) 2px,
         rgba(113, 113, 122, 0.03) 4px
       ),
-      linear-gradient(
-        135deg,
-        #0a0e27 0%,
-        #1a1f3a 50%,
-        #0a0e27 100%
-      );
+      linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -430,20 +602,19 @@ const totalPosts = allPosts.length;
   }
 
   .hero::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background:
-      repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(228, 228, 231, 0.015) 10px,
-        rgba(228, 228, 231, 0.015) 20px
-      );
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(228, 228, 231, 0.015) 10px,
+      rgba(228, 228, 231, 0.015) 20px
+    );
     pointer-events: none;
   }
 
@@ -484,8 +655,12 @@ const totalPosts = allPosts.length;
   }
 
   @keyframes claw-gradient-flow {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
   }
 
   .hero-subtitle {
@@ -527,8 +702,12 @@ const totalPosts = allPosts.length;
   }
 
   @keyframes gradient-flow {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
   }
 
   .hero-cta {
@@ -564,7 +743,11 @@ const totalPosts = allPosts.length;
   }
 
   .cta-button.secondary {
-    background: linear-gradient(180deg, rgba(113, 113, 122, 0.3) 0%, rgba(63, 63, 70, 0.3) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(113, 113, 122, 0.3) 0%,
+      rgba(63, 63, 70, 0.3) 100%
+    );
     color: #e4e4e7;
     border-radius: 8px;
     border: 2px solid #e4e4e7;
@@ -631,7 +814,7 @@ const totalPosts = allPosts.length;
   }
 
   .card::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -639,8 +822,14 @@ const totalPosts = allPosts.length;
     bottom: 0;
     border-radius: 12px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(228, 228, 231, 0.4) 0%, transparent 50%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    background: linear-gradient(
+      135deg,
+      rgba(228, 228, 231, 0.4) 0%,
+      transparent 50%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
@@ -735,7 +924,7 @@ const totalPosts = allPosts.length;
   }
 
   .latest-post-card::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 12px;
     left: 12px;
@@ -765,13 +954,12 @@ const totalPosts = allPosts.length;
 
   /* 精选徽章 */
   .post-badge {
-    background:
-      repeating-linear-gradient(
-        90deg,
-        #d4d4d8,
-        #e4e4e7 2px,
-        #d4d4d8 4px
-      );
+    background: repeating-linear-gradient(
+      90deg,
+      #d4d4d8,
+      #e4e4e7 2px,
+      #d4d4d8 4px
+    );
     color: #18181b;
     padding: 0.5rem 1.25rem;
     border-radius: 6px;
@@ -794,7 +982,8 @@ const totalPosts = allPosts.length;
     text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
   }
 
-  .post-date, .post-time {
+  .post-date,
+  .post-time {
     display: flex;
     align-items: center;
     gap: 0.35rem;
@@ -807,7 +996,11 @@ const totalPosts = allPosts.length;
   }
 
   .post-difficulty.intermediate {
-    background: linear-gradient(180deg, rgba(228, 228, 231, 0.2) 0%, rgba(212, 212, 216, 0.15) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(228, 228, 231, 0.2) 0%,
+      rgba(212, 212, 216, 0.15) 100%
+    );
     color: #e4e4e7;
     border: 1px solid #d4d4d8;
     box-shadow:
@@ -841,7 +1034,11 @@ const totalPosts = allPosts.length;
   }
 
   .tag {
-    background: linear-gradient(180deg, rgba(228, 228, 231, 0.2) 0%, rgba(212, 212, 216, 0.15) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(228, 228, 231, 0.2) 0%,
+      rgba(212, 212, 216, 0.15) 100%
+    );
     color: #e4e4e7;
     padding: 0.35rem 0.85rem;
     border-radius: 4px;
@@ -896,7 +1093,7 @@ const totalPosts = allPosts.length;
   }
 
   .tutorial-card::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 12px;
     left: 12px;
@@ -922,13 +1119,12 @@ const totalPosts = allPosts.length;
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background:
-      repeating-linear-gradient(
-        90deg,
-        #d4d4d8,
-        #e4e4e7 2px,
-        #d4d4d8 4px
-      );
+    background: repeating-linear-gradient(
+      90deg,
+      #d4d4d8,
+      #e4e4e7 2px,
+      #d4d4d8 4px
+    );
     color: #18181b;
     width: 50px;
     height: 50px;
@@ -971,7 +1167,11 @@ const totalPosts = allPosts.length;
 
   /* 标签 - 银色光晕效果 */
   .topic {
-    background: linear-gradient(180deg, rgba(228, 228, 231, 0.2) 0%, rgba(212, 212, 216, 0.15) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(228, 228, 231, 0.2) 0%,
+      rgba(212, 212, 216, 0.15) 100%
+    );
     color: #e4e4e7;
     padding: 0.35rem 0.85rem;
     border-radius: 4px;
@@ -1114,7 +1314,11 @@ const totalPosts = allPosts.length;
   .issue-item {
     display: block;
     padding: 0.85rem 1.15rem;
-    background: linear-gradient(180deg, rgba(39, 39, 42, 0.8) 0%, rgba(24, 24, 27, 0.8) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(39, 39, 42, 0.8) 0%,
+      rgba(24, 24, 27, 0.8) 100%
+    );
     border-radius: 6px;
     color: #a1a1aa;
     text-decoration: none;
@@ -1127,7 +1331,11 @@ const totalPosts = allPosts.length;
   }
 
   .issue-item:hover {
-    background: linear-gradient(180deg, rgba(161, 161, 170, 0.2) 0%, rgba(113, 113, 122, 0.15) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(161, 161, 170, 0.2) 0%,
+      rgba(113, 113, 122, 0.15) 100%
+    );
     color: #e4e4e7;
     transform: translateX(4px);
     box-shadow:
@@ -1228,15 +1436,16 @@ const totalPosts = allPosts.length;
       0 0 15px rgba(228, 228, 231, 0.4);
   }
 
-  /* 社区板块 */
-  .community-grid {
+  /* ========================================
+     社区与资源板块 - 增强版
+     ======================================== */
+  .community-grid-enhanced {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 2rem;
   }
 
-  /* 社区板块 - 钛金属卡片 */
-  .community-card {
+  .community-card-enhanced {
     background:
       repeating-linear-gradient(
         90deg,
@@ -1247,47 +1456,203 @@ const totalPosts = allPosts.length;
       ),
       linear-gradient(135deg, #27272a 0%, #18181b 100%);
     border-radius: 12px;
-    padding: 2rem;
-    border: 2px solid #d4d4d8;
+    padding: 0;
+    border: 2px solid #e4e4e7;
     box-shadow:
-      inset 0 1px 2px rgba(228, 228, 231, 0.15),
-      0 0 15px rgba(228, 228, 231, 0.2),
-      0 6px 12px rgba(0, 0, 0, 0.3);
+      inset 0 2px 4px rgba(228, 228, 231, 0.15),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 18px rgba(228, 228, 231, 0.2),
+      0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    overflow: hidden;
   }
 
-  .community-card .card-icon {
+  .community-card-enhanced:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.2),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 30px rgba(228, 228, 231, 0.35),
+      0 12px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .card-header-enhanced {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid rgba(212, 212, 216, 0.2);
+    text-align: center;
+  }
+
+  .card-icon-large {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 0 10px rgba(212, 212, 216, 0.6));
+    margin-bottom: 0.75rem;
+    filter: drop-shadow(0 0 12px rgba(212, 212, 216, 0.6));
   }
 
-  .community-card h3 {
+  .card-header-enhanced h3 {
     font-size: 1.25rem;
-    margin-bottom: 1rem;
+    font-weight: 700;
     color: #e4e4e7;
-    text-shadow: 0 0 8px rgba(228, 228, 231, 0.4);
+    margin: 0 0 0.5rem 0;
+    text-shadow: 0 0 8px rgba(228, 228, 231, 0.5);
   }
 
-  .link-list {
+  .card-desc {
+    color: #71717a;
+    font-size: 0.875rem;
+    margin: 0;
+    text-shadow: 0 0 4px rgba(161, 161, 170, 0.3);
+  }
+
+  .link-list-enhanced {
     list-style: none;
     padding: 0;
+    margin: 0;
   }
 
-  .link-list li {
-    padding: 0.6rem 0;
+  .link-list-enhanced li {
+    border-bottom: 1px solid rgba(212, 212, 216, 0.1);
   }
 
-  .link-list a {
+  .link-list-enhanced li:last-child {
+    border-bottom: none;
+  }
+
+  .link-list-enhanced a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
     color: #a1a1aa;
     text-decoration: none;
     transition: all 0.2s;
-    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
   }
 
-  .link-list a:hover {
+  .link-list-enhanced a:hover {
+    background: rgba(228, 228, 231, 0.08);
     color: #e4e4e7;
-    text-shadow: 0 0 12px rgba(228, 228, 231, 0.6);
-    text-decoration: underline;
+  }
+
+  .link-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(161, 161, 170, 0.5));
+    transition: filter 0.2s;
+  }
+
+  .link-list-enhanced a:hover .link-icon {
+    filter: drop-shadow(0 0 10px rgba(228, 228, 231, 0.7));
+  }
+
+  .link-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+
+  .link-title {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-shadow: 0 0 4px rgba(161, 161, 170, 0.3);
+    transition: text-shadow 0.2s;
+  }
+
+  .link-list-enhanced a:hover .link-title {
+    text-shadow: 0 0 8px rgba(228, 228, 231, 0.6);
+  }
+
+  .link-desc {
+    font-size: 0.8125rem;
+    color: #71717a;
+    text-shadow: 0 0 4px rgba(113, 113, 122, 0.3);
+    transition: color 0.2s;
+  }
+
+  .link-list-enhanced a:hover .link-desc {
+    color: #a1a1aa;
+  }
+
+  /* 亮色模式 - 社区板块 */
+  html.light-mode .community-card-enhanced {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 0 18px rgba(0, 0, 0, 0.08),
+      0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  html.light-mode .community-card-enhanced:hover {
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 0 30px rgba(0, 0, 0, 0.12),
+      0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .card-header-enhanced {
+    border-bottom-color: #e5e7eb;
+  }
+
+  html.light-mode .card-icon-large {
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.15));
+  }
+
+  html.light-mode .card-header-enhanced h3 {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .card-desc {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .link-list-enhanced li {
+    border-bottom-color: #e5e7eb;
+  }
+
+  html.light-mode .link-list-enhanced a {
+    color: #374151;
+  }
+
+  html.light-mode .link-list-enhanced a:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: #111827;
+  }
+
+  html.light-mode .link-icon {
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.1));
+  }
+
+  html.light-mode .link-list-enhanced a:hover .link-icon {
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2));
+  }
+
+  html.light-mode .link-title {
+    text-shadow: none;
+  }
+
+  html.light-mode .link-list-enhanced a:hover .link-title {
+    text-shadow: none;
+  }
+
+  html.light-mode .link-desc {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .link-list-enhanced a:hover .link-desc {
+    color: #4b5563;
   }
 
   /* 页脚 - 深色金属质感 */
@@ -1300,11 +1665,7 @@ const totalPosts = allPosts.length;
         rgba(113, 113, 122, 0.1) 2px,
         rgba(113, 113, 122, 0.1) 4px
       ),
-      linear-gradient(
-        180deg,
-        #18181b 0%,
-        #0a0a0a 100%
-      );
+      linear-gradient(180deg, #18181b 0%, #0a0a0a 100%);
     color: #e4e4e7;
     padding: 3rem 0;
     margin-top: 5rem;
@@ -1402,12 +1763,7 @@ const totalPosts = allPosts.length;
         rgba(209, 213, 219, 0.03) 2px,
         rgba(209, 213, 219, 0.03) 4px
       ),
-      linear-gradient(
-        135deg,
-        #f9fafb 0%,
-        #e5e7eb 50%,
-        #f9fafb 100%
-      );
+      linear-gradient(135deg, #f9fafb 0%, #e5e7eb 50%, #f9fafb 100%);
   }
 
   html.light-mode .section-title {
@@ -1433,7 +1789,11 @@ const totalPosts = allPosts.length;
         rgba(209, 213, 219, 0.1) 1px,
         rgba(209, 213, 219, 0.1) 2px
       ),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(243, 244, 246, 0.9) 100%
+      );
     border-color: #d1d5db;
     box-shadow:
       inset 0 2px 4px rgba(255, 255, 255, 0.8),
@@ -1453,13 +1813,12 @@ const totalPosts = allPosts.length;
   }
 
   html.light-mode .post-badge {
-    background:
-      repeating-linear-gradient(
-        90deg,
-        #e5e7eb,
-        #f3f4f6 2px,
-        #e5e7eb 4px
-      );
+    background: repeating-linear-gradient(
+      90deg,
+      #e5e7eb,
+      #f3f4f6 2px,
+      #e5e7eb 4px
+    );
     color: #374151;
     border-color: #d1d5db;
     box-shadow:
@@ -1475,7 +1834,11 @@ const totalPosts = allPosts.length;
   }
 
   html.light-mode .post-difficulty.intermediate {
-    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(243, 244, 246, 0.8) 0%,
+      rgba(229, 231, 235, 0.6) 100%
+    );
     color: #374151;
     border-color: #d1d5db;
     box-shadow:
@@ -1495,7 +1858,11 @@ const totalPosts = allPosts.length;
   }
 
   html.light-mode .tag {
-    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(243, 244, 246, 0.8) 0%,
+      rgba(229, 231, 235, 0.6) 100%
+    );
     color: #374151;
     border-color: #d1d5db;
     box-shadow:
@@ -1533,8 +1900,7 @@ const totalPosts = allPosts.length;
   }
 
   html.light-mode .hero-title {
-    text-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   html.light-mode .hero-subtitle {
@@ -1558,7 +1924,11 @@ const totalPosts = allPosts.length;
   }
 
   html.light-mode .cta-button.secondary {
-    background: linear-gradient(180deg, rgba(229, 231, 235, 0.5) 0%, rgba(209, 213, 219, 0.5) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(229, 231, 235, 0.5) 0%,
+      rgba(209, 213, 219, 0.5) 100%
+    );
     color: #374151;
     border-color: #9ca3af;
     box-shadow:
@@ -1591,7 +1961,11 @@ const totalPosts = allPosts.length;
         rgba(209, 213, 219, 0.1) 1px,
         rgba(209, 213, 219, 0.1) 2px
       ),
-      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(243, 244, 246, 0.9) 100%
+      );
     border-color: #d1d5db;
     box-shadow:
       inset 0 2px 4px rgba(255, 255, 255, 0.8),
@@ -1646,7 +2020,11 @@ const totalPosts = allPosts.length;
         rgba(209, 213, 219, 0.1) 1px,
         rgba(209, 213, 219, 0.1) 2px
       ),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(243, 244, 246, 0.9) 100%
+      );
     border-color: #d1d5db;
     box-shadow:
       inset 0 2px 4px rgba(255, 255, 255, 0.8),
@@ -1666,13 +2044,12 @@ const totalPosts = allPosts.length;
   }
 
   html.light-mode .tutorial-badge {
-    background:
-      repeating-linear-gradient(
-        90deg,
-        #e5e7eb,
-        #f3f4f6 2px,
-        #e5e7eb 4px
-      );
+    background: repeating-linear-gradient(
+      90deg,
+      #e5e7eb,
+      #f3f4f6 2px,
+      #e5e7eb 4px
+    );
     color: #374151;
     border-color: #d1d5db;
     box-shadow:
@@ -1693,7 +2070,11 @@ const totalPosts = allPosts.length;
   }
 
   html.light-mode .topic {
-    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(243, 244, 246, 0.8) 0%,
+      rgba(229, 231, 235, 0.6) 100%
+    );
     color: #374151;
     border-color: #d1d5db;
     box-shadow:
@@ -1769,7 +2150,11 @@ const totalPosts = allPosts.length;
         rgba(209, 213, 219, 0.08) 1px,
         rgba(209, 213, 219, 0.08) 2px
       ),
-      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(243, 244, 246, 0.9) 100%
+      );
     border-color: #d1d5db;
     box-shadow:
       inset 0 1px 2px rgba(255, 255, 255, 0.8),
@@ -1782,7 +2167,11 @@ const totalPosts = allPosts.length;
   }
 
   html.light-mode .issue-item {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(243, 244, 246, 0.9) 100%
+    );
     color: #4b5563;
     border-color: #e5e7eb;
     box-shadow:
@@ -1791,7 +2180,11 @@ const totalPosts = allPosts.length;
   }
 
   html.light-mode .issue-item:hover {
-    background: linear-gradient(180deg, rgba(229, 231, 235, 0.5) 0%, rgba(209, 213, 219, 0.3) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(229, 231, 235, 0.5) 0%,
+      rgba(209, 213, 219, 0.3) 100%
+    );
     color: #111827;
     box-shadow:
       inset 0 1px 2px rgba(255, 255, 255, 0.8),
@@ -1808,7 +2201,11 @@ const totalPosts = allPosts.length;
         rgba(209, 213, 219, 0.1) 1px,
         rgba(209, 213, 219, 0.1) 2px
       ),
-      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(243, 244, 246, 0.9) 100%
+      );
     border-color: #d1d5db;
     box-shadow:
       inset 0 1px 2px rgba(255, 255, 255, 0.8),
@@ -1852,41 +2249,6 @@ const totalPosts = allPosts.length;
       0 4px 12px rgba(0, 0, 0, 0.18);
   }
 
-  html.light-mode .community-card {
-    background:
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 1px,
-        rgba(209, 213, 219, 0.1) 1px,
-        rgba(209, 213, 219, 0.1) 2px
-      ),
-      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
-    border-color: #d1d5db;
-    box-shadow:
-      inset 0 1px 2px rgba(255, 255, 255, 0.8),
-      0 2px 6px rgba(0, 0, 0, 0.08);
-  }
-
-  html.light-mode .community-card .card-icon {
-    filter: none;
-  }
-
-  html.light-mode .community-card h3 {
-    color: #111827;
-    text-shadow: none;
-  }
-
-  html.light-mode .link-list a {
-    color: #6b7280;
-    text-shadow: none;
-  }
-
-  html.light-mode .link-list a:hover {
-    color: #111827;
-    text-shadow: none;
-  }
-
   html.light-mode .footer {
     background:
       repeating-linear-gradient(
@@ -1896,11 +2258,7 @@ const totalPosts = allPosts.length;
         rgba(209, 213, 219, 0.1) 2px,
         rgba(209, 213, 219, 0.1) 4px
       ),
-      linear-gradient(
-        180deg,
-        #e5e7eb 0%,
-        #d1d5db 100%
-      );
+      linear-gradient(180deg, #e5e7eb 0%, #d1d5db 100%);
     color: #374151;
     border-top-color: #d1d5db;
     box-shadow:
