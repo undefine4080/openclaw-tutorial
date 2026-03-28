@@ -188,11 +188,15 @@ import Layout from '../../../layouts/Layout.astro';
     resultsInfo.classList.remove('hidden');
     resultCount.textContent = filteredIssues.length.toLocaleString();
 
+    // 获取当前搜索词
+    const searchQuery = searchInput.value.trim();
+    const searchTerms = searchQuery ? searchQuery.toLowerCase().split(/\s+/).filter(term => term.length > 0) : [];
+
     // 渲染当前页的 issues
     const startIndex = append ? (currentPage - 1) * perPage : 0;
 
     visibleIssues.slice(startIndex).forEach((issue: any, index: number) => {
-      const issueCard = createIssueCard(issue, startIndex + index + 1);
+      const issueCard = createIssueCard(issue, startIndex + index + 1, searchTerms);
       issuesContainer.appendChild(issueCard);
     });
 
@@ -205,11 +209,43 @@ import Layout from '../../../layouts/Layout.astro';
   }
 
   /**
+   * 高亮搜索关键词
+   */
+  function highlightText(text: string, searchTerms: string[]): string {
+    if (!searchTerms || searchTerms.length === 0) {
+      return escapeHtml(text);
+    }
+
+    let escapedText = escapeHtml(text);
+
+    // 对每个搜索词进行高亮
+    searchTerms.forEach(term => {
+      if (term.length > 0) {
+        const regex = new RegExp(`(${escapeRegex(term)})`, 'gi');
+        escapedText = escapedText.replace(regex, '<mark class="highlight">$1</mark>');
+      }
+    });
+
+    return escapedText;
+  }
+
+  /**
+   * 转义正则表达式特殊字符
+   */
+  function escapeRegex(string: string): string {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  /**
    * 创建 Issue 卡片
    */
   function createIssueCard(issue: any, index: number): HTMLElement {
     const card = document.createElement('div');
     card.className = 'issue-card';
+
+    // 获取当前搜索词
+    const searchValue = searchInput.value.trim().toLowerCase();
+    const searchTerms = searchValue ? searchValue.split(/\s+/).filter(t => t.length > 0) : [];
 
     const labelsHtml = issue.labels
       .slice(0, 3)
@@ -225,12 +261,12 @@ import Layout from '../../../layouts/Layout.astro';
     card.innerHTML = `
       <div class="issue-header">
         <div class="issue-number">#${issue.number}</div>
-        <h3 class="issue-title">${escapeHtml(issue.title)}</h3>
+        <h3 class="issue-title">${highlightText(issue.title, searchTerms)}</h3>
       </div>
 
       <div class="issue-labels">${labelsHtml}</div>
 
-      <p class="issue-desc">${escapeHtml(issue.short_desc)}${issue.short_desc.length >= 200 ? '...' : ''}</p>
+      <p class="issue-desc">${highlightText(issue.short_desc, searchTerms)}${issue.short_desc.length >= 200 ? '...' : ''}</p>
 
       <div class="issue-footer">
         <span class="issue-date">✅ 已关闭于 ${closedDate}</span>
@@ -294,13 +330,13 @@ import Layout from '../../../layouts/Layout.astro';
   document.addEventListener('DOMContentLoaded', loadIssues);
 </script>
 
-<style>
+<style is:global>
   /* ========================================
      钛金属深色拟物化设计风格
      ======================================== */
 
   .bugs-page {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 3rem 2rem;
     min-height: 100vh;
@@ -472,25 +508,40 @@ import Layout from '../../../layouts/Layout.astro';
       0 0 12px rgba(228, 228, 231, 0.3);
   }
 
-  /* 结果统计 */
+  /* 结果统计 - 钛金属便签效果 */
   .results-info {
     margin-bottom: 1.5rem;
-    padding: 0.75rem 1rem;
-    background: rgba(96, 165, 250, 0.1);
-    border-left: 3px solid #60a5fa;
-    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, #27272a 0%, #18181b 100%);
+    border-left: 4px solid #d4d4d8;
+    border-radius: 8px;
+    border: 2px solid #d4d4d8;
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.15),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 12px rgba(228, 228, 231, 0.2),
+      0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
   .result-count {
     font-weight: 700;
-    color: #60a5fa;
+    color: #e4e4e7;
+    text-shadow: 0 0 8px rgba(228, 228, 231, 0.5);
   }
 
   /* Issue 列表 */
   .issues-list {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
   .loading,
@@ -526,7 +577,7 @@ import Layout from '../../../layouts/Layout.astro';
     text-decoration: underline;
   }
 
-  /* Issue 卡片 */
+  /* Issue 卡片 - 钛金属文件夹效果 */
   .issue-card {
     background:
       repeating-linear-gradient(
@@ -536,119 +587,220 @@ import Layout from '../../../layouts/Layout.astro';
         rgba(113, 113, 122, 0.1) 1px,
         rgba(113, 113, 122, 0.1) 2px
       ),
-      linear-gradient(135deg, #27272a 0%, #18181b 100%);
+      linear-gradient(180deg, #27272a 0%, #18181b 100%);
     border-radius: 12px;
-    padding: 1.75rem;
-    border: 2px solid #d4d4d8;
+    padding: 2.5rem;
+    position: relative;
+    border: 2px solid #e4e4e7;
     box-shadow:
       inset 0 2px 4px rgba(228, 228, 231, 0.15),
       inset 0 -2px 4px rgba(0, 0, 0, 0.4),
-      0 0 15px rgba(228, 228, 231, 0.2),
-      0 6px 12px rgba(0, 0, 0, 0.3);
+      0 0 18px rgba(228, 228, 231, 0.2),
+      0 8px 16px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
-    position: relative;
   }
 
   .issue-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 12px;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(228, 228, 231, 0.4) 0%, transparent 50%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    border: 2px dashed #e4e4e7;
+    border-radius: 8px;
     pointer-events: none;
+    opacity: 0.6;
   }
 
   .issue-card:hover {
-    transform: translateY(-2px);
-    border-color: #60a5fa;
+    transform: translateY(-3px);
     box-shadow:
       inset 0 2px 4px rgba(228, 228, 231, 0.2),
       inset 0 -2px 4px rgba(0, 0, 0, 0.4),
-      0 0 22px rgba(96, 165, 250, 0.4),
-      0 8px 16px rgba(0, 0, 0, 0.4);
+      0 0 30px rgba(228, 228, 231, 0.35),
+      0 12px 24px rgba(0, 0, 0, 0.4);
   }
 
   .issue-header {
     display: flex;
     align-items: start;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #d4d4d8;
   }
 
   .issue-number {
-    background: linear-gradient(180deg, rgba(96, 165, 250, 0.2) 0%, rgba(59, 130, 246, 0.15) 100%);
-    color: #60a5fa;
-    padding: 0.25rem 0.75rem;
+    background: repeating-linear-gradient(
+      90deg,
+      #d4d4d8,
+      #e4e4e7 2px,
+      #d4d4d8 4px
+    );
+    color: #18181b;
+    padding: 0.5rem 1rem;
     border-radius: 6px;
     font-size: 0.875rem;
-    font-weight: 600;
-    border: 1px solid #60a5fa;
+    font-weight: 700;
+    border: 2px solid #d4d4d8;
     white-space: nowrap;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.4),
+      0 0 12px rgba(228, 228, 231, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
   }
 
   .issue-title {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
+    font-weight: 600;
     margin: 0;
     color: #e4e4e7;
     flex: 1;
     line-height: 1.5;
     word-break: break-word;
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.4);
   }
 
   .issue-labels {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 
   .label {
     background: linear-gradient(180deg, rgba(228, 228, 231, 0.2) 0%, rgba(212, 212, 216, 0.15) 100%);
-    color: #a1a1aa;
-    padding: 0.25rem 0.65rem;
+    color: #e4e4e7;
+    padding: 0.35rem 0.85rem;
     border-radius: 4px;
-    font-size: 0.75rem;
-    border: 1px solid #a1a1aa;
+    font-size: 0.875rem;
+    border: 1px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.2),
+      0 0 8px rgba(228, 228, 231, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.5);
   }
 
   .issue-desc {
     color: #a1a1aa;
     line-height: 1.7;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
     font-size: 0.9375rem;
+    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
   }
 
   .issue-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1rem;
-    border-top: 1px solid #3f3f46;
+    padding-top: 1.25rem;
+    border-top: 2px solid #d4d4d8;
+    margin-top: 0.5rem;
+  }
+
+
+  /* 高亮关键词样式 - 钛金属发光效果 */
+  mark.highlight {
+    background: linear-gradient(
+      180deg,
+      rgba(228, 228, 231, 0.2) 0%,
+      rgba(212, 212, 216, 0.15) 100%
+    );
+    color: #60a5fa;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-weight: 600;
+    border: 2px solid #60a5fa;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.4),
+      0 0 12px rgba(96, 165, 250, 0.8),
+      0 2px 6px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 8px rgba(96, 165, 250, 0.8);
+    animation: highlight-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes highlight-pulse {
+    0%,
+    100% {
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.8),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.4),
+        0 0 16px rgba(96, 165, 250, 0.8),
+        0 3px 6px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  html.light-mode mark.highlight {
+    background: linear-gradient(
+      180deg,
+      rgba(251, 146, 60, 0.3) 0%,
+      rgba(59, 130, 246, 0.2) 100%
+    );
+    color: #3b82f6;
+    border-color: #3b82f6;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.15),
+      0 0 12px rgba(59, 130, 246, 0.6),
+      0 2px 6px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+    animation: highlight-pulse-light 2s ease-in-out infinite;
+  }
+
+  @keyframes highlight-pulse-light {
+    0%,
+    100% {
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.8),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.15),
+        0 0 18px rgba(59, 130, 246, 0.6),
+        0 4px 6px rgba(0, 0, 0, 0.2);
+    }
   }
 
   .issue-date {
     color: #71717a;
     font-size: 0.875rem;
+    text-shadow: 0 0 6px rgba(113, 113, 122, 0.4);
   }
 
   .issue-link {
-    color: #60a5fa;
+    background: linear-gradient(180deg, #71717a 0%, #52525b 50%, #3f3f46 100%);
+    color: #e4e4e7;
+    padding: 0.6rem 1.35rem;
+    border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.875rem;
-    transition: all 0.2s;
+    transition: all 0.15s ease;
+    border: 2px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 12px rgba(228, 228, 231, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.4);
   }
 
   .issue-link:hover {
-    color: #93c5fd;
-    text-decoration: underline;
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(228, 228, 231, 0.5),
+      0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .issue-link:active {
+    transform: translateY(1px);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.4),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.1),
+      0 0 10px rgba(228, 228, 231, 0.3);
   }
 
   /* 加载更多 */
@@ -760,38 +912,164 @@ import Layout from '../../../layouts/Layout.astro';
   }
 
   html.light-mode .results-info {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: #3b82f6;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.03) 1px,
+        rgba(0, 0, 0, 0.03) 2px
+      ),
+      linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .results-info p {
+    color: #374151;
+  }
+
+  html.light-mode .result-count {
+    color: #374151;
+    text-shadow: none;
   }
 
   html.light-mode .issue-card {
-    background: #ffffff;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(209, 213, 219, 0.1) 1px,
+        rgba(209, 213, 219, 0.1) 2px
+      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
     border-color: #d1d5db;
-    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.8), 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  html.light-mode .issue-card::before {
+    border-color: #d1d5db;
   }
 
   html.light-mode .issue-card:hover {
-    border-color: #3b82f6;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.8),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+      0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  html.light-mode .issue-header {
+    border-bottom-color: #e5e7eb;
   }
 
   html.light-mode .issue-number {
-    background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
-    border-color: #3b82f6;
+    background: repeating-linear-gradient(
+      90deg,
+      #e5e7eb,
+      #f3f4f6 2px,
+      #e5e7eb 4px
+    );
+    color: #374151;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 6px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
   }
 
   html.light-mode .issue-title {
     color: #111827;
+    text-shadow: none;
   }
 
   html.light-mode .label {
-    background: #f3f4f6;
-    color: #6b7280;
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+    color: #374151;
     border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    text-shadow: none;
   }
 
   html.light-mode .issue-desc {
     color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .issue-footer {
+    border-top-color: #e5e7eb;
+  }
+
+  html.light-mode .issue-date {
+    color: #6b7280;
+    text-shadow: none;
+  }
+
+  html.light-mode .issue-link {
+    background: linear-gradient(180deg, #e5e7eb 0%, #d1d5db 50%, #9ca3af 100%);
+    color: #111827;
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.6),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.12);
+    text-shadow: none;
+  }
+
+  html.light-mode .issue-link:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.6),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.18);
+  }
+
+  html.light-mode .issue-header {
+    border-bottom-color: #e5e7eb;
+  }
+
+  html.light-mode .issue-number {
+    background: repeating-linear-gradient(
+      90deg,
+      #e5e7eb,
+      #f3f4f6 2px,
+      #e5e7eb 4px
+    );
+    color: #374151;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 6px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+  }
+
+  html.light-mode .issue-title {
+    color: #111827;
+    text-shadow: none;
+  }
+
+  html.light-mode .label {
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+    color: #374151;
+    border-color: #d1d5db;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    text-shadow: none;
+  }
+
+  html.light-mode .issue-desc {
+    color: #6b7280;
+    text-shadow: none;
   }
 
   html.light-mode .issue-footer {
@@ -800,10 +1078,32 @@ import Layout from '../../../layouts/Layout.astro';
 
   html.light-mode .issue-date {
     color: #9ca3af;
+    text-shadow: none;
   }
 
   html.light-mode .issue-link {
-    color: #3b82f6;
+    background: linear-gradient(180deg, #e5e7eb 0%, #d1d5db 50%, #9ca3af 100%);
+    color: #111827;
+    border-color: #9ca3af;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+  }
+
+  html.light-mode .issue-link:hover {
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  html.light-mode .issue-link:active {
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.15),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.5),
+      0 2px 6px rgba(0, 0, 0, 0.1);
   }
 
   html.light-mode .btn-secondary {
