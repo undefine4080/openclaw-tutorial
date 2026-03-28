@@ -681,25 +681,3 @@ Fallback 确保主模型不可用时自动降级，不中断 Agent 工作流：
 1. **选型**：根据预算和使用场景选合适的模型组合。国内用户优先考虑 DeepSeek V3.2（最便宜的顶级模型）+ Qwen3.5-Plus（最高性价比的 1M 上下文）+ GLM-4.7（国内稳定备用）。
 2. **配置**：新手走 Onboard 向导，进阶用户直接编辑 `~/.openclaw/openclaw.json`，支持完整的多模型精细控制。
 3. **路由**：通过多 Agent + Fallback 机制，让复杂任务找到最合适的模型，日常任务走便宜模型，特殊任务升级旗舰，兼顾效果与成本。
-
-**下一步推荐阅读：**
-
-- [配置飞书渠道，随时随地与 Agent 交互](/zh-cn/posts/channel-feishu)
-- [Skills 技能系统：为 Agent 添加邮件、日历等能力](#)
-
----
-
-## 数据来源
-
-- [Anthropic 模型文档](https://platform.claude.com/docs/en/about-claude/models/overview)
-- [OpenAI GPT-5.4 发布公告](https://openai.com/index/introducing-gpt-5-4/)
-- [OpenAI 定价页面](https://developers.openai.com/api/docs/pricing)
-- [Google Gemini 3 API 定价](https://ai.google.dev/gemini-api/docs/pricing)
-- [Google Gemini 3.1 Pro 预览文档](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview)
-- [DeepSeek API 定价](https://api-docs.deepseek.com/quick_start/pricing)
-- [智谱 BigModel 定价](https://open.bigmodel.cn/pricing)
-- [MiniMax 定价](https://platform.minimaxi.com/document/price)
-- [阿里云百炼模型列表](https://help.aliyun.com/zh/model-studio/models)
-- [OpenClaw 官方文档 - Model Providers](https://docs.openclaw.ai/concepts/model-providers)
-- [OpenClaw 官方文档 - Configuration](https://docs.openclaw.ai/gateway/configuration)
-- [OpenClaw 官方文档 - Getting Started](https://docs.openclaw.ai/start/getting-started)
