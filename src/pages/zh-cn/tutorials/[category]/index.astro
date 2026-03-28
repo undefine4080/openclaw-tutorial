@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 // 生成所有分类的静态路径
 export async function getStaticPaths() {
   const categories = [
+    'installation',
     'getting-started',
     'initialization',
     'claw-eyes',
@@ -29,6 +30,14 @@ const allPosts = await getCollection('posts-zh-cn',
 
 // 教程分类配置
 const categories = [
+  {
+    id: 'installation',
+    title: '安装部署',
+    titleEn: 'Installation & Deployment',
+    description: '在本地机器或云端运行 OpenClaw',
+    icon: '⚙️',
+    path: '/zh-cn/tutorials/installation/'
+  },
   {
     id: 'getting-started',
     title: '新手上路',
