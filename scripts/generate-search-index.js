@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 /**
- * 生成优化的 Bug 搜索索引
+ * 生成优化的 Issues 搜索索引
  *
  * 功能：
- * 1. 读取 data/bug-reports/bugs-zh-cn.json
+ * 1. 读取 data/issues/issues.json
  * 2. 生成轻量级搜索索引（只包含必要的搜索字段）
- * 3. 生成 public/data/bug-reports/bugs-search-index.json
+ * 3. 生成 public/data/issues/issues-search-index.json
  *
  * 优势：
- * - 减小文件大小（从 12MB 到约 2MB）
+ * - 减小文件大小
  * - 提升前端搜索性能
  * - 支持快速关键词匹配
  */
@@ -21,68 +21,80 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DATA_DIR = path.join(__dirname, '..', 'data', 'bug-reports');
-const PUBLIC_DIR = path.join(__dirname, '..', 'public', 'data', 'bug-reports');
+const DATA_DIR = path.join(__dirname, '..', 'data', 'issues');
+const PUBLIC_DIR = path.join(__dirname, '..', 'public', 'data', 'issues');
 
-const INPUT_FILE = path.join(DATA_DIR, 'bugs-zh-cn.json');
-const OUTPUT_FILE = path.join(PUBLIC_DIR, 'bugs-search-index.json');
+const INPUT_FILE = path.join(DATA_DIR, 'issues.json');
+const OUTPUT_FILE = path.join(PUBLIC_DIR, 'issues-search-index.json');
 
 /**
- * 生成搜索词（从标题和描述中提取关键词）
+ * 提取搜索关键词
  */
-function extractSearchTerms(title, description) {
-  const terms = [];
+function extractSearchTerms(title, shortDesc, labels) {
+  const terms = new Set();
 
   // 提取标题中的关键词
-  const titleWords = title.toLowerCase()
-    .replace(/[^\w\s]/g, ' ')
-    .split(/\s+/)
-    .filter(word => word.length > 2);
+  if (title && typeof title === 'string') {
+    const titleWords = title.toLowerCase()
+      .replace(/[^\w\s\u4e00-\u9fa5]/g, ' ')  // 保留中文字符
+      .split(/\s+/)
+      .filter(word => word.length > 2);
 
-  terms.push(...titleWords);
+    titleWords.forEach(word => terms.add(word));
+  }
 
-  // 提取描述中的关键词（只取前 500 字符）
-  const shortDesc = description.substring(0, 500);
-  const descWords = shortDesc.toLowerCase()
-    .replace(/[^\w\s]/g, ' ')
-    .split(/\s+/)
-    .filter(word => word.length > 3);
+  // 提取描述中的关键词
+  if (shortDesc && typeof shortDesc === 'string') {
+    const descWords = shortDesc.toLowerCase()
+      .replace(/[^\w\s\u4e00-\u9fa5]/g, ' ')
+      .split(/\s+/)
+      .filter(word => word.length > 3);
 
-  terms.push(...descWords.slice(0, 10)); // 最多取 10 个描述关键词
+    descWords.slice(0, 15).forEach(word => terms.add(word));  // 最多取 15 个
+  }
 
-  return [...new Set(terms)]; // 去重
+  // 添加标签
+  if (labels && Array.isArray(labels)) {
+    labels.forEach(label => {
+      if (label && typeof label === 'string') {
+        terms.add(label.toLowerCase());
+      }
+    });
+  }
+
+  return Array.from(terms);
 }
 
 /**
  * 主函数
  */
 async function main() {
-  console.log('🔍 生成 Bug 搜索索引...\n');
+  console.log('🔍 生成 Issues 搜索索引...\n');
 
   // 创建输出目录
   if (!fs.existsSync(PUBLIC_DIR)) {
     fs.mkdirSync(PUBLIC_DIR, { recursive: true });
   }
 
-  // 读取中文数据
+  // 读取简化后的数据
   if (!fs.existsSync(INPUT_FILE)) {
     console.error(`❌ 错误：找不到输入文件 ${INPUT_FILE}`);
-    console.error('请先运行 npm run translate-bugs 翻译数据');
+    console.error('请先运行 npm run collect-issues 收集数据');
     process.exit(1);
   }
 
   console.log(`📂 读取文件: ${INPUT_FILE}`);
   const data = JSON.parse(fs.readFileSync(INPUT_FILE, 'utf-8'));
-  const bugs = data.bugs;
+  const issues = data.issues;
 
-  console.log(`✓ 找到 ${bugs.length} 个 bug 报告\n`);
+  console.log(`✓ 找到 ${issues.length} 个 issues\n`);
 
   // 生成搜索索引
   const searchIndex = {
     meta: {
       ...data.meta,
       generated_at: new Date().toISOString(),
-      total_count: bugs.length,
+      total_count: issues.length,
       index_type: 'search-optimized',
     },
     index: [],
@@ -90,25 +102,21 @@ async function main() {
 
   console.log('🔄 生成搜索索引...\n');
 
-  bugs.forEach((bug, index) => {
-    const title = bug.translations?.zhCN?.title || bug.title;
-    const description = bug.translations?.zhCN?.description || bug.description;
-
+  issues.forEach((issue, index) => {
     const searchItem = {
-      id: bug.id,
-      number: bug.number,
-      title: title,
-      short_desc: description.substring(0, 200),
-      search_terms: extractSearchTerms(title, description),
-      labels: bug.labels,
-      url: bug.url,
-      closed_at: bug.closed_at,
+      number: issue.number,
+      title: issue.title,
+      short_desc: issue.short_desc,
+      labels: issue.labels,
+      url: issue.url,
+      closed_at: issue.closed_at,
+      search_terms: extractSearchTerms(issue.title, issue.short_desc, issue.labels),
     };
 
     searchIndex.index.push(searchItem);
 
     if ((index + 1) % 500 === 0) {
-      console.log(`  进度: ${index + 1}/${bugs.length}`);
+      console.log(`  进度: ${index + 1}/${issues.length}`);
     }
   });
 
@@ -117,7 +125,9 @@ async function main() {
 
   const inputSize = (fs.statSync(INPUT_FILE).size / 1024 / 1024).toFixed(2);
   const outputSize = (fs.statSync(OUTPUT_FILE).size / 1024 / 1024).toFixed(2);
-  const compression = ((1 - parseFloat(outputSize) / parseFloat(inputSize)) * 100).toFixed(1);
+  const compression = inputSize > 0
+    ? ((1 - parseFloat(outputSize) / parseFloat(inputSize)) * 100).toFixed(1)
+    : 0;
 
   console.log('\n' + '='.repeat(60));
   console.log('✅ 搜索索引生成完成！');
@@ -127,8 +137,8 @@ async function main() {
   console.log(`   压缩率: ${compression}%`);
   console.log(`\n📂 输出文件: ${OUTPUT_FILE}`);
   console.log('\n💡 使用方式：');
-  console.log('   在前端加载搜索索引而不是完整数据：');
-  console.log('   fetch("/data/bug-reports/bugs-search-index.json")');
+  console.log('   在前端加载搜索索引：');
+  console.log('   fetch("/data/issues/issues-search-index.json")');
   console.log('='.repeat(60) + '\n');
 }
 
