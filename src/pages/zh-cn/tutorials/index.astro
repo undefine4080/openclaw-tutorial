@@ -1,0 +1,869 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// 获取所有已发布的中文文章
+const allPosts = await getCollection('posts-zh-cn',
+  ({ data }) => data.status === 'published'
+);
+
+// 教程分类配置
+const categories = [
+  {
+    id: 'installation',
+    title: '安装部署',
+    titleEn: 'Installation & Deployment',
+    description: '在本地机器或云端运行 OpenClaw',
+    icon: '⚙️',
+    topics: ['本地安装', '云端部署', '一键部署'],
+    order: 0,
+    path: '/zh-cn/tutorials/installation/'
+  },
+  {
+    id: 'getting-started',
+    title: '新手上路',
+    titleEn: 'Getting Started',
+    description: '开启你的 OpenClaw 之旅',
+    icon: '🚀',
+    topics: ['模型接入', '飞书', '微信', 'QQ', '企业微信'],
+    order: 1,
+    path: '/zh-cn/tutorials/getting-started/'
+  },
+  {
+    id: 'initialization',
+    title: '初始化小龙虾',
+    titleEn: 'Initialize OpenClaw',
+    description: '配置你的 OpenClaw 实例',
+    icon: '⚙️',
+    topics: ['AGENTS.md', 'USER.md', 'SOUL.md'],
+    order: 2,
+    path: '/zh-cn/tutorials/initialization/'
+  },
+  {
+    id: 'claw-eyes',
+    title: '小龙虾的眼睛',
+    titleEn: 'OpenClaw Vision',
+    description: '视觉能力与图像理解',
+    icon: '👁️',
+    topics: ['视觉能力', '图像处理', '视频理解'],
+    order: 3,
+    path: '/zh-cn/tutorials/claw-eyes/'
+  },
+  {
+    id: 'claw-hands',
+    title: '小龙虾的手脚',
+    titleEn: 'OpenClaw Tools',
+    description: '使用工具扩展功能',
+    icon: '🤝',
+    topics: ['工具调用', 'API 集成', '自动化'],
+    order: 4,
+    path: '/zh-cn/tutorials/claw-hands/'
+  },
+  {
+    id: 'claw-brain',
+    title: '小龙虾的大脑',
+    titleEn: 'OpenClaw Brain',
+    description: '记忆系统与协作机制',
+    icon: '🧠',
+    topics: ['记忆系统', '协作机制', '上下文管理'],
+    order: 5,
+    path: '/zh-cn/tutorials/claw-brain/'
+  },
+  {
+    id: 'essential-skills',
+    title: '必备技能包',
+    titleEn: 'Essential Skills',
+    description: 'OpenClaw 用户必备技能',
+    icon: '🎯',
+    topics: ['新手必备', '开发者热门', '自媒体热门', '热门通用'],
+    order: 6,
+    path: '/zh-cn/tutorials/essential-skills/'
+  },
+  {
+    id: 'multi-agents',
+    title: '多 Agents 能力',
+    titleEn: 'Multi-Agent Systems',
+    description: '高级多智能体功能',
+    icon: '🤖',
+    topics: ['基础入门', '进阶技巧'],
+    order: 7,
+    path: '/zh-cn/tutorials/multi-agents/'
+  }
+];
+
+// 统计每个分类下的文章数量
+const categoriesWithCount = categories.map(cat => ({
+  ...cat,
+  postCount: allPosts.filter(post => post.data.category === cat.id).length
+}));
+
+// 总文章数
+const totalPosts = allPosts.filter(post => post.data.category && categories.some(c => c.id === post.data.category)).length;
+---
+
+<Layout title="教程栏目 - OpenClaw 教程" description="循序渐进掌握 OpenClaw 的所有功能" currentPath="/zh-cn/tutorials/">
+  <div class="tutorials-page">
+    <!-- Hero 区域 -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span class="hero-icon">📚</span>
+            教程栏目
+          </h1>
+          <p class="hero-subtitle">循序渐进掌握 OpenClaw 的所有功能</p>
+          <div class="hero-badges">
+            <span class="badge-count">{categoriesWithCount.length} 个分类</span>
+            <span class="badge-count">{totalPosts} 篇文章</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 教程分类列表 -->
+    <section class="categories-section">
+      <div class="container">
+        <div class="tutorial-grid">
+          {categoriesWithCount.map((cat) => (
+            <a href={cat.path} class="tutorial-card">
+              <div class="tutorial-badge">{String(cat.order).padStart(2, '0')}</div>
+              <div class="card-icon">{cat.icon}</div>
+              <h3 class="tutorial-title">{cat.title}</h3>
+              <p class="tutorial-description">{cat.description}</p>
+              <p class="tutorial-subtitle">{cat.titleEn}</p>
+              <div class="tutorial-topics">
+                {cat.topics.map((topic) => (
+                  <span class="topic">{topic}</span>
+                ))}
+              </div>
+              <div class="card-footer">
+                <span class="post-count">{cat.postCount} 篇文章</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 学习路径提示 -->
+    <section class="navigation-section">
+      <div class="container">
+        <div class="nav-card">
+          <div class="nav-icon">📖</div>
+          <h2 class="nav-title">学习路径</h2>
+          <p class="nav-description">建议按照编号顺序学习，从 01 到 07 循序渐进掌握 OpenClaw</p>
+          <div class="nav-buttons">
+            <a href="/zh-cn/" class="titanium-button secondary">返回首页</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  /* ========================================
+     钛金属深色拟物化设计风格
+     ======================================== */
+
+  /* 基础样式 */
+  .tutorials-page {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(113, 113, 122, 0.03) 2px,
+        rgba(113, 113, 122, 0.03) 4px
+      ),
+      linear-gradient(
+        135deg,
+        #0a0e27 0%,
+        #1a1f3a 50%,
+        #0a0e27 100%
+      );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero 区域 */
+  .hero-section {
+    position: relative;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.05) 1px,
+        rgba(113, 113, 122, 0.05) 2px
+      ),
+      linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+    color: #e4e4e7;
+    padding: 6rem 0 4rem;
+    text-align: center;
+    border-bottom: 3px solid #d4d4d8;
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.15),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(228, 228, 231, 0.2);
+  }
+
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(228, 228, 231, 0.015) 10px,
+        rgba(228, 228, 231, 0.015) 20px
+      );
+    pointer-events: none;
+  }
+
+  .hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .hero-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 0 12px rgba(212, 212, 216, 0.6));
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.1;
+    text-shadow:
+      0 0 15px rgba(228, 228, 231, 0.5),
+      0 0 30px rgba(228, 228, 231, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    color: #a1a1aa;
+    margin: 0;
+    text-shadow:
+      0 0 8px rgba(161, 161, 170, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .badge-count {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #d4d4d8,
+        #e4e4e7 2px,
+        #d4d4d8 4px
+      );
+    color: #0a0e27;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 2px solid #e4e4e7;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(228, 228, 231, 0.4),
+      0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 8px rgba(228, 228, 231, 0.6);
+  }
+
+  /* 分类列表区域 */
+  .categories-section {
+    padding: 4rem 0;
+  }
+
+  /* 教程网格 */
+  .tutorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  /* 教程卡片 */
+  .tutorial-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(180deg, #27272a 0%, #18181b 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    border: 2px solid #e4e4e7;
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.15),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 18px rgba(228, 228, 231, 0.2),
+      0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tutorial-card::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    border: 2px dashed rgba(228, 228, 231, 0.2);
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .tutorial-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.2),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      0 0 30px rgba(228, 228, 231, 0.35),
+      0 12px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  /* 编号徽章 */
+  .tutorial-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #d4d4d8,
+        #e4e4e7 2px,
+        #d4d4d8 4px
+      );
+    color: #18181b;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 3px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.4),
+      0 0 15px rgba(228, 228, 231, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px rgba(212, 212, 216, 0.6));
+  }
+
+  .tutorial-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e4e4e7;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 0 0 10px rgba(228, 228, 231, 0.5);
+  }
+
+  .tutorial-description {
+    color: #a1a1aa;
+    margin: 0 0 0.5rem 0;
+    font-style: italic;
+    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
+  }
+
+  .tutorial-subtitle {
+    color: #d4d4d8;
+    margin: 0 0 1.25rem 0;
+    font-size: 0.875rem;
+    text-shadow: 0 0 6px rgba(212, 212, 216, 0.4);
+  }
+
+  .tutorial-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .topic {
+    background: linear-gradient(180deg, rgba(228, 228, 231, 0.2) 0%, rgba(212, 212, 216, 0.15) 100%);
+    color: #e4e4e7;
+    padding: 0.35rem 0.85rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    border: 1px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(228, 228, 231, 0.2),
+      0 0 8px rgba(228, 228, 231, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.5);
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(212, 212, 216, 0.3);
+    margin-top: auto;
+  }
+
+  .post-count {
+    font-size: 0.875rem;
+    color: #71717a;
+    text-shadow: 0 0 4px rgba(161, 161, 170, 0.3);
+  }
+
+  .card-arrow {
+    font-size: 1.5rem;
+    color: #e4e4e7;
+    text-shadow:
+      0 0 8px rgba(228, 228, 231, 0.6),
+      0 0 16px rgba(228, 228, 231, 0.4);
+    transition: transform 0.2s;
+  }
+
+  .tutorial-card:hover .card-arrow {
+    transform: translateX(4px);
+  }
+
+  /* 导航提示区域 */
+  .navigation-section {
+    padding: 0 0 4rem 0;
+  }
+
+  .nav-card {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(113, 113, 122, 0.1) 1px,
+        rgba(113, 113, 122, 0.1) 2px
+      ),
+      linear-gradient(135deg, #27272a 0%, #18181b 100%);
+    border-radius: 12px;
+    padding: 3rem;
+    border: 2px solid #d4d4d8;
+    box-shadow:
+      inset 0 2px 4px rgba(228, 228, 231, 0.15),
+      0 0 18px rgba(228, 228, 231, 0.2),
+      0 8px 16px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+
+  .nav-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 12px rgba(212, 212, 216, 0.6));
+  }
+
+  .nav-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #e4e4e7;
+    margin-bottom: 0.75rem;
+    text-shadow:
+      0 0 12px rgba(228, 228, 231, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-description {
+    color: #a1a1aa;
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+    text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  /* 钛金属按钮 */
+  .titanium-button {
+    display: inline-block;
+    background: linear-gradient(180deg, #71717a 0%, #52525b 50%, #3f3f46 100%);
+    color: #e4e4e7;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 2px solid #d4d4d8;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(228, 228, 231, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 6px rgba(228, 228, 231, 0.4);
+    transition: all 0.15s ease;
+  }
+
+  .titanium-button:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+      0 0 22px rgba(228, 228, 231, 0.4),
+      0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .titanium-button:active {
+    transform: translateY(1px);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.4),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.1),
+      0 0 12px rgba(228, 228, 231, 0.3);
+  }
+
+  .titanium-button.secondary {
+    background: linear-gradient(180deg, rgba(113, 113, 122, 0.3) 0%, rgba(63, 63, 70, 0.3) 100%);
+    border: 2px solid #e4e4e7;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.1),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.2),
+      0 0 12px rgba(228, 228, 231, 0.2);
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 1024px) {
+    .tutorial-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      padding: 4rem 0 3rem;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .tutorial-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .nav-buttons {
+      flex-direction: column;
+    }
+
+    .titanium-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .hero-section {
+      padding: 3rem 0 2rem;
+    }
+
+    .tutorial-card {
+      padding: 1.5rem;
+    }
+
+    .nav-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+
+<style is:global>
+  /* ========================================
+     亮色模式样式覆盖
+     ======================================== */
+
+  html.light-mode {
+    .tutorials-page {
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 2px,
+          rgba(156, 163, 175, 0.03) 2px,
+          rgba(156, 163, 175, 0.03) 4px
+        ),
+        linear-gradient(
+          135deg,
+          #f9fafb 0%,
+          #e5e7eb 50%,
+          #f9fafb 100%
+        );
+    }
+
+    .hero-section {
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 1px,
+          rgba(156, 163, 175, 0.05) 1px,
+          rgba(156, 163, 175, 0.05) 2px
+        ),
+        linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+      color: #111827;
+      border-bottom-color: #9ca3af;
+      box-shadow:
+        inset 0 2px 4px rgba(255, 255, 255, 0.8),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+        0 0 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-section::before {
+      background:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(0, 0, 0, 0.02) 10px,
+          rgba(0, 0, 0, 0.02) 20px
+        );
+    }
+
+    .hero-icon {
+      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2));
+    }
+
+    .hero-title {
+      color: #111827;
+      text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-subtitle {
+      color: #374151;
+      text-shadow: none;
+    }
+
+    .badge-count {
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #d1d5db,
+          #e5e7eb 2px,
+          #d1d5db 4px
+        );
+      color: #111827;
+      border-color: #9ca3af;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.8),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+        0 0 10px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+      text-shadow: none;
+    }
+
+    .tutorial-card {
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 1px,
+          rgba(156, 163, 175, 0.1) 1px,
+          rgba(156, 163, 175, 0.1) 2px
+        ),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+      border-color: #d1d5db;
+      box-shadow:
+        inset 0 2px 4px rgba(255, 255, 255, 0.8),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+        0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .tutorial-card::before {
+      border-color: rgba(156, 163, 175, 0.2);
+    }
+
+    .tutorial-card:hover {
+      box-shadow:
+        inset 0 2px 4px rgba(255, 255, 255, 0.8),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+        0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .tutorial-badge {
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #e5e7eb,
+          #f3f4f6 2px,
+          #e5e7eb 4px
+        );
+      color: #374151;
+      border-color: #d1d5db;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.8),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+        0 2px 6px rgba(0, 0, 0, 0.1);
+      text-shadow: none;
+    }
+
+    .card-icon {
+      filter: none;
+    }
+
+    .tutorial-title {
+      color: #111827;
+      text-shadow: none;
+    }
+
+    .tutorial-description {
+      color: #6b7280;
+      text-shadow: none;
+    }
+
+    .tutorial-subtitle {
+      color: #6b7280;
+      text-shadow: none;
+    }
+
+    .topic {
+      background: linear-gradient(180deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.6) 100%);
+      color: #374151;
+      border-color: #d1d5db;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.8),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+      text-shadow: none;
+    }
+
+    .card-footer {
+      border-top-color: rgba(156, 163, 175, 0.3);
+    }
+
+    .post-count {
+      color: #6b7280;
+      text-shadow: none;
+    }
+
+    .card-arrow {
+      color: #374151;
+      text-shadow: none;
+    }
+
+    .nav-card {
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 1px,
+          rgba(156, 163, 175, 0.1) 1px,
+          rgba(156, 163, 175, 0.1) 2px
+        ),
+        linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+      border-color: #d1d5db;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.8),
+        0 0 18px rgba(0, 0, 0, 0.08),
+        0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-icon {
+      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2));
+    }
+
+    .nav-title {
+      color: #111827;
+      text-shadow: none;
+    }
+
+    .nav-description {
+      color: #4b5563;
+      text-shadow: none;
+    }
+
+    .titanium-button {
+      background: linear-gradient(180deg, #9ca3af 0%, #6b7280 50%, #4b5563 100%);
+      color: #ffffff;
+      border-color: #9ca3af;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.2),
+        0 0 15px rgba(0, 0, 0, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+      text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.3),
+        0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .titanium-button:hover {
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.2),
+        0 0 22px rgba(0, 0, 0, 0.25),
+        0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .titanium-button:active {
+      box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.2),
+        0 0 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .titanium-button.secondary {
+      background: linear-gradient(180deg, rgba(156, 163, 175, 0.3) 0%, rgba(75, 85, 99, 0.3) 100%);
+      border-color: #d1d5db;
+      color: #374151;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.6),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+        0 0 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+</style>
