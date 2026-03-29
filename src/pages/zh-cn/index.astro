@@ -2,14 +2,35 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
+// 获取所有已发布的文章
 const allPosts = await getCollection(
   "posts-zh-cn",
   ({ data }) => data.status === "published",
 );
+
+// 按发布日期排序，取最新的 3 篇文章
+const latestPosts = allPosts
+  .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf())
+  .slice(0, 3);
+
 const totalPosts = allPosts.length;
 
-const pageTitle = "OpenClaw 教程 - 安装指南、使用技巧与故障排除大全";
-const pageDescription = "最全面的 OpenClaw 中文教程网站。5分钟快速安装部署，30秒解决常见问题。包含本地安装、云端部署、多模型接入、工具使用、最佳实践等深度教程，持续更新中。";
+const pageTitle = "OpenClaw 教程 - 安装部署、使用技巧与故障排除完整指南";
+const pageDescription = "最全面的 OpenClaw 中文教程网站，提供从零基础到精通的完整学习路径。5分钟快速完成本地安装与云端部署，30秒精准定位并解决常见故障。涵盖本地环境配置、云端服务器部署、多AI模型接入、工具调用、Agent开发、最佳实践等深度内容，持续更新中。";
+
+// 难度映射
+const difficultyMap: Record<string, string> = {
+  beginner: "入门",
+  intermediate: "中等",
+  advanced: "高级",
+};
+
+// 难度样式映射
+const difficultyClassMap: Record<string, string> = {
+  beginner: "beginner",
+  intermediate: "intermediate",
+  advanced: "advanced",
+};
 ---
 
 <Layout
@@ -48,34 +69,35 @@ const pageDescription = "最全面的 OpenClaw 中文教程网站。5分钟快�
         <p class="section-subtitle">深度教程与实战指南</p>
 
         <div class="latest-posts-grid">
-          <!-- 文章卡片 -->
-          <a
-            href="/zh-cn/tutorials/getting-started/llm-integration-guide/"
-            class="latest-post-card"
-          >
-            <div class="post-card-header">
-              <div class="post-badge">精选</div>
-              <div class="post-meta">
-                <span class="post-date">📅 2026-03-21</span>
-                <span class="post-difficulty intermediate">中等难度</span>
-                <span class="post-time">⏱️ 30 分钟</span>
+          {latestPosts.map((post) => (
+            <a
+              href={post.data.alternates?.zhCN || `/zh-cn/posts/${post.slug}/`}
+              class="latest-post-card"
+            >
+              <div class="post-card-header">
+                {post.data.featured && <div class="post-badge">精选</div>}
+                <div class="post-meta">
+                  <span class="post-date">📅 {post.data.pubDate.toLocaleDateString("zh-CN")}</span>
+                  <span class={`post-difficulty ${difficultyClassMap[post.data.difficulty]}`}>
+                    {difficultyMap[post.data.difficulty]}难度
+                  </span>
+                  <span class="post-time">⏱️ {post.data.estimatedTime}</span>
+                </div>
               </div>
-            </div>
-            <h3 class="post-title">
-              OpenClaw 接入大模型完全指南：选型、配置与多模型智能路由
-            </h3>
-            <p class="post-description">
-              横评 10+ 款主流大模型的价格与能力，详解 Onboard
-              向导和配置文件两种接入方式，并手把手教你配置多模型智能路由，让不同任务自动找到最合适的模型。
-            </p>
-            <div class="post-tags">
-              <span class="tag">llm</span>
-              <span class="tag">configuration</span>
-              <span class="tag">multi-model</span>
-              <span class="tag">routing</span>
-            </div>
-            <div class="read-more">阅读全文 →</div>
-          </a>
+              <h3 class="post-title">
+                {post.data.title}
+              </h3>
+              <p class="post-description">
+                {post.data.description}
+              </p>
+              <div class="post-tags">
+                {post.data.tags.slice(0, 4).map((tag: string) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+              <div class="read-more">阅读全文 →</div>
+            </a>
+          ))}
         </div>
       </div>
     </section>

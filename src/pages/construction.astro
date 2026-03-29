@@ -4,7 +4,11 @@ import Layout from '../layouts/Layout.astro';
 const currentPath = Astro.url.pathname;
 ---
 
-<Layout title="Content Under Construction | OpenClaw Tutorial" currentPath={currentPath}>
+<Layout
+  title="Content Under Construction | OpenClaw Tutorial"
+  description="This page is currently being crafted with care. Check back soon for new tutorials, guides, and troubleshooting tips for OpenClaw."
+  currentPath={currentPath}
+>
   <div class="construction-page">
     <div class="construction-container">
       <!-- 主视觉区域 -->

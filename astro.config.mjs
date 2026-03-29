@@ -13,9 +13,13 @@ export default defineConfig({
   },
   // integrations: [
   //   sitemap({
-  //     changefreq: 'weekly',
-  //     priority: 0.7,
-  //     lastmod: new Date(),
+  //     i18n: {
+  //       defaultLocale: 'en',
+  //       locales: {
+  //         en: 'en-US',
+  //         'zh-cn': 'zh-CN',
+  //       },
+  //     },
   //   }),
   // ],
   vite: {

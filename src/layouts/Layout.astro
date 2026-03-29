@@ -10,14 +10,19 @@ interface Props {
 }
 
 const {
-  title = 'OpenClaw Tutorials & Troubleshooting',
-  description = 'Run OpenClaw in 5 minutes. Fix common issues in 30 seconds.',
+  title = 'OpenClaw Tutorial & Troubleshooting Guide - Installation, Setup & Best Practices',
+  description = 'Complete OpenClaw tutorial with step-by-step guides. Install in 5 minutes, fix issues in 30 seconds. Covers local setup, cloud deployment, multi-model integration, tools, and advanced techniques.',
   image = '/favicon.webp',
   currentPath,
   lang = 'en'
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// 根据页面路径动态设置 robots meta tag
+const robotsContent = Astro.url.pathname.includes('/construction')
+  ? 'noindex, nofollow'
+  : 'index, follow';
 ---
 
 <!doctype html>
@@ -28,6 +33,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/webp" href="/favicon.webp" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
+
+    <!-- Robots Meta Tag -->
+    <meta name="robots" content={robotsContent} />
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>
