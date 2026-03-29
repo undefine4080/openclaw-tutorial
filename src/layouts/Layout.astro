@@ -83,6 +83,15 @@ const robotsContent = Astro.url.pathname.includes('/construction')
       }
     </script>
 
+    <!-- Google Analytics 4 -->
+    <script is:inline src="https://www.googletagmanager.com/gtag/js?id=G-N3LQ1399GP" async></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-N3LQ1399GP');
+    </script>
+
     <link rel="stylesheet" href="/styles/global.css" />
   </head>
   <body>
