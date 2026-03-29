@@ -1,8 +1,10 @@
 import { defineConfig } from 'astro/config';
+import cloudflare from "@astrojs/cloudflare";
 // import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://openclawtutorial.online',
+
   markdown: {
     remarkPlugins: [],
     rehypePlugins: [],
@@ -11,6 +13,7 @@ export default defineConfig({
       wrap: true,
     },
   },
+
   // integrations: [
   //   sitemap({
   //     i18n: {
@@ -31,7 +34,11 @@ export default defineConfig({
       },
     },
   },
+
   experimental: {
     clientPrerender: true,
   },
+
+  output: "hybrid",
+  adapter: cloudflare()
 });
