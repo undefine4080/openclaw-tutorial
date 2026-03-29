@@ -1,5 +1,5 @@
 {
-  "name": "clawtutorial",
+  "name": "openclawtutorial",
   "type": "module",
   "version": "1.0.0",
   "description": "OpenClaw Tutorials & Troubleshooting - Run OpenClaw in 5 minutes. Fix common issues in 30 seconds.",
@@ -38,6 +38,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/clawtutorial"
+    "url": "https://github.com/yourusername/openclawtutorial"
   }
 }

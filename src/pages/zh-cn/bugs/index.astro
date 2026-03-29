@@ -80,8 +80,8 @@ import Layout from '../../../layouts/Layout.astro';
 
 <script>
   // 全局变量
-  let allIssues = [];
-  let filteredIssues = [];
+  let allIssues: any[] = [];
+  let filteredIssues: any[] = [];
   let currentPage = 1;
   const perPage = 20;
   let searchTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -196,7 +196,7 @@ import Layout from '../../../layouts/Layout.astro';
     const startIndex = append ? (currentPage - 1) * perPage : 0;
 
     visibleIssues.slice(startIndex).forEach((issue: any, index: number) => {
-      const issueCard = createIssueCard(issue, startIndex + index + 1, searchTerms);
+      const issueCard = createIssueCard(issue, startIndex + index + 1);
       issuesContainer.appendChild(issueCard);
     });
 

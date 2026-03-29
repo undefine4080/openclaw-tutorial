@@ -6,24 +6,26 @@ interface Props {
   description?: string;
   image?: string;
   currentPath?: string;
+  lang?: string;
 }
 
 const {
   title = 'OpenClaw Tutorials & Troubleshooting',
   description = 'Run OpenClaw in 5 minutes. Fix common issues in 30 seconds.',
-  image = '/og/default.png',
-  currentPath
+  image = '/favicon.webp',
+  currentPath,
+  lang = 'en'
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/webp" href="/favicon.webp" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
 
@@ -38,6 +40,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:image:alt" content={`${title} - OpenClaw Tutorial`} />
+    <meta property="og:locale" content={lang === 'zh-CN' ? 'zh_CN' : 'en_US'} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -52,8 +56,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "OpenClaw Tutorials",
-        "url": "https://clawtutorial.net",
-        "description": "OpenClaw Tutorials & Troubleshooting"
+        "url": "https://openclawtutorial.online",
+        "description": "OpenClaw Tutorials & Troubleshooting",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://openclawtutorial.online/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "OpenClaw Tutorial",
+        "url": "https://openclawtutorial.online",
+        "logo": "https://openclawtutorial.online/favicon.webp"
       }
     </script>
 

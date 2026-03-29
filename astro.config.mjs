@@ -2,7 +2,15 @@ import { defineConfig } from 'astro/config';
 // import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://clawtutorial.net',
+  site: 'https://openclawtutorial.online',
+  markdown: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    shikiConfig: {
+      theme: 'github-dark',
+      wrap: true,
+    },
+  },
   // integrations: [
   //   sitemap({
   //     changefreq: 'weekly',

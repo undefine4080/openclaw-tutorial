@@ -252,10 +252,10 @@ async function fetchIssues() {
 
       // 检查是否所有数据都是重复的
       const existingIds = existingCount > 0
-        ? new Set(JSON.parse(fs.readFileSync(rawFile, 'utf-8')).issues.map((i: any) => i.id))
+        ? new Set(JSON.parse(fs.readFileSync(rawFile, 'utf-8')).issues.map(i => i.id))
         : new Set();
 
-      const newIssues = data.filter((issue: any) => !existingIds.has(issue.id));
+      const newIssues = data.filter(issue => !existingIds.has(issue.id));
 
       if (newIssues.length === 0) {
         consecutiveDuplicates++;
