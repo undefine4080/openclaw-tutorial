@@ -101,7 +101,11 @@ const categoriesWithCount = categories.map(cat => ({
 const totalPosts = allPosts.filter(post => post.data.category && categories.some(c => c.id === post.data.category)).length;
 ---
 
-<Layout title="教程栏目 - OpenClaw 教程" description="循序渐进掌握 OpenClaw 的所有功能" currentPath="/zh-cn/tutorials/">
+<Layout
+	title="OpenClaw 教程栏目 - 系统化学习路径与实战指南"
+	description="提供 OpenClaw 的完整教程体系，涵盖安装部署、新手上路、初始化配置、Claw Eyes、Claw Hands、Claw Brain 等核心模块。从基础概念到高级应用，配套代码示例与最佳实践，助你快速掌握 OpenClaw 全部功能。"
+	currentPath="/zh-cn/tutorials/"
+>
   <div class="tutorials-page">
     <!-- Hero 区域 -->
     <section class="hero-section">

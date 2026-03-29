@@ -87,8 +87,8 @@ data/                         # 动态数据目录
 ---
 title: 文章标题
 description: 文章描述
-pubDate: 2024-03-09
-lastUpdated: 2024-03-10  # 可选
+pubDate: 2026-03-09
+lastUpdated: 2026-03-10  # 可选
 tags: ['installation', 'troubleshooting']
 difficulty: beginner  # beginner | intermediate | advanced
 estimatedTime: '5 minutes'

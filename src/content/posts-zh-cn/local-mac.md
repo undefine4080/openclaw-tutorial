@@ -1,8 +1,8 @@
 ---
 title: 本地安装部署 OpenClaw —— macOS 全流程
 description: macOS 上完整的 OpenClaw 安装部署指南,包含 12 个常见报错的解决方案,从系统要求到成功运行的完整流程
-pubDate: 2024-03-24
-lastUpdated: 2024-03-24
+pubDate: 2026-03-24
+lastUpdated: 2026-03-24
 tags: ['installation', 'macOS', 'local-deployment']
 difficulty: beginner
 estimatedTime: '30 minutes'
@@ -158,7 +158,7 @@ node -p "process.arch"
 # 或 "x64"(Intel)
 ```
 
-> **来源**:[Medium - OpenClaw macOS Installation Guide](https://medium.com/@fawwazraza2024/openclaw-macos-installation-guide-set-up-a-self-hosted-ai-assistant-from-scratch-6815667ad541)
+> **来源**:[Medium - OpenClaw macOS Installation Guide](https://medium.com/@fawwazraza2026/openclaw-macos-installation-guide-set-up-a-self-hosted-ai-assistant-from-scratch-6815667ad541)
 
 #### 替代方案:Homebrew
 
@@ -1067,38 +1067,7 @@ ls -la ~/.openclaw/workspace/
 
 > **来源**:整理自多个官方文档和安装教程
 
----
-
-## 七、下一步:学习资源推荐
-
-安装成功后,可以继续学习以下资源。
-
-### 7.1 官方资源
-
-- **[OpenClaw 官方文档](https://docs.openclaw.ai)**:最权威的参考文档
-- **[GitHub 仓库](https://github.com/openclaw/openclaw)**:源码和 Issues
-- **[ClawHub 技能广场](https://clawhub.ai)**:技能插件市场
-
-### 7.2 深度教程
-
-**中文教程**:
-
-- **[Awesome OpenClaw Tutorial(中文,40万字)](https://github.com/xianyu110/awesome-openclaw-tutorial)**:最全面的中文教程,70+ 实战案例
-- **[OpenClaw 入门和实战指南](https://github.com/yeasy/openclaw_guide)**:从应用到原理深度解构
-
-**英文教程**:
-
-- **[macOS Installation Guide](https://medium.com/@fawwazraza2024/openclaw-macos-installation-guide-set-up-a-self-hosted-ai-assistant-from-scratch-6815667ad541)**:从零开始的完整指南
-- **[OpenClaw Architecture Explained](https://ppaolo.substack.com/p/openclaw-system-architecture-overview)**:深度架构分析
-
-### 7.3 技术深度分析
-
-- **[OpenClaw Security Guide](https://nebius.com/blog/posts/openclaw-security)**:安全架构详解
-- **[EastonDev - OpenClaw 性能优化实战](https://eastondev.com/blog/en/posts/ai/20260205-openclaw-performance/)**:性能优化案例
-
----
-
-## 八、总结
+## 七、总结
 
 通过这篇文章,你学会了在 macOS 上从零开始安装 OpenClaw 的完整流程:
 

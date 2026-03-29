@@ -1,8 +1,8 @@
 ---
 title: OpenClaw 接入飞书教程
 description: 完整的 OpenClaw 飞书集成指南,包括机器人配置、WebSocket 长连接、权限管理和常见问题解决方案
-pubDate: 2024-03-24
-lastUpdated: 2024-03-24
+pubDate: 2026-03-24
+lastUpdated: 2026-03-24
 tags: ['getting-started', 'feishu', 'integration', 'channel']
 difficulty: intermediate
 estimatedTime: '45 minutes'

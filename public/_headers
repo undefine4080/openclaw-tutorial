@@ -4,9 +4,23 @@
   Permissions-Policy: interest-cohort=()
   Cache-Control: public, max-age=0, must-revalidate
   X-Frame-Options: DENY
+  X-Robots-Tag: index, follow
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
 /sitemap.xml
   Cache-Control: public, max-age=3600
+
+# 施工页面 - 不索引
+/construction
+  X-Robots-Tag: noindex, nofollow
+
+/construction/
+  X-Robots-Tag: noindex, nofollow
+
+/zh-cn/construction
+  X-Robots-Tag: noindex, nofollow
+
+/zh-cn/construction/
+  X-Robots-Tag: noindex, nofollow
