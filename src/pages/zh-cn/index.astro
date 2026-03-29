@@ -7,17 +7,25 @@ const allPosts = await getCollection(
   ({ data }) => data.status === "published",
 );
 const totalPosts = allPosts.length;
+
+const pageTitle = "OpenClaw 教程 - 安装指南、使用技巧与故障排除大全";
+const pageDescription = "最全面的 OpenClaw 中文教程网站。5分钟快速安装部署，30秒解决常见问题。包含本地安装、云端部署、多模型接入、工具使用、最佳实践等深度教程，持续更新中。";
 ---
 
-<Layout title="OpenClaw：从新手到大师" currentPath="/zh-cn/">
+<Layout
+	title={pageTitle}
+	description={pageDescription}
+	currentPath="/zh-cn/"
+	lang="zh-CN"
+>
   <div class="homepage">
     <!-- Hero 区域 -->
     <section class="hero" id="hero">
       <div class="hero-container">
         <h1 class="hero-title">
-          <span class="title-highlight">OpenClaw</span>：从新手到大师
+          <span class="title-highlight">OpenClaw</span> 教程：安装部署与故障排除指南
         </h1>
-        <p class="hero-subtitle">全面、深度的 OpenClaw 教程，持续更新中...</p>
+        <p class="hero-subtitle">最全面的中文教程，助你快速掌握 OpenClaw 所有功能</p>
         <p class="hero-stats">
           已更新 <span class="stats-count">{totalPosts}</span> 篇文章
         </p>
@@ -293,16 +301,16 @@ const totalPosts = allPosts.length;
           <div class="issues-list">
             <h3>常见问题</h3>
             <div class="issue-items">
-              <a href="#" class="issue-item">1. 端口已被占用</a>
-              <a href="#" class="issue-item">2. 权限被拒绝错误</a>
-              <a href="#" class="issue-item">3. 网关连接失败</a>
-              <a href="#" class="issue-item">4. 模型 API 密钥问题</a>
-              <a href="#" class="issue-item">5. Node.js 版本兼容性</a>
-              <a href="#" class="issue-item">6. 内存分配问题</a>
-              <a href="#" class="issue-item">7. 文件路径错误</a>
-              <a href="#" class="issue-item">8. 网络超时问题</a>
-              <a href="#" class="issue-item">9. 配置文件错误</a>
-              <a href="#" class="issue-item">10. 依赖冲突</a>
+              <a href="/zh-cn/bugs/?q=端口已被占用" class="issue-item">1. 端口已被占用</a>
+              <a href="/zh-cn/bugs/?q=权限被拒绝" class="issue-item">2. 权限被拒绝错误</a>
+              <a href="/zh-cn/bugs/?q=网关连接失败" class="issue-item">3. 网关连接失败</a>
+              <a href="/zh-cn/bugs/?q=API+密钥" class="issue-item">4. 模型 API 密钥问题</a>
+              <a href="/zh-cn/bugs/?q=Node.js+版本" class="issue-item">5. Node.js 版本兼容性</a>
+              <a href="/zh-cn/bugs/?q=内存分配" class="issue-item">6. 内存分配问题</a>
+              <a href="/zh-cn/bugs/?q=文件路径" class="issue-item">7. 文件路径错误</a>
+              <a href="/zh-cn/bugs/?q=网络超时" class="issue-item">8. 网络超时问题</a>
+              <a href="/zh-cn/bugs/?q=配置文件" class="issue-item">9. 配置文件错误</a>
+              <a href="/zh-cn/bugs/?q=依赖冲突" class="issue-item">10. 依赖冲突</a>
             </div>
           </div>
         </div>
@@ -316,19 +324,21 @@ const totalPosts = allPosts.length;
           <span class="section-icon">💰</span>
           成本计算器
         </h2>
-        <p class="section-subtitle">估算你的 OpenClaw 运行成本</p>
+        <p class="section-subtitle">估算你的 OpenClaw 运行成本（即将推出）</p>
 
         <div class="calculator-preview">
           <div class="preview-content">
             <div class="preview-icon">🧮</div>
-            <h3>计算你的成本</h3>
-            <p>根据使用模式和选择的 AI 模型，估算运行 OpenClaw 的月度费用</p>
+            <h3>成本计算器开发中</h3>
+            <p>我们正在开发基于使用模式和 AI 模型选择的成本计算工具，敬请期待</p>
             <ul class="feature-list">
               <li>✓ 模型 API 成本对比</li>
               <li>✓ 服务器托管估算</li>
               <li>✓ 基于使用量的计算</li>
             </ul>
-            <a href="#" class="preview-button">打开计算器 →</a>
+            <button class="preview-button" disabled style="opacity: 0.6; cursor: not-allowed;">
+              即将上线
+            </button>
           </div>
         </div>
       </div>
@@ -356,7 +366,7 @@ const totalPosts = allPosts.length;
                 <a
                   href="https://github.com/openclaw/openclaw/issues"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                 >
                   <span class="link-icon">💬</span>
                   <span class="link-content">
@@ -369,7 +379,7 @@ const totalPosts = allPosts.length;
                 <a
                   href="https://discord.com/invite/openclaw"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                 >
                   <span class="link-icon">🎮</span>
                   <span class="link-content">
@@ -383,7 +393,7 @@ const totalPosts = allPosts.length;
                 <a
                   href="https://github.com/openclaw/openclaw"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                 >
                   <span class="link-icon">🐙</span>
                   <span class="link-content">
@@ -407,7 +417,7 @@ const totalPosts = allPosts.length;
                 <a
                   href="https://docs.openclaw.ai/zh-CN"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                 >
                   <span class="link-icon">📖</span>
                   <span class="link-content">
@@ -421,7 +431,7 @@ const totalPosts = allPosts.length;
                 <a
                   href="https://clawhub.ai/matrixy/agent-browser-clawdbot"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer nofollow"
                 >
                   <span class="link-icon">🌍</span>
                   <span class="link-content">
@@ -435,7 +445,7 @@ const totalPosts = allPosts.length;
                 <a
                   href="https://clawhub.ai/pskoett/self-improving-agent"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer nofollow"
                 >
                   <span class="link-icon">👦</span>
                   <span class="link-content">
@@ -459,7 +469,7 @@ const totalPosts = allPosts.length;
                 <a
                   href="https://clawhub.ai/skills"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer nofollow"
                 >
                   <span class="link-icon">🔧</span>
                   <span class="link-content">
@@ -472,7 +482,7 @@ const totalPosts = allPosts.length;
                 <a
                   href="https://clawhub.ai/plugins"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer nofollow"
                 >
                   <span class="link-icon">🔌</span>
                   <span class="link-content">
@@ -485,7 +495,7 @@ const totalPosts = allPosts.length;
                 <a
                   href="https://pinchbench.com/"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer nofollow"
                 >
                   <span class="link-icon">📈</span>
                   <span class="link-content">

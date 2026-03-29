@@ -8,14 +8,14 @@ const isZhCN = currentPath?.startsWith('/zh-cn');
 
 // 导航菜单数据
 const navData = isZhCN ? {
-  logo: '🦞 OpenClaw Tutorial',
+  logo: 'OpenClaw Tutorial',
   tutorials: '教程',
   installation: '安装部署',
   troubleshooting: '疑难解答',
   costCalculator: '成本计算器',
   community: '社区'
 } : {
-  logo: '🦞 OpenClaw Tutorial',
+  logo: 'OpenClaw Tutorial',
   tutorials: 'Tutorials',
   installation: 'Installation',
   troubleshooting: 'Troubleshooting',
@@ -32,7 +32,8 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
   <div class="nav-container">
     <!-- Logo -->
     <a href={isZhCN ? "/zh-cn/" : "/"} class="nav-logo">
-      {navData.logo}
+      <img src="/favicon.webp" alt="OpenClaw Logo" class="nav-logo-img" />
+      <span>{navData.logo}</span>
     </a>
 
     <!-- Desktop Menu -->
@@ -150,6 +151,16 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     text-shadow:
       0 0 8px rgba(228, 228, 231, 0.5),
       0 0 15px rgba(212, 212, 216, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .nav-logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(228, 228, 231, 0.3));
   }
 
   /* 桌面端菜单 */
@@ -477,6 +488,11 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
     .nav-logo {
       font-size: 1rem;
     }
+
+    .nav-logo-img {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   /* ========================================
@@ -502,6 +518,10 @@ const zhPath = isZhCN ? currentPath : `/zh-cn${currentPath || ''}`.replace(/\/$/
   html.light-mode .nav-logo {
     color: #111827;
     text-shadow: none;
+  }
+
+  html.light-mode .nav-logo-img {
+    filter: none;
   }
 
   html.light-mode .nav-link {
