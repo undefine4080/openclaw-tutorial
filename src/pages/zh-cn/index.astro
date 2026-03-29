@@ -71,7 +71,7 @@ const difficultyClassMap: Record<string, string> = {
         <div class="latest-posts-grid">
           {latestPosts.map((post) => (
             <a
-              href={post.data.alternates?.zhCN || `/zh-cn/posts/${post.slug}/`}
+              href={`/zh-cn/tutorials/${post.data.category}/${post.slug}/`}
               class="latest-post-card"
             >
               <div class="post-card-header">

@@ -170,6 +170,13 @@ declare module 'astro:content' {
   collection: "posts-zh-cn";
   data: InferEntrySchema<"posts-zh-cn">
 } & { render(): Render[".md"] };
+"local-windows.md": {
+	id: "local-windows.md";
+  slug: "local-windows";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
 "memory.md": {
 	id: "memory.md";
   slug: "memory";
