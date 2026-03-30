@@ -1,0 +1,29 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Force bash scripts to LF
+*.sh text eol=lf
+
+# Force Windows scripts to CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# JavaScript/TypeScript always use LF
+*.js text eol=lf
+*.ts text eol=lf
+*.mjs text eol=lf
+*.astro text eol=lf
+
+# Markdown files
+*.md text eol=lf
+
+# JSON files
+*.json text eol=lf
+
+# Don't touch binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary

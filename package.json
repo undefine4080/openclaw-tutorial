@@ -34,10 +34,14 @@
     "assistant",
     "automation"
   ],
-  "author": "Your Name",
+  "author": "Zheng Tengfei",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/openclawtutorial"
-  }
+    "url": "https://github.com/undefine4080/openclaw-tutorial"
+  },
+  "bugs": {
+    "url": "https://github.com/undefine4080/openclaw-tutorial/issues"
+  },
+  "homepage": "https://openclawtutorial.online"
 }
