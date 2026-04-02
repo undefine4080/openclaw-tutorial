@@ -28,7 +28,6 @@ const post = defineCollection({
       'claw-eyes',           // 小龙虾的眼睛
       'claw-hands',          // 小龙虾的手脚
       'claw-brain',          // 小龙虾的大脑
-      'essential-skills',    // 必备技能包
       'multi-agents',        // 多 Agents 能力
       'installation',        // 安装部署
       'troubleshooting',     // 疑难解答
@@ -36,12 +35,8 @@ const post = defineCollection({
 
     // 子分类（用于进一步细分某些分类）
     subcategory: z.enum([
-      'beginner',    // 新手必备（06-essential-skills）
-      'developer',   // 开发者热门（06-essential-skills）
-      'media',       // 自媒体热门（06-essential-skills）
-      'general',     // 热门通用（06-essential-skills）
-      'basic',       // 基础入门（07-multi-agents）
-      'advanced',    // 进阶技巧（07-multi-agents）
+      'basic',       // 基础入门（06-multi-agents）
+      'advanced',    // 进阶技巧（06-multi-agents）
     ]).optional(),
 
     // 排序权重（同一分类内的显示顺序，数字越小越靠前）

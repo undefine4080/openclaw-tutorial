@@ -149,6 +149,13 @@ declare module 'astro:content' {
   render(): Render[".md"];
 }>;
 "posts-zh-cn": {
+"agent-browser-guide.md": {
+	id: "agent-browser-guide.md";
+  slug: "agent-browser-guide";
+  body: string;
+  collection: "posts-zh-cn";
+  data: InferEntrySchema<"posts-zh-cn">
+} & { render(): Render[".md"] };
 "feishu.md": {
 	id: "feishu.md";
   slug: "feishu";
